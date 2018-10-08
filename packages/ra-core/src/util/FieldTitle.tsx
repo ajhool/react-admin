@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { inflection } from 'inflection';
+import inflection from 'inflection';
 import pure from 'recompose/pure';
 import compose from 'recompose/compose';
 
 import translate from '../i18n/translate';
 
-interface FieldTitle {
+interface IProps {
     resource: string;
     source: string;
     label?: string;
@@ -14,39 +14,45 @@ interface FieldTitle {
     translate: translate;
 }
 
-export const FieldTitle = ({
-    resource,
-    source,
-    label,
-    isRequired,
-    translate,
-}: FieldTitle) => (
-    <span>
-        {typeof label !== 'undefined'
-            ? translate(label, { _: label })
-            : typeof source !== 'undefined'
-                ? translate(`resources.${resource}.fields.${source}`, {
-                      _: inflection.transform(source, [
-                          'underscore',
-                          'humanize',
-                      ]),
-                  })
-                : ''}
-        {isRequired && ' *'}
-    </span>
-);
+class FieldTitle extends PureComponent<IProps> {
+    static propTypes = {
+        isRequired: PropTypes.bool,
+        resource: PropTypes.string,
+        source: PropTypes.string,
+        label: PropTypes.string,
+        translate: PropTypes.func.isRequired,
+    };
 
-FieldTitle.propTypes = {
-    isRequired: PropTypes.bool,
-    resource: PropTypes.string,
-    source: PropTypes.string,
-    label: PropTypes.string,
-    translate: PropTypes.func.isRequired,
-};
+    static defaultTypes = {
+        translate: (x: any) => x,
+    };
 
-FieldTitle.defaultProps = {
-    translate: x => x,
-};
+    render(){
+        const {
+            resource,
+            source,
+            label,
+            isRequired,
+            translate,
+        } = this.props;
+
+        return (
+            <span>
+                {typeof label !== 'undefined'
+                    ? translate(label, { _: label })
+                    : typeof source !== 'undefined'
+                        ? translate(`resources.${resource}.fields.${source}`, {
+                              _: inflection.transform(source, [
+                                  'underscore',
+                                  'humanize',
+                              ]),
+                          })
+                        : ''}
+                {isRequired && ' *'}
+            </span>
+        );
+    }
+}
 
 const enhance = compose(
     translate,

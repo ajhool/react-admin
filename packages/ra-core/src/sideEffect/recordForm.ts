@@ -4,7 +4,16 @@ import { destroy } from 'redux-form';
 import { resetForm } from '../actions/formActions';
 import { REDUX_FORM_NAME } from '../form/constants';
 
-export function* handleLocationChange({ payload: { state } }) {
+interface IRecordForm {
+    payload: {
+        pathname: string;
+        state: {
+            skipFormReset: boolean
+        }
+    }
+}
+
+export function* handleLocationChange({ payload: { state } }: IRecordForm) {
     if (state && state.skipFormReset) {
         return;
     }
@@ -14,5 +23,6 @@ export function* handleLocationChange({ payload: { state } }) {
 }
 
 export default function* recordForm() {
+    //@ts-ignore Not sure how to properly handle this.
     yield takeEvery(LOCATION_CHANGE, handleLocationChange);
 }

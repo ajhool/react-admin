@@ -6,7 +6,7 @@ export const toggleSidebar = () => ({
 
 export const SET_SIDEBAR_VISIBILITY = 'RA/SET_SIDEBAR_VISIBILITY';
 
-export const setSidebarVisibility = isOpen => ({
+export const setSidebarVisibility = (isOpen: boolean) => ({
     type: SET_SIDEBAR_VISIBILITY,
     payload: isOpen,
 });

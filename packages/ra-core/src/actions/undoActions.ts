@@ -4,7 +4,7 @@ export const COMPLETE = 'RA/COMPLETE';
 export const START_OPTIMISTIC_MODE = 'RA/START_OPTIMISTIC_MODE';
 export const STOP_OPTIMISTIC_MODE = 'RA/STOP_OPTIMISTIC_MODE';
 
-export const startUndoable = action => ({
+export const startUndoable = (action: string) => ({
     type: UNDOABLE,
     payload: { action },
 });

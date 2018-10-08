@@ -10,6 +10,7 @@ function* handleRefresh() {
 
 export default function*() {
     yield takeEvery(
+        //@ts-ignore Not sure how to properly handle this.
         action => action.meta && action.meta.refresh,
         handleRefresh
     );

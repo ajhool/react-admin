@@ -5,6 +5,13 @@ import {
     START_OPTIMISTIC_MODE,
     STOP_OPTIMISTIC_MODE,
 } from '../../actions';
+import { AnyAction } from 'redux';
+
+interface IState {
+    sidebarOpen: boolean;
+    optimistic: boolean;
+    viewVersion: number;
+}
 
 const defaultState = {
     sidebarOpen: false,
@@ -12,7 +19,7 @@ const defaultState = {
     viewVersion: 0,
 };
 
-export default (previousState = defaultState, { type, payload }) => {
+export default (previousState: IState = defaultState, { type, payload }: AnyAction) => {
     switch (type) {
         case TOGGLE_SIDEBAR:
             return {

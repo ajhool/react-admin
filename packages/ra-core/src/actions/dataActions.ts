@@ -9,16 +9,12 @@ import {
     GET_MANY,
     GET_MANY_REFERENCE,
 } from '../dataFetchActions';
+import { IResource } from './resourcesActions';
 
 export const CRUD_GET_LIST = 'RA/CRUD_GET_LIST';
 export const CRUD_GET_LIST_LOADING = 'RA/CRUD_GET_LIST_LOADING';
 export const CRUD_GET_LIST_FAILURE = 'RA/CRUD_GET_LIST_FAILURE';
 export const CRUD_GET_LIST_SUCCESS = 'RA/CRUD_GET_LIST_SUCCESS';
-
-export interface GetListResponse {
-    type: CRUD_GET_LIST;
-    
-}
 
 export interface ResponsePayload {
     pagination: string;
@@ -35,6 +31,9 @@ export interface ResponseMeta {
             level: string;
         }
     }
+    onSuccess: {
+        
+    }
 }
 
 export interface Response {
@@ -43,7 +42,7 @@ export interface Response {
     meta: ResponseMeta;
 }
 
-export const crudGetList = (resource, pagination, sort, filter): GetListResponse => ({
+export const crudGetList = (resource: IResource, pagination, sort, filter): GetListResponse => ({
     type: CRUD_GET_LIST,
     payload: { pagination, sort, filter },
     meta: {
@@ -63,7 +62,7 @@ export const CRUD_GET_ALL_LOADING = 'RA/CRUD_GET_ALL_LOADING';
 export const CRUD_GET_ALL_FAILURE = 'RA/CRUD_GET_ALL_FAILURE';
 export const CRUD_GET_ALL_SUCCESS = 'RA/CRUD_GET_ALL_SUCCESS';
 
-export const crudGetAll = (resource, sort, filter, maxResults, callback) => ({
+export const crudGetAll = (resource: IResource, sort, filter, maxResults, callback) => ({
     type: CRUD_GET_ALL,
     payload: { sort, filter, pagination: { page: 1, perPage: maxResults } },
     meta: {
@@ -86,7 +85,7 @@ export const CRUD_GET_ONE_LOADING = 'RA/CRUD_GET_ONE_LOADING';
 export const CRUD_GET_ONE_FAILURE = 'RA/CRUD_GET_ONE_FAILURE';
 export const CRUD_GET_ONE_SUCCESS = 'RA/CRUD_GET_ONE_SUCCESS';
 
-export const crudGetOne = (resource, id, basePath, refresh = true) => ({
+export const crudGetOne = (resource: IResource, id: number, basePath: string, refresh: boolean = true) => ({
     type: CRUD_GET_ONE,
     payload: { id },
     meta: {
@@ -109,7 +108,7 @@ export const CRUD_CREATE_LOADING = 'RA/CRUD_CREATE_LOADING';
 export const CRUD_CREATE_FAILURE = 'RA/CRUD_CREATE_FAILURE';
 export const CRUD_CREATE_SUCCESS = 'RA/CRUD_CREATE_SUCCESS';
 
-export const crudCreate = (resource, data, basePath, redirectTo = 'edit') => ({
+export const crudCreate = (resource: IResource, data, basePath: string, redirectTo: string = 'edit') => ({
     type: CRUD_CREATE,
     payload: { data },
     meta: {
@@ -142,12 +141,12 @@ export const CRUD_UPDATE_SUCCESS = 'RA/CRUD_UPDATE_SUCCESS';
 export const CRUD_UPDATE_OPTIMISTIC = 'RA/CRUD_UPDATE_OPTIMISTIC';
 
 export const crudUpdate = (
-    resource,
-    id,
-    data,
-    previousData,
-    basePath,
-    redirectTo = 'show'
+    resource: IResource,
+    id: number,
+    data: any,
+    previousData: any,
+    basePath: string,
+    redirectTo: string = 'show'
 ) => ({
     type: CRUD_UPDATE,
     payload: { id, data, previousData },
@@ -181,11 +180,11 @@ export const CRUD_UPDATE_MANY_SUCCESS = 'RA/CRUD_UPDATE_MANY_SUCCESS';
 export const CRUD_UPDATE_MANY_OPTIMISTIC = 'RA/CRUD_UPDATE_MANY_OPTIMISTIC';
 
 export const crudUpdateMany = (
-    resource,
-    ids,
-    data,
-    basePath,
-    refresh = true
+    resource: IResource,
+    ids: number[],
+    data: any,
+    basePath: string,
+    refresh: boolean = true
 ) => ({
     type: CRUD_UPDATE_MANY,
     payload: { ids, data },
@@ -221,11 +220,11 @@ export const CRUD_DELETE_SUCCESS = 'RA/CRUD_DELETE_SUCCESS';
 export const CRUD_DELETE_OPTIMISTIC = 'RA/CRUD_DELETE_OPTIMISTIC';
 
 export const crudDelete = (
-    resource,
-    id,
-    previousData,
-    basePath,
-    redirectTo = 'list'
+    resource: IResource,
+    id: number,
+    previousData: any,
+    basePath: string,
+    redirectTo: string = 'list'
 ) => ({
     type: CRUD_DELETE,
     payload: { id, previousData },
@@ -258,7 +257,7 @@ export const CRUD_DELETE_MANY_FAILURE = 'RA/CRUD_DELETE_MANY_FAILURE';
 export const CRUD_DELETE_MANY_SUCCESS = 'RA/CRUD_DELETE_MANY_SUCCESS';
 export const CRUD_DELETE_MANY_OPTIMISTIC = 'RA/CRUD_DELETE_MANY_OPTIMISTIC';
 
-export const crudDeleteMany = (resource, ids, basePath, refresh = true) => ({
+export const crudDeleteMany = (resource: IResource, ids: number[], basePath: string, refresh = true) => ({
     type: CRUD_DELETE_MANY,
     payload: { ids },
     meta: {
@@ -292,7 +291,7 @@ export const CRUD_GET_MANY_SUCCESS = 'RA/CRUD_GET_MANY_SUCCESS';
 
 // Reference related actions
 
-export const crudGetMany = (resource, ids) => ({
+export const crudGetMany = (resource: IResource, ids: number[]) => ({
     type: CRUD_GET_MANY,
     payload: { ids },
     meta: {
@@ -314,7 +313,7 @@ export const CRUD_GET_MATCHING_SUCCESS = 'RA/CRUD_GET_MATCHING_SUCCESS';
 
 export const crudGetMatching = (
     reference,
-    relatedTo,
+    relatedTo: string,
     pagination,
     sort,
     filter
@@ -345,7 +344,7 @@ export const CRUD_GET_MANY_REFERENCE_SUCCESS =
 export const crudGetManyReference = (
     reference,
     target,
-    id,
+    id: number,
     relatedTo,
     pagination,
     sort,

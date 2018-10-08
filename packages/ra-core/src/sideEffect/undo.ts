@@ -10,7 +10,7 @@ import {
 } from '../actions/undoActions';
 import { refreshView } from '../actions/uiActions';
 
-export function* handleUndoRace(undoableAction) {
+export function* handleUndoRace(undoableAction: any) {
     const {
         payload: { action },
     } = undoableAction;

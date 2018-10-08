@@ -3,8 +3,9 @@ import {
     CHANGE_LOCALE_SUCCESS,
     CHANGE_LOCALE_FAILURE,
 } from '../../actions/localeActions';
+import { AnyAction } from 'redux';
 
-export default (loading = false, action) => {
+export default (loading: boolean = false, action: AnyAction) => {
     switch (action.type) {
         case CHANGE_LOCALE:
             return true;

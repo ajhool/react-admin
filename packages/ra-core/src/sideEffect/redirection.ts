@@ -4,6 +4,15 @@ import { reset } from 'redux-form';
 
 import resolveRedirectTo from '../util/resolveRedirectTo';
 
+interface IHandleRedirection {
+    payload: any;
+    requestPayload: any;
+    meta: {
+        basePath: string;
+        redirectTo: string;
+    }
+}
+
 /**
  * Redirection Side Effects
  */
@@ -11,7 +20,7 @@ export function* handleRedirection({
     payload,
     requestPayload,
     meta: { basePath, redirectTo },
-}) {
+}: IHandleRedirection) {
     return redirectTo
         ? yield put(
               push(
@@ -37,7 +46,8 @@ export function* handleRedirection({
 
 export default function*() {
     yield takeEvery(
-        action => action.meta && typeof action.meta.redirectTo !== 'undefined',
+        //@ts-ignore Not sure how to properly handle this.
+        (action: IHandleRedirection) => action.meta && typeof action.meta.redirectTo !== 'undefined',
         handleRedirection
     );
 }

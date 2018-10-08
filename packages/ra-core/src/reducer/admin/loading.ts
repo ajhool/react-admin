@@ -10,8 +10,9 @@ import {
     USER_LOGIN_SUCCESS,
     USER_LOGIN_FAILURE,
 } from '../../actions/authActions';
+import { AnyAction } from 'redux';
 
-export default (previousState = 0, { type }) => {
+export default (previousState: number = 0, { type }: AnyAction) => {
     switch (type) {
         case FETCH_START:
         case USER_LOGIN_LOADING:

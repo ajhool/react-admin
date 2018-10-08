@@ -3,30 +3,18 @@ export const FETCH_END: string = 'RA/FETCH_END';
 export const FETCH_ERROR: string = 'RA/FETCH_ERROR';
 export const FETCH_CANCEL: string = 'RA/FETCH_CANCEL';
 
-export type FetchType = 
-
-
-    FETCH_START | 
-    FETCH_END   | 
-    FETCH_ERROR | 
-    FETCH_CANCEL;
-
-export interface FetchAction {
-    type: FetchType;
-}
-
-export const fetchStart = (): FetchAction => ({
+export const fetchStart = () => ({
     type: FETCH_START,
 });
 
-export const fetchEnd = (): FetchAction => ({
+export const fetchEnd = () => ({
     type: FETCH_END,
 });
 
-export const fetchError = (): FetchAction => ({
+export const fetchError = () => ({
     type: FETCH_ERROR,
 });
 
-export const fetchCancel = (): FetchAction => ({
+export const fetchCancel = () => ({
     type: FETCH_CANCEL,
 });

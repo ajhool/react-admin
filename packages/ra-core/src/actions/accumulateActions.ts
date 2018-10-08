@@ -1,8 +1,9 @@
 import { crudGetMany, crudGetMatching } from './dataActions';
+import { IResource } from './resourcesActions';
 
 export const CRUD_GET_MANY_ACCUMULATE = 'RA/CRUD_GET_MANY_ACCUMULATE';
 
-export const crudGetManyAccumulate = (resource, ids) => ({
+export const crudGetManyAccumulate = (resource: IResource, ids: number[]) => ({
     type: CRUD_GET_MANY_ACCUMULATE,
     payload: { resource, ids },
     meta: { accumulate: crudGetMany },

@@ -4,9 +4,10 @@ import {
     changeLocaleSuccess,
     changeLocaleFailure,
 } from '../actions';
+import I18NProvider from 'ra-language-english';
 
-export default i18nProvider => {
-    function* loadMessages(action) {
+export default (i18nProvider: I18NProvider) => {
+    function* loadMessages(action: any) {
         const locale = action.payload;
 
         try {

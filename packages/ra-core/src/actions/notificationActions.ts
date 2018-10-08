@@ -6,6 +6,14 @@ export const SHOW_NOTIFICATION = 'RA/SHOW_NOTIFICATION';
  * @param {Object} [notificationOptions.messageArgs] - Arguments used to translate the message
  */
 
+export interface INotificationOptions {
+    autoHideDuration?: number;
+    messageArgs?: object;
+    undoable?: boolean;
+}
+
+export type INotificationTypes = 'info' | 'warning';
+
 /**
  * Shows a snackbar/toast notification on the screen
  * @param {string} message - A translatable label or text to display on notification
@@ -17,8 +25,8 @@ export const SHOW_NOTIFICATION = 'RA/SHOW_NOTIFICATION';
  */
 export const showNotification = (
     message: string,
-    type: string = 'info',
-    notificationOptions: any
+    type: INotificationTypes = 'info',
+    notificationOptions?: INotificationOptions
 ) => ({
     type: SHOW_NOTIFICATION,
     payload: {

@@ -2,12 +2,17 @@ import { all, put, takeEvery } from 'redux-saga/effects';
 import { CRUD_GET_ONE_SUCCESS } from '../actions/dataActions';
 import { showNotification } from '../actions/notificationActions';
 
+interface IHandleResponse {
+    type: string;
+    requestPayload: any;
+    payload: any;
+}
 /**
  * Side effects for fetch responses
  *
  * Mostly corner case handling
  */
-function* handleResponse({ type, requestPayload, payload }) {
+function* handleResponse({ type, requestPayload, payload }: IHandleResponse) {
     switch (type) {
         case CRUD_GET_ONE_SUCCESS:
             if (

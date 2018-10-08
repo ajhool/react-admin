@@ -1,6 +1,6 @@
-export const CHANGE_LOCALE: string = 'RA/CHANGE_LOCALE';
-export const CHANGE_LOCALE_SUCCESS: string = 'RA/CHANGE_LOCALE_SUCCESS';
-export const CHANGE_LOCALE_FAILURE: string = 'RA/CHANGE_LOCALE_FAILURE';
+export const CHANGE_LOCALE = 'RA/CHANGE_LOCALE';
+export const CHANGE_LOCALE_SUCCESS = 'RA/CHANGE_LOCALE_SUCCESS';
+export const CHANGE_LOCALE_FAILURE = 'RA/CHANGE_LOCALE_FAILURE';
 
 export const changeLocale = (locale: string) => ({
     type: CHANGE_LOCALE,

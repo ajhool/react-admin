@@ -4,6 +4,13 @@ import { connect } from 'react-redux';
 
 import { userCheck } from '../actions/authActions';
 
+interface IProps {
+    authParams?: object;
+    children: JSX.Element;
+    location?: Location;
+    userCheck: (...args: any[]) => any;
+}
+
 /**
  * Restrict access to children to authenticated users
  *
@@ -31,7 +38,7 @@ import { userCheck } from '../actions/authActions';
  *         </Admin>
  *     );
  */
-export class Authenticated extends Component {
+export class Authenticated extends Component<IProps> {
     static propTypes = {
         authParams: PropTypes.object,
         children: PropTypes.element.isRequired,
@@ -43,13 +50,13 @@ export class Authenticated extends Component {
         this.checkAuthentication(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: IProps) {
         if (nextProps.location !== this.props.location) {
             this.checkAuthentication(nextProps);
         }
     }
 
-    checkAuthentication(params) {
+    checkAuthentication(params: IProps) {
         const { userCheck, authParams, location } = params;
         userCheck(authParams, location && location.pathname);
     }

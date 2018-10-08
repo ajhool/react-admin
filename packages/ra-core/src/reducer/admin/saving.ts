@@ -8,8 +8,9 @@ import {
     CRUD_UPDATE_SUCCESS,
     CRUD_UPDATE_FAILURE,
 } from '../../actions';
+import { AnyAction } from 'redux';
 
-export default (previousState = false, { type, meta }) => {
+export default (previousState: boolean = false, { type, meta }: AnyAction) => {
     switch (type) {
         case CRUD_CREATE:
         case CRUD_UPDATE:

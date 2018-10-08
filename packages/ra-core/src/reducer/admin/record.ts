@@ -1,9 +1,10 @@
 import { INITIALIZE_FORM, RESET_FORM } from '../../actions/formActions';
-import set from 'lodash/set';
+import { set } from 'lodash';
+import { AnyAction } from 'redux';
 
 const initialState = {};
 
-export default (previousState = initialState, { type, payload }) => {
+export default (previousState: any = initialState, { type, payload }: AnyAction) => {
     if (type === RESET_FORM) {
         return initialState;
     }

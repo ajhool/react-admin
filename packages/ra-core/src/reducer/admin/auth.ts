@@ -1,8 +1,12 @@
 import { USER_LOGIN_SUCCESS, USER_LOGOUT } from '../../actions';
 
+interface IState {
+    isLoggedIn: boolean;
+}
+
 const initialState = { isLoggedIn: false };
 
-export default (previousState = initialState, action) => {
+export default (previousState: IState = initialState, action: any) => {
     switch (action.type) {
         case USER_LOGIN_SUCCESS:
             return { ...previousState, isLoggedIn: true };
@@ -13,4 +17,4 @@ export default (previousState = initialState, action) => {
     return previousState;
 };
 
-export const isLoggedIn = state => state.isLoggedIn;
+export const isLoggedIn = (state: IState): boolean => state.isLoggedIn;

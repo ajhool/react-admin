@@ -3,8 +3,9 @@ import {
     HIDE_NOTIFICATION,
 } from '../../actions/notificationActions';
 import { UNDO } from '../../actions/undoActions';
+import { AnyAction } from 'redux';
 
-export default (previousState = [], { type, payload }) => {
+export default (previousState = [], { type, payload }: AnyAction) => {
     switch (type) {
         case SHOW_NOTIFICATION:
             return previousState.concat(payload);

@@ -1,7 +1,7 @@
 export const INITIALIZE_FORM = 'RA/INITIALIZE_FORM';
 export const RESET_FORM = 'RA/RESET_FORM';
 
-export const initializeForm = initialValues => ({
+export const initializeForm = (initialValues: any) => ({
     type: INITIALIZE_FORM,
     payload: initialValues,
 });

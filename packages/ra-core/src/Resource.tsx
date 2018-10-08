@@ -1,4 +1,4 @@
-import React, { createElement, Component } from 'react';
+import React, { Component, createElement, ComponentType } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
@@ -6,12 +6,67 @@ import WithPermissions from './auth/WithPermissions';
 
 import { registerResource, unregisterResource } from './actions';
 
+/**
+ * These props allow for a component or for a function that creates a component.
+ * 
+ */
+type FunctionOrComponent = ComponentType<any> | ((args: any) => Component<any>);
+
+/**
+ * TODO: I believe that route and registration have vastly different uses.
+ * Maybe break IResourceProps into two classes. One for Route and one for Registration.
+ * I think Route has no required params but registration expects all params.
+ */
+
+interface IResourceProps {
+    context: 'route' | 'registration';
+    match: {
+        isExact: boolean;
+        params: object;
+        path: string;
+        url: string;
+    }
+    name: string;
+    list: FunctionOrComponent;
+    create: FunctionOrComponent;
+    edit: FunctionOrComponent;
+    show: FunctionOrComponent;
+    icon: FunctionOrComponent;
+    options: object;
+    registerResource: (Resource: object) => any;
+    unregisterResource: (resourceName: string) => any;
+}
+
 const componentPropType = PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.string,
 ]);
 
-export class Resource extends Component {
+export class Resource extends Component<IResourceProps> {
+    static propTypes = {
+        context: PropTypes.oneOf(['route', 'registration']).isRequired,
+        match: PropTypes.shape({
+            isExact: PropTypes.bool,
+            params: PropTypes.object,
+            path: PropTypes.string,
+            url: PropTypes.string,
+        }),
+        name: PropTypes.string.isRequired,
+        list: componentPropType,
+        create: componentPropType,
+        edit: componentPropType,
+        show: componentPropType,
+        icon: componentPropType,
+        options: PropTypes.object,
+        registerResource: PropTypes.func.isRequired,
+        unregisterResource: PropTypes.func.isRequired,
+    };
+    
+    static defaultProps = {
+        context: 'route',
+        options: {},
+    };
+    
     componentWillMount() {
         const {
             context,
@@ -154,30 +209,6 @@ export class Resource extends Component {
         );
     }
 }
-
-Resource.propTypes = {
-    context: PropTypes.oneOf(['route', 'registration']).isRequired,
-    match: PropTypes.shape({
-        isExact: PropTypes.bool,
-        params: PropTypes.object,
-        path: PropTypes.string,
-        url: PropTypes.string,
-    }),
-    name: PropTypes.string.isRequired,
-    list: componentPropType,
-    create: componentPropType,
-    edit: componentPropType,
-    show: componentPropType,
-    icon: componentPropType,
-    options: PropTypes.object,
-    registerResource: PropTypes.func.isRequired,
-    unregisterResource: PropTypes.func.isRequired,
-};
-
-Resource.defaultProps = {
-    context: 'route',
-    options: {},
-};
 
 export default connect(
     null,

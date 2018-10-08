@@ -13,6 +13,8 @@ import recordForm from './recordForm';
 
 /**
  * @param {Object} dataProvider A Data Provider function
+ * @param {Object} authProvider An auth Provider function
+ * @param {Object} i18nProvider An i18n Language Provider function
  */
 export default (dataProvider, authProvider, i18nProvider) =>
     function* admin() {

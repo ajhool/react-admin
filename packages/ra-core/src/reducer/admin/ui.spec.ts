@@ -16,29 +16,29 @@ describe('ui reducer', () => {
     it('should toggle sidebar visibility upon TOGGLE_SIDEBAR', () => {
         assert.deepEqual(
             { sidebarOpen: false },
-            reducer({ sidebarOpen: true }, toggleSidebar())
+            reducer({optimistic: false, sidebarOpen: true, viewVersion: 0 }, toggleSidebar())
         );
         assert.deepEqual(
             { sidebarOpen: true },
-            reducer({ sidebarOpen: false }, toggleSidebar())
+            reducer({optimistic: false, sidebarOpen: false, viewVersion: 0 }, toggleSidebar())
         );
     });
     it('should set sidebar visibility upon SET_SIDEBAR_VISIBILITY', () => {
         assert.deepEqual(
-            { sidebarOpen: false },
-            reducer({ sidebarOpen: true }, setSidebarVisibility(false))
+            {optimistic: false, sidebarOpen: false, viewVersion: 0 },
+            reducer({optimistic: false, sidebarOpen: true, viewVersion: 0 }, setSidebarVisibility(false))
         );
         assert.deepEqual(
-            { sidebarOpen: true },
-            reducer({ sidebarOpen: true }, setSidebarVisibility(true))
+            {optimistic: false, sidebarOpen: true, viewVersion: 0 },
+            reducer({optimistic: false, sidebarOpen: true, viewVersion: 0 }, setSidebarVisibility(true))
         );
         assert.deepEqual(
-            { sidebarOpen: false },
-            reducer({ sidebarOpen: false }, setSidebarVisibility(false))
+            {optimistic: false, sidebarOpen: false, viewVersion: 0 },
+            reducer({optimistic: false, sidebarOpen: false, viewVersion: 0 }, setSidebarVisibility(false))
         );
         assert.deepEqual(
-            { sidebarOpen: true },
-            reducer({ sidebarOpen: false }, setSidebarVisibility(true))
+            {optimistic: false, sidebarOpen: false, viewVersion: 0 },
+            reducer({optimistic: false, sidebarOpen: false, viewVersion: 0 }, setSidebarVisibility(true))
         );
     });
     it('should increment the viewVersion upon REFRESH_VIEW', () => {
