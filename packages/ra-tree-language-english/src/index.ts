@@ -1,4 +1,13 @@
-module.exports = {
+export interface TreeLanguageEnglish {
+    ra: {
+        tree: {
+            drag_preview: string;
+            root_target: string;
+        }
+    }
+}
+
+const TreeLanguageEnglish: TreeLanguageEnglish = {
     ra: {
         tree: {
             drag_preview:
@@ -6,4 +15,6 @@ module.exports = {
             root_target: 'Drop an item here to make it top level',
         },
     },
-};
+}
+
+module.exports = TreeLanguageEnglish;

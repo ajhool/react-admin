@@ -1,4 +1,123 @@
-module.exports = {
+export interface Language {
+    ra: {
+        action: {
+            add_filter: string;
+            add: string;
+            back: string;
+            bulk_actions: string;
+            cancel: string;
+            clear_input_value: string;
+            clone: string;
+            create: string;
+            delete: string;
+            edit: string;
+            export: string;
+            list: string;
+            refresh: string;
+            remove_filter: string;
+            remove: string;
+            save: string;
+            search: string;
+            show: string;
+            sort: string;
+            undo: string;
+        },
+        boolean: {
+            true: string;
+            false: string;
+        },
+        page: {
+            create: string;
+            dashboard: string;
+            edit: string;
+            error: string;
+            list: string;
+            loading: string;
+            not_found: string;
+            show: string;
+        },
+        input: {
+            file: {
+                upload_several: string; 
+                upload_single: string;
+            },
+            image: {
+                upload_several: string; 
+                upload_single: string;
+            },
+            references: {
+                all_missing: string;
+                many_missing: string;
+                single_missing: string;
+            },
+        },
+        message: {
+            about: string;
+            are_you_sure: string;
+            bulk_delete_content:
+                string;
+            bulk_delete_title:
+                string;
+            delete_content:
+                string;
+            delete_title: string;
+            details: string;
+            error:
+                string;
+            invalid_form: string;
+            loading:
+                string;
+            no: string;
+            not_found:
+                string;
+            yes: string;
+        },
+        navigation: {
+            no_results: string;
+            no_more_results: string;
+            page_out_of_boundaries: string;
+            page_out_from_end: string;
+            page_out_from_begin: string;
+            page_range_info: string;
+            page_rows_per_page: string;
+            next: string;
+            prev: string;
+        },
+        auth: {
+            user_menu: string;
+            username: string;
+            password: string;
+            sign_in: string;
+            sign_in_error: string;
+            logout: string;
+        },
+        notification: {
+            updated:
+                string;
+            created: string;
+            deleted: string;
+            bad_item: string;
+            item_doesnt_exist: string;
+            http_error: string;
+            data_provider_error:
+                string;
+            canceled: string;
+        },
+        validation: {
+            required: string;
+            minLength: string;
+            maxLength: string;
+            minValue: string;
+            maxValue: string;
+            number: string;
+            email: string;
+            oneOf: string;
+            regex: string;
+        },
+    },
+}
+
+const FrenchLanguage: Language = {
     ra: {
         action: {
             add_filter: 'Ajouter un filtre',
@@ -81,6 +200,7 @@ module.exports = {
         },
         navigation: {
             no_results: 'Aucun résultat',
+            no_more_results: 'Pas plus résultats',
             page_out_of_boundaries: 'La page %{page} est en dehors des limites',
             page_out_from_end: 'Fin de la pagination',
             page_out_from_begin: 'La page doit être supérieure à 1',
@@ -117,6 +237,11 @@ module.exports = {
             maxValue: 'Maximum %{max}',
             number: 'Doit être un nombre',
             email: 'Doit être un email',
+            oneOf: "Doit être l'un des: %{options}",
+            regex: 'Doit correspondre à un format spécifique (regexp): %{pattern}',
         },
     },
 };
+
+
+module.exports = FrenchLanguage;

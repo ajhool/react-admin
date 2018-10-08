@@ -2,7 +2,7 @@
     "name": "ra-tree-language-french",
     "version": "2.3.0",
     "description": "French messages for ra-tree, an addon providing tree components for react-admin, the frontend framework for building admin applications on top of REST/GraphQL services",
-    "main": "index.js",
+    "main": "build/index.js",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/marmelab/react-admin.git"

@@ -28,6 +28,7 @@
         "react-admin": "^2.3.0"
     },
     "devDependencies": {
+        "@types/query-string": "^6.1.0",
         "babel-cli": "~6.26.0",
         "cross-env": "^5.2.0",
         "rimraf": "^2.6.2"
