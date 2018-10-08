@@ -1,5 +1,26 @@
 # react-admin [![Build Status](https://travis-ci.org/marmelab/react-admin.svg?branch=master)](https://travis-ci.org/marmelab/react-admin)
 
+##Typescript conversion in progress:##
+
+- [ ] ra-core
+- [ ] ra-data-fakerest
+- [ ] ra-data-graphcool
+- [ ] ra-data-graphql
+- [ ] ra-data-graphql-simple
+- [ ] ra-data-json-server
+- [ ] ra-data-simple-rest
+- [ ] ra-input-rich-text
+- [x] ra-language-english
+- [x] ra-language-french
+- [ ] ra-realtime
+- [ ] ra-tree-core
+- [x] ra-tree-language-english
+- [x] ra-tree-language-french
+- [ ] ra-tree-ui-materialui
+- [ ] ra-ui-materialui
+- [ ] react-admin
+
+
 A frontend Framework for building admin applications running in the browser on top of REST/GraphQL APIs, using ES6, [React](https://facebook.github.io/react/) and [Material Design](https://material.io/). Previously named [admin-on-rest](https://github.com/marmelab/admin-on-rest). Open sourced and maintained by [marmelab](https://marmelab.com/).
 
 [Demo](https://marmelab.com/react-admin-demo/) - [Documentation](https://marmelab.com/react-admin/) - [Releases](https://github.com/marmelab/react-admin/releases) - [Support](http://stackoverflow.com/questions/tagged/react-admin)
