@@ -3,9 +3,5 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib"
-  },
-  "references": [
-    { "path": "../ra-core" },
-    { "path": "../ra-ui-materialui" }
-  ]
+  }
 }

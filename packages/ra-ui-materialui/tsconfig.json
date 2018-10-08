@@ -2,10 +2,9 @@
   "extends": "../tsconfig.settings.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "lib"
+    "outDir": "build"
   },
   "references": [
-    { "path": "../ra-core" },
-    { "path": "../ra-ui-materialui" }
+    { "path": "../ra-core" }
   ]
 }

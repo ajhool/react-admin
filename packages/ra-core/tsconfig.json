@@ -5,7 +5,6 @@
     "outDir": "lib"
   },
   "references": [
-    { "path": "../ra-core" },
-    { "path": "../ra-ui-materialui" }
+    { "path": "../ra-language-english" }
   ]
 }
