@@ -1,5 +1,9 @@
 // converted from vendor (node_modules/quill/dist/quill.snow.css) using the jss cli
-export default {
+import { CSSProperties } from 'react';
+
+type CSSStylesheet = { [className: string]: CSSProperties};
+
+const QuillSnowStylesheet: CSSStylesheet = {
     '.ql-container': {
         boxSizing: 'border-box',
         fontFamily: 'Helvetica, Arial, sans-serif',
@@ -797,3 +801,5 @@ export default {
         border: '1px solid #ccc',
     },
 };
+
+export default QuillSnowStylesheet
