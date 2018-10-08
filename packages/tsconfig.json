@@ -1,0 +1,20 @@
+{
+  "files": [],
+  "references": [
+    { "path": "ra-core" },
+    { "path": "ra-data-fakerest" },
+    { "path": "ra-data-graphql" },
+    { "path": "ra-data-graphql-simple" },
+    { "path": "ra-data-json-server" },
+    { "path": "ra-data-simple-rest" },
+    { "path": "ra-input-rich-text"},
+    { "path": "ra-language-english" },
+    { "path": "ra-realtime" },
+    { "path": "ra-tree-core" },
+    { "path": "ra-tree-language-english" },
+    { "path": "ra-tree-language-french" },
+    { "path": "ra-tree-ui-materialui" },
+    { "path": "ra-ui-materailui" },
+    { "path": "reat-admin" }
+  ]
+}
