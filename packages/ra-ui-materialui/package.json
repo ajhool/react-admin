@@ -25,6 +25,8 @@
         "watch": "rimraf ./lib && cross-env NODE_ENV=production babel --watch ./src -d ./lib --ignore spec.js,test.js"
     },
     "devDependencies": {
+        "@types/classnames": "^2.2.6",
+        "@types/react-redux": "^6.0.9",
         "babel-cli": "~6.26.0",
         "cross-env": "^5.2.0",
         "enzyme": "~3.3.0",

@@ -1,4 +1,4 @@
-export interface Language {
+export interface I81NProvider {
     ra: {
         action: {
             add_filter: string;
@@ -117,7 +117,7 @@ export interface Language {
     },
 }
 
-const EnglishLanguage: Language = {
+const EnglishLanguage: I81NProvider = {
     ra: {
         action: {
             add_filter: 'Add filter',

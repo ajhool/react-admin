@@ -1,0 +1,16 @@
+{
+  "rules": {
+    "object-literal-sort-keys": false,
+    "arrow-parens": false,
+    "ordered-imports": false,
+    "quotemark": [false],
+    "no-console": false,
+    "no-submodule-imports": false,
+    "trailing-comma": false,
+    "member-access": false,
+    "member-ordering": false,
+    "semicolon": false,
+    "no-shadowed-variable": false,
+    
+  }
+}

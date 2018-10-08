@@ -22,6 +22,11 @@ type IRequestType = GET_LIST |
  DELETE |
  DELETE_MANY;
 
+interface DataToHTTPResponse {
+    url: string;
+    options: Object
+}
+
 /**
  * Maps react-admin queries to a simple REST API
  *
@@ -42,7 +47,7 @@ export default (apiUrl: string, httpClient = fetchUtils.fetchJson) => {
      * @param {Object} params The data request params, depending on the type
      * @returns {Object} { url, options } The HTTP request parameters
      */
-    const convertDataRequestToHTTP = (type: IRequestType, resource: string, params: Object): {url: string, options: Object} => {
+    const convertDataRequestToHTTP = (type: IRequestType, resource: string, params: Object): DataToHTTPResponse => {
         let url = '';
         const options = {};
         switch (type) {

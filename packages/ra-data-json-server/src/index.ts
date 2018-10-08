@@ -24,14 +24,14 @@ import {
  * CREATE       => POST http://my.api.url/posts/123
  * DELETE       => DELETE http://my.api.url/posts/123
  */
-export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
+export default (apiUrl: string, httpClient = fetchUtils.fetchJson) => {
     /**
      * @param {String} type One of the constants appearing at the top if this file, e.g. 'UPDATE'
      * @param {String} resource Name of the resource to fetch, e.g. 'posts'
      * @param {Object} params The data request params, depending on the type
      * @returns {Object} { url, options } The HTTP request parameters
      */
-    const convertDataRequestToHTTP = (type, resource, params) => {
+    const convertDataRequestToHTTP = (type, resource: string, params) => {
         let url = '';
         const options = {};
         switch (type) {
@@ -99,7 +99,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
      * @param {Object} params The data request params, depending on the type
      * @returns {Object} Data response
      */
-    const convertHTTPResponse = (response, type, resource, params) => {
+    const convertHTTPResponse = (response, type, resource: string, params) => {
         const { headers, json } = response;
         switch (type) {
             case GET_LIST:
@@ -132,7 +132,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
      * @param {Object} payload Request parameters. Depends on the request type
      * @returns {Promise} the Promise for a data response
      */
-    return (type, resource, params) => {
+    return (type, resource: string, params) => {
         // json-server doesn't handle filters on UPDATE route, so we fallback to calling UPDATE n times instead
         if (type === UPDATE_MANY) {
             return Promise.all(

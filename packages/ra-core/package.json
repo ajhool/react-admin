@@ -25,6 +25,12 @@
         "watch": "rimraf ./lib && cross-env NODE_ENV=production babel --watch ./src -d ./lib --ignore spec.js,test.js"
     },
     "devDependencies": {
+        "@types/enzyme": "^3.1.14",
+        "@types/inflection": "^1.5.28",
+        "@types/node-polyglot": "^0.4.31",
+        "@types/react-router-redux": "^5.0.16",
+        "@types/recompose": "^0.27.0",
+        "@types/redux-form": "^7.4.8",
         "babel-cli": "~6.26.0",
         "cross-env": "^5.2.0",
         "enzyme": "~3.3.0",
@@ -33,7 +39,8 @@
         "react": "~16.3.1",
         "react-dom": "~16.3.1",
         "react-test-renderer": "~16.3.1",
-        "rimraf": "^2.6.2"
+        "rimraf": "^2.6.2",
+        "tslint-react": "^3.6.0"
     },
     "peerDependencies": {
         "react": "~16.0.0 || ~16.1.0 || ~16.2.0 || ~16.3.0",

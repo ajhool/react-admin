@@ -1,4 +1,4 @@
-export interface TreeLanguageEnglish {
+export interface TreeLanguage {
     ra: {
         tree: {
             drag_preview: string;
@@ -7,7 +7,7 @@ export interface TreeLanguageEnglish {
     }
 }
 
-const TreeLanguageEnglish: TreeLanguageEnglish = {
+const TreeLanguageEnglish: TreeLanguage = {
     ra: {
         tree: {
             drag_preview:

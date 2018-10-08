@@ -2,6 +2,11 @@
 
 ##Typescript conversion in progress:##
 
+Relevant issues 
+
+(PropTypes gives typing support to javascript projects that depend on this lib. Typescript Seems like it solves the same problem.. but it doesn't quite.):
+https://github.com/Microsoft/TypeScript/issues/4833
+
 - [ ] ra-core
 - [ ] ra-data-fakerest
 - [ ] ra-data-graphcool

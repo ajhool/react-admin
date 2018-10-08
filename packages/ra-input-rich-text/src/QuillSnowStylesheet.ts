@@ -1,7 +1,16 @@
 // converted from vendor (node_modules/quill/dist/quill.snow.css) using the jss cli
 import { CSSProperties } from 'react';
 
-type CSSStylesheet = { [className: string]: CSSProperties};
+/**
+ * Almost all of these entries have the form:
+ *  [className: string]: CSSProperties
+ * However, '@media (pointer: coarse)': 
+ *      has a value with signature: { [className: string]: CSSProperties }
+ */
+type CSSStylesheet = { 
+    [className: string]: CSSProperties | { [className: string]: CSSProperties };
+    '@media (pointer: coarse)': { [className: string]: CSSProperties }
+};
 
 const QuillSnowStylesheet: CSSStylesheet = {
     '.ql-container': {
@@ -457,7 +466,7 @@ const QuillSnowStylesheet: CSSStylesheet = {
     '.ql-snow .ql-stroke-miter': {
         fill: 'none',
         stroke: '#444',
-        strokeMiterlimit: '10',
+        strokeMiterlimit: 10,
         strokeWidth: '2',
     },
     '.ql-snow .ql-fill, .ql-snow .ql-stroke.ql-fill': {
@@ -473,7 +482,7 @@ const QuillSnowStylesheet: CSSStylesheet = {
         strokeWidth: '1',
     },
     '.ql-snow .ql-transparent': {
-        opacity: '0.4',
+        opacity: 0.4,
     },
     '.ql-snow .ql-direction svg:last-child': {
         display: 'none',
@@ -538,7 +547,7 @@ const QuillSnowStylesheet: CSSStylesheet = {
         display: 'inline-block',
         float: 'left',
         fontSize: 14,
-        fontWeight: '500',
+        fontWeight: 500,
         height: 24,
         position: 'relative',
         verticalAlign: 'middle',
@@ -572,7 +581,7 @@ const QuillSnowStylesheet: CSSStylesheet = {
     },
     '.ql-snow .ql-picker.ql-expanded .ql-picker-label': {
         color: '#ccc',
-        zIndex: '2',
+        zIndex: 2,
     },
     '.ql-snow .ql-picker.ql-expanded .ql-picker-label .ql-fill': {
         fill: '#ccc',
@@ -584,7 +593,7 @@ const QuillSnowStylesheet: CSSStylesheet = {
         display: 'block',
         marginTop: -1,
         top: '100%',
-        zIndex: '1',
+        zIndex: 1,
     },
     '.ql-snow .ql-color-picker, .ql-snow .ql-icon-picker': {
         width: 28,

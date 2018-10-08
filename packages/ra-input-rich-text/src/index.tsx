@@ -9,7 +9,28 @@ import { withStyles } from '@material-ui/core/styles';
 
 import styles from './styles';
 
-export class RichTextInput extends Component {
+interface IRichTextInputProps {
+    addLabel: boolean;
+    input: object;
+    meta: object;
+    options: object;
+    source: string;
+    toolbar: Array<any> | boolean;
+    fullWidth: boolean;
+    label?: PropTypes.string;
+    classes?: object;
+}
+
+//TODO: infer typeof defaultProps and union with InputProps
+const defaultProps = {
+    addLabel: true,
+    options: {},
+    record: {},
+    toolbar: true,
+    fullWidth: true,
+};
+
+export class RichTextInput extends Component<IRichTextInputProps> {
     static propTypes = {
         addLabel: PropTypes.bool.isRequired,
         classes: PropTypes.object,
@@ -29,7 +50,7 @@ export class RichTextInput extends Component {
         toolbar: true,
         fullWidth: true,
     };
-
+    
     componentDidMount() {
         const {
             input: { value },
