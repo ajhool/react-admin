@@ -5,7 +5,7 @@ const getNode = ({ id, record, children }) => ({
     record,
     childCount: children.length,
 });
-const getNodeFromData = (record, childCount) => ({
+const getNodeFromData = (record, childCount: number) => ({
     id: record.id,
     record: { ...record, parent_id: record.parent_id || null },
     childCount,

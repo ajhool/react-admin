@@ -13,6 +13,10 @@ import classNames from 'classnames';
 
 import FormInput from '../form/FormInput';
 
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
 const styles = (theme: Theme) => createStyles({
     root: {
         padding: 0,

@@ -1,9 +1,3 @@
 {
-  "extends": ["tslint:latest", "tslint-react"],
-  "rules": {
-    "object-literal-sort-keys": false,
-    "arrow-parens": false,
-    "quotemark": [true, "jsx-double"],
-    "no-console": false
-  }
+  "extends": ["tslint:latest", "tslint-react", "../tslint.json"]
 }

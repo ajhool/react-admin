@@ -1,9 +1,17 @@
-import { CLOSE_NODE, EXPAND_NODE, TOGGLE_NODE } from './actions';
+import { ActionTypes, ITreeAction } from './actions';
+
+export interface ITreeState {
+    [resource: string]: {
+        [nodeId: number]: {
+            type: ActionTypes;
+        }
+    }
+}
 
 const initialState = {};
 
-export default (state = initialState, { type, payload: nodeId, meta }) => {
-    if (![CLOSE_NODE, TOGGLE_NODE, EXPAND_NODE].includes(type)) {
+export default (state: ITreeState = initialState, { type, payload: nodeId, meta }: ITreeAction): ITreeState => {
+    if (!(type in ActionTypes)) {
         return state;
     }
     if (!meta.resource) {
@@ -16,11 +24,11 @@ export default (state = initialState, { type, payload: nodeId, meta }) => {
         [meta.resource]: {
             ...(state[meta.resource] || {}),
             [nodeId]:
-                type === TOGGLE_NODE
+                type === ActionTypes.TOGGLE_NODE
                     ? state[meta.resource]
                         ? !state[meta.resource][nodeId]
                         : true
-                    : type === EXPAND_NODE,
+                    : type === ActionTypes.EXPAND_NODE,
         },
     };
 };

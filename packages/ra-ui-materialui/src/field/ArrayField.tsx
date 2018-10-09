@@ -6,7 +6,7 @@ import pure from 'recompose/pure';
 type IRecord = any;
 
 interface IProps {
-    addLabel: boolena;
+    addLabel: boolean;
     basePath: string;
     children: PropTypes.element.isRequired,
     record: IRecord;

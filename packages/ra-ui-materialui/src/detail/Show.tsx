@@ -1,30 +1,28 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import { withStyles, createStyles, WithStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
-import { EditController } from 'ra-core';
+import { ShowController } from 'ra-core';
 
-import DefaultActions from './EditActions';
-import TitleForRecord from './TitleForRecord';
-import CardContentInner from './CardContentInner';
+import DefaultActions from 'ra-ui-materialui/src/detail/ShowActions';
+import TitleForRecord from 'ra-ui-materialui/src/layout/TitleForRecord';
+import CardContentInner from 'ra-ui-materialui/src/layout/CardContentInner';
 
 interface IProps extends WithStyles<typeof styles> {
-    actions: ReactElement;
-    aside: ReactNode;
-    basePath: string;
-    children: ReactElement;
-    className: string;
-    defaultTitle: any;
-    hasList: boolean;
-    hasShow: boolean;
-    record: any;
-    redirect: string | boolean;
-    resource: string;
-    save: VoidFunction;
-    title: any;
-    version: number;
+    actions?: PropTypes.element,
+    aside?: PropTypes.node,
+    basePath?: string;
+    children?: PropTypes.element,
+    className?: string;
+    defaultTitle?: PropTypes.any,
+    hasEdit?: boolean;
+    hasList?: boolean;
+    isLoading?: boolean;
+    record?: PropTypes.object,
+    resource?: string;
+    title?: PropTypes.any,
+    version?: number;
 }
 
 const styles = createStyles({
@@ -39,20 +37,18 @@ const styles = createStyles({
 const sanitizeRestProps = ({
     actions,
     aside,
+    title,
     children,
     className,
     crudGetOne,
-    crudUpdate,
+    id,
     data,
+    isLoading,
+    resource,
     hasCreate,
     hasEdit,
     hasList,
     hasShow,
-    id,
-    isLoading,
-    resetForm,
-    resource,
-    title,
     translate,
     version,
     match,
@@ -61,11 +57,10 @@ const sanitizeRestProps = ({
     options,
     locale,
     permissions,
-    undoable,
     ...rest
 }: any): any => rest;
 
-export const EditView: React.SFC<IProps> = ({
+export const ShowView: React.SFC<IProps> = ({
     actions,
     aside,
     basePath,
@@ -73,22 +68,21 @@ export const EditView: React.SFC<IProps> = ({
     classes,
     className,
     defaultTitle,
+    hasEdit,
     hasList,
-    hasShow,
+    isLoading,
     record,
-    redirect,
     resource,
-    save,
     title,
     version,
     ...rest
 }) => {
-    if (typeof actions === 'undefined' && hasShow) {
+    if (typeof actions === 'undefined' && hasEdit) {
         actions = <DefaultActions />;
     }
     return (
         <div
-            className={classnames('edit-page', classes.root, className)}
+            className={classnames('show-page', classes.root, className)}
             {...sanitizeRestProps(rest)}
         >
             <TitleForRecord
@@ -102,40 +96,32 @@ export const EditView: React.SFC<IProps> = ({
                         {React.cloneElement(actions, {
                             basePath,
                             data: record,
-                            hasShow,
                             hasList,
+                            hasEdit,
                             resource,
                         })}
                     </CardContentInner>
                 )}
-                {record ? (
+                {record &&
                     React.cloneElement(children, {
+                        resource,
                         basePath,
                         record,
-                        redirect:
-                            typeof children.props.redirect === 'undefined'
-                                ? redirect
-                                : children.props.redirect,
-                        resource,
-                        save,
                         version,
-                    })
-                ) : (
-                    <CardContent>&nbsp;</CardContent>
-                )}
+                    })}
             </Card>
             {aside &&
                 React.cloneElement(aside, {
+                    resource,
                     basePath,
                     record,
-                    resource,
                     version,
                 })}
         </div>
     );
 };
 
-EditView.propTypes = {
+ShowView.propTypes = {
     actions: PropTypes.element,
     aside: PropTypes.node,
     basePath: PropTypes.string,
@@ -143,30 +129,29 @@ EditView.propTypes = {
     classes: PropTypes.object,
     className: PropTypes.string,
     defaultTitle: PropTypes.any,
+    hasEdit: PropTypes.bool,
     hasList: PropTypes.bool,
-    hasShow: PropTypes.bool,
+    isLoading: PropTypes.bool,
     record: PropTypes.object,
-    redirect: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     resource: PropTypes.string,
-    save: PropTypes.func,
     title: PropTypes.any,
     version: PropTypes.number,
 };
 
-EditView.defaultProps = {
+ShowView.defaultProps = {
     classes: {},
 };
 
 /**
- * Page component for the Edit view
+ * Page component for the Show view
  *
- * The `<Edit>` component renders the page title and actions,
+ * The `<Show>` component renders the page title and actions,
  * fetches the record from the data provider.
  * It is not responsible for rendering the actual form -
- * that's the job of its child component (usually `<SimpleForm>`),
+ * that's the job of its child component (usually `<SimpleShowLayout>`),
  * to which it passes pass the `record` as prop.
  *
- * The `<Edit>` component accepts the following props:
+ * The `<Show>` component accepts the following props:
  *
  * - title
  * - actions
@@ -176,63 +161,48 @@ EditView.defaultProps = {
  * @example
  *     // in src/posts.js
  *     import React from 'react';
- *     import { Edit, SimpleForm, TextInput } from 'react-admin';
+ *     import { Show, SimpleShowLayout, TextField } from 'react-admin';
  *
- *     export const PostEdit = (props) => (
- *         <Edit {...props}>
- *             <SimpleForm>
- *                 <TextInput source="title" />
- *             </SimpleForm>
- *         </Edit>
+ *     export const PostShow = (props) => (
+ *         <Show {...props}>
+ *             <SimpleShowLayout>
+ *                 <TextField source="title" />
+ *             </SimpleShowLayout>
+ *         </Show>
  *     );
  *
  *     // in src/App.js
  *     import React from 'react';
  *     import { Admin, Resource } from 'react-admin';
  *
- *     import { PostEdit } from './posts';
+ *     import { PostShow } from './posts';
  *
  *     const App = () => (
  *         <Admin dataProvider={...}>
- *             <Resource name="posts" edit={PostEdit} />
+ *             <Resource name="posts" show={PostShow} />
  *         </Admin>
  *     );
  *     export default App;
  */
-interface IEditProps {
-    actions: ReactElement;
-    aside: ReactNode;
-    children: ReactNode;
-    classes: PropTypes.object,
-    className: string;
-    hasCreate: boolean;
-    hasEdit: boolean;
-    hasShow: boolean;
-    hasList: boolean;
-    id: any;
-    resource: string;
-    title: any;
-}
-
-export const Edit: React.SFC<IEditProps> = props => (
-    <EditController {...props}>
-        {controllerProps => <EditView {...props} {...controllerProps} />}
-    </EditController>
+export const Show = props => (
+    <ShowController {...props}>
+        {controllerProps => <ShowView {...props} {...controllerProps} />}
+    </ShowController>
 );
 
-Edit.propTypes = {
+Show.propTypes = {
     actions: PropTypes.element,
     aside: PropTypes.node,
-    children: PropTypes.node,
-    classes: PropTypes.object,
+    children: PropTypes.element,
+    classes: PropTypes.node,
     className: PropTypes.string,
     hasCreate: PropTypes.bool,
     hasEdit: PropTypes.bool,
-    hasShow: PropTypes.bool,
     hasList: PropTypes.bool,
+    hasShow: PropTypes.bool,
     id: PropTypes.any.isRequired,
     resource: PropTypes.string.isRequired,
     title: PropTypes.any,
 };
 
-export default withStyles(styles)(Edit);
+export default withStyles(styles)(Show);
