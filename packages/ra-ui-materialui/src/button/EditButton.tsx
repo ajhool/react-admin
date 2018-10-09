@@ -1,36 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import shouldUpdate from 'recompose/shouldUpdate';
-import ImageEye from '@material-ui/icons/RemoveRedEye';
+import ContentCreate from '@material-ui/icons/Create';
 import { Link } from 'react-router-dom';
 import { linkToRecord } from 'ra-core';
+import { WithStyles } from '@material-ui/core/styles';
 
 import Button from './Button';
 
-const ShowButton = ({
+interface IProps extends WithStyles {
+    basePath: string;
+    label: string;
+    record: any;
+    className: string;
+    translate: VoidFunction;
+}
+
+const EditButton: React.SFC<IProps> = ({
     basePath = '',
-    label = 'ra.action.show',
+    label = 'ra.action.edit',
     record = {},
     ...rest
 }) => (
     <Button
         component={Link}
-        to={`${linkToRecord(basePath, record.id)}/show`}
+        to={linkToRecord(basePath, record.id)}
         label={label}
         {...rest}
     >
-        <ImageEye />
+        <ContentCreate />
     </Button>
 );
 
-ShowButton.propTypes = {
+EditButton.propTypes = {
     basePath: PropTypes.string,
+    className: PropTypes.string,
+    classes: PropTypes.object,
     label: PropTypes.string,
     record: PropTypes.object,
 };
 
 const enhance = shouldUpdate(
-    (props, nextProps) =>
+    (props: IProps, nextProps: IProps) =>
         props.translate !== nextProps.translate ||
         (props.record &&
             nextProps.record &&
@@ -39,4 +50,4 @@ const enhance = shouldUpdate(
         (props.record == null && nextProps.record != null)
 );
 
-export default enhance(ShowButton);
+export default enhance(EditButton);

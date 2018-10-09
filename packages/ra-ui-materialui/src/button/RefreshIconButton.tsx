@@ -7,7 +7,14 @@ import IconButton from '@material-ui/core/IconButton';
 import NavigationRefresh from '@material-ui/icons/Refresh';
 import { refreshView, translate } from 'ra-core';
 
-class RefreshButton extends Component {
+interface IProps {
+    className: string;
+    label: string;
+    refreshView: () => void;
+    translate: VoidFunction;
+}
+
+class RefreshButton extends Component<IProps> {
     static propTypes = {
         className: PropTypes.string,
         label: PropTypes.string,
@@ -19,7 +26,7 @@ class RefreshButton extends Component {
         label: 'ra.action.refresh',
     };
 
-    handleClick = event => {
+    handleClick: React.MouseEventHandler = event => {
         event.preventDefault();
         this.props.refreshView();
     };
@@ -49,7 +56,7 @@ class RefreshButton extends Component {
     }
 }
 
-const enhance = compose(
+const enhance = compose<IProps, {}>(
     connect(
         null,
         { refreshView }

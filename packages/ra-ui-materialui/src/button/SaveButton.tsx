@@ -4,19 +4,33 @@ import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, WithStyles } from '@material-ui/core/styles';
 import ContentSave from '@material-ui/icons/Save';
 import classnames from 'classnames';
-import { showNotification, translate } from 'ra-core';
+import { showNotification, translate, ShowNotification } from 'ra-core';
 
-const styles = {
+interface IProps extends WithStyles<typeof styles> {
+    className: string;
+    handleSubmitWithRedirect: VoidFunction;
+    invalid: boolean;
+    label: string;
+    pristine: boolean;
+    redirect: string | boolean | VoidFunction;
+    saving: object | boolean;
+    showNotification: ShowNotification;
+    submitOnEnter: boolean;
+    translate: VoidFunction;
+    variant: 'raised' | 'flat' | 'fab';
+}
+
+const styles = createStyles({
     button: {
         position: 'relative',
     },
     iconPaddingStyle: {
         marginRight: '0.5em',
     },
-};
+});
 
 const sanitizeRestProps = ({
     basePath,
@@ -34,10 +48,10 @@ const sanitizeRestProps = ({
     locale,
     showNotification,
     ...rest
-}) => rest;
+}: any): any => rest;
 
-export class SaveButton extends Component {
-    handleClick = e => {
+export class SaveButton extends Component<IProps> {
+    handleClick: React.MouseEventHandler = e => {
         const {
             handleSubmitWithRedirect,
             invalid,
@@ -124,7 +138,7 @@ SaveButton.defaultProps = {
     handleSubmitWithRedirect: () => () => {},
 };
 
-const enhance = compose(
+const enhance = compose<IProps, {}>(
     translate,
     connect(
         undefined,

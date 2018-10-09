@@ -1,16 +1,26 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { ReactElementLike } from 'prop-types';
 import compose from 'recompose/compose';
 import MuiButton from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, WithStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { translate } from 'ra-core';
 
 import Responsive from '../layout/Responsive';
 
-const styles = {
+interface IProps extends WithStyles<typeof styles> {
+    alignIcon: string;
+    className: string;
+    color?: "inherit" | "default" | "primary" | "secondary";
+    label: string;
+    size?: "medium" | "large" | "small";
+    translate: any;
+    children: ReactElementLike;
+}
+
+const styles = () => createStyles({
     button: {
         display: 'inline-flex',
         alignItems: 'center',
@@ -30,9 +40,9 @@ const styles = {
     largeIcon: {
         fontSize: 24,
     },
-};
+});
 
-const Button = ({
+const Button: React.SFC<IProps> = ({
     alignIcon = 'left',
     children,
     classes = {},
@@ -98,7 +108,7 @@ Button.propTypes = {
     translate: PropTypes.func.isRequired,
 };
 
-const enhance = compose(
+const enhance = compose<IProps, {}>(
     withStyles(styles),
     translate
 );

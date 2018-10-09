@@ -14,6 +14,15 @@ export interface INotificationOptions {
 
 export type INotificationTypes = 'info' | 'warning';
 
+export type ShowNotification = (
+    message: string,
+    type: INotificationTypes,
+    notificationOptions?: INotificationOptions,
+) => {
+    type: string;
+    payload: INotificationOptions & { type: INotificationTypes, message: string };
+};
+
 /**
  * Shows a snackbar/toast notification on the screen
  * @param {string} message - A translatable label or text to display on notification

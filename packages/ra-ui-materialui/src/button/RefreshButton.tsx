@@ -6,7 +6,12 @@ import { refreshView as refreshViewAction } from 'ra-core';
 
 import Button from './Button';
 
-class RefreshButton extends Component {
+interface IProps {
+    label: string;
+    refreshView: () => void;
+}
+
+class RefreshButton extends Component<IProps> {
     static propTypes = {
         label: PropTypes.string,
         refreshView: PropTypes.func.isRequired,
@@ -16,10 +21,10 @@ class RefreshButton extends Component {
         label: 'ra.action.refresh',
     };
 
-    handleClick = event => {
+    handleClick: React.MouseEventHandler = event => {
         event.preventDefault();
         this.props.refreshView();
-    };
+    }
 
     render() {
         const { label, refreshView, ...rest } = this.props;

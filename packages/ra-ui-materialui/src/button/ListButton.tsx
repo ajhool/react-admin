@@ -5,7 +5,12 @@ import { Link } from 'react-router-dom';
 
 import Button from './Button';
 
-const ListButton = ({ basePath = '', label = 'ra.action.list', ...rest }) => (
+interface IProps {
+    basePath: string;
+    label: string;
+}
+
+const ListButton: React.SFC = ({ basePath = '', label = 'ra.action.list', ...rest }) => (
     <Button component={Link} to={basePath} label={label} {...rest}>
         <ActionList />
     </Button>

@@ -3,12 +3,24 @@ import PropTypes from 'prop-types';
 import shouldUpdate from 'recompose/shouldUpdate';
 import Queue from '@material-ui/icons/Queue';
 import { Link } from 'react-router-dom';
+import { WithStyles } from '@material-ui/core';
 
-import Button from './Button';
+import Button from 'ra-ui-materialui/src/button/Button';
 
-const omitId = ({ id, ...rest }) => rest;
+interface IProps extends WithStyles<{}> {
+    basePath: string;
+    label: string;
+    className: string;
+    record: {
+        [x: string]: any;
+        id: any;
+    };
+    translate: any;
+};
 
-export const CloneButton = ({
+const omitId = ({ id, ...rest }: any): any => rest;
+
+export const CloneButton: React.SFC<IProps> = ({
     basePath = '',
     label = 'ra.action.clone',
     record = {},
@@ -36,7 +48,7 @@ CloneButton.propTypes = {
 };
 
 const enhance = shouldUpdate(
-    (props, nextProps) =>
+    (props: IProps, nextProps: IProps) =>
         props.translate !== nextProps.translate ||
         (props.record &&
             nextProps.record &&

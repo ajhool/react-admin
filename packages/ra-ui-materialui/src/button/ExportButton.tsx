@@ -17,7 +17,7 @@ const sanitizeRestProps = ({
     resource,
     sort,
     ...rest
-}) => rest;
+}: any): any => rest;
 
 /**
  * Helper function for calling the data provider with GET_MANY
@@ -73,6 +73,11 @@ class ExportButton extends Component {
         sort: PropTypes.object,
     };
 
+    static defaultProps = {
+        label: 'ra.action.export',
+        maxResults: 1000,
+    };
+
     handleClick = () => {
         const {
             dispatch,
@@ -114,10 +119,5 @@ class ExportButton extends Component {
         );
     }
 }
-
-ExportButton.defaultProps = {
-    label: 'ra.action.export',
-    maxResults: 1000,
-};
 
 export default connect()(ExportButton); // inject redux dispatch

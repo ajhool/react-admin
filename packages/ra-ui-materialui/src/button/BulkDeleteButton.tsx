@@ -89,7 +89,7 @@ class BulkDeleteButton extends Component<IProps> {
     }
 }
 
-const EnhancedBulkDeleteButton = compose(
+const EnhancedBulkDeleteButton = compose<IProps, {}>(
     connect(
         undefined,
         {
