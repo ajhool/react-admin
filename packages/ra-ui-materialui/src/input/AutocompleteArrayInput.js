@@ -18,7 +18,11 @@ import { addField, translate, FieldTitle } from 'ra-core';
 
 import AutocompleteArrayInputChip from './AutocompleteArrayInputChip';
 
-const styles = theme => ({
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
+const styles = (theme: Theme) => createStyles({
     container: {
         flexGrow: 1,
         position: 'relative',

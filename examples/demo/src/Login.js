@@ -15,7 +15,7 @@ import LockIcon from '@material-ui/icons/Lock';
 
 import { Notification, translate, userLogin } from 'react-admin';
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
     main: {
         display: 'flex',
         flexDirection: 'column',

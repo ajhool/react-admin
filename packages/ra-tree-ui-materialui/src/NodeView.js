@@ -5,13 +5,13 @@ import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/s
 
 const CONTAINER_CLASS = 'treenode-content';
 
-const styles = {
+const styles = createStyles({
     root: {
         alignItems: 'center',
         display: 'flex',
         flexGrow: 1,
     },
-};
+});
 
 const sanitizeRestProps = ({
     cancelDropOnChildren,

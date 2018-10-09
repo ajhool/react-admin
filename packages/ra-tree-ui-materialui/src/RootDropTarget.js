@@ -11,7 +11,7 @@ import IconGetApp from '@material-ui/icons/GetApp';
 import { DROP_TARGET_TYPE } from './constants';
 import { translate } from 'ra-core';
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
     root: {
         paddingLeft: theme.spacing.unit * 6,
     },

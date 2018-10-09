@@ -3,7 +3,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-const styles = {
+const styles = createStyles({
     root: { display: 'inline-block', marginTop: '1em', zIndex: 2 },
     content: { padding: 0, '&:last-child': { padding: 0 } },
     img: {

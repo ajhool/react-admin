@@ -9,7 +9,11 @@ import { addField, translate, FieldTitle } from 'ra-core';
 
 import sanitizeRestProps from './sanitizeRestProps';
 
-const styles = theme => ({
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
+const styles = (theme: Theme) => createStyles({
     input: { width: theme.spacing.unit * 16 },
 });
 

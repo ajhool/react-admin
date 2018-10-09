@@ -15,7 +15,7 @@ const sanitizeRestProps = ({
     initialValues,
     translate,
     ...rest
-}) => rest;
+}: any): any => rest;
 
 /**
  * Simple Layout for a Show view, showing fields in one column.

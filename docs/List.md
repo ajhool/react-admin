@@ -644,7 +644,7 @@ You can customize the list styles by passing a `classes` object as prop, through
 
 {% raw %}
 ```jsx
-const styles = {
+const styles = createStyles({
     header: {
         backgroundColor: '#ccc',
     },
@@ -749,7 +749,7 @@ You can customize the datagrid styles by passing a `classes` object as prop, thr
 
 {% raw %}
 ```jsx
-const styles = {
+const styles = createStyles({
     row: {
         backgroundColor: '#ccc',
     },
@@ -772,7 +772,7 @@ export withStyles(styles)(PostList);
 ```jsx
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
     hiddenOnSmallScreens: {
         [theme.breakpoints.down('md')]: {
             display: 'none',

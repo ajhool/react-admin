@@ -28,7 +28,7 @@ PostQuickCreateToolbar.propTypes = {
     onCancel: PropTypes.func.isRequired,
 };
 
-const styles = {
+const styles = createStyles({
     form: { padding: 0 },
 };
 

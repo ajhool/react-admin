@@ -21,7 +21,7 @@ import {
 import PostQuickCreate from './PostQuickCreate';
 import PostPreview from './PostPreview';
 
-const styles = {
+const styles = createStyles({
     button: {
         margin: '10px 24px',
         position: 'relative',

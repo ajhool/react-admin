@@ -10,7 +10,7 @@ import classnames from 'classnames';
 import { translate } from 'ra-core';
 import Title from 'ra-ui-materialui/src/layout/Title';
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
     container: {
         display: 'flex',
         flexDirection: 'column',

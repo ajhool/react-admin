@@ -4,7 +4,11 @@ import { addField, translate } from 'ra-core';
 
 import { FileInput } from './FileInput';
 
-const styles = {
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
+const styles = createStyles({
     root: { width: '100%' },
     dropZone: {
         background: '#efefef',
@@ -29,7 +33,7 @@ const styles = {
             opacity: 1,
         },
     },
-};
+});
 
 export class ImageInput extends FileInput {
     static defaultProps = {

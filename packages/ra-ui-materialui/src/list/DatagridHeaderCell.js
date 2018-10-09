@@ -10,7 +10,7 @@ import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/s
 import { FieldTitle, translate } from 'ra-core';
 
 // remove the sort icons when not active
-const styles = {
+const styles = createStyles({
     icon: {
         display: 'none',
     },

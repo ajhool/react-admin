@@ -7,7 +7,7 @@ import classnames from 'classnames';
 
 import Labeled from '../input/Labeled';
 
-const sanitizeRestProps = ({ label, icon, value, translate, ...rest }) => rest;
+const sanitizeRestProps = ({ label, icon, value, translate, ...rest }: any): any => rest;
 
 /**
  * Tab element for the SimpleShowLayout.

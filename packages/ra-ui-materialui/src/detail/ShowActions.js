@@ -12,7 +12,7 @@ const sanitizeRestProps = ({
     hasList,
     resource,
     ...rest
-}) => rest;
+}: any): any => rest;
 
 /**
  * Action Toolbar for the Show view

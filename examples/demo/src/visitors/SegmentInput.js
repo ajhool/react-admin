@@ -5,7 +5,7 @@ import compose from 'recompose/compose';
 
 import segments from '../segments/data';
 
-const styles = {
+const styles = createStyles({
     input: { width: 150 },
 };
 

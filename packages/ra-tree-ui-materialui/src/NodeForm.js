@@ -11,7 +11,7 @@ import {
 
 import NodeFormActions from './NodeFormActions';
 
-const styles = {
+const styles = createStyles({
     root: {
         alignItems: 'center',
         display: 'flex',

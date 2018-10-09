@@ -1,7 +1,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-const styles = {
+const styles = createStyles({
     root: { width: 25, maxWidth: 25, maxHeight: 25 },
 };
 

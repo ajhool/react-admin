@@ -337,7 +337,7 @@ All react-admin components now accept a `className` prop instead of the `elStyle
 //</td>
 + import { EmailField, List, Datagrid } from 'react-admin';
 + import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
-+ const styles = {
++ const styles = createStyles({
 +     field: {
 +         textDecoration: 'none',
 +     },
@@ -360,7 +360,7 @@ In addition to `elStyle`, Field and Input components used to support a `style` p
 + import { EmailField, List, Datagrid } from 'react-admin';
 + import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
-+ const styles = {
++ const styles = createStyles({
 +     cell: {
 +         backgroundColor: 'lightgrey',
 +     },
@@ -397,7 +397,7 @@ Furthermore, some React-admin components such as the `List`, `Filter`, and `Data
 import { EmailField, List, Datagrid } from 'react-admin';
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
-const styles = {
+const styles = createStyles({
     header: { fontWeight: 'bold' },
     actions: { fontWeight: 'bold' },
     emailCellClassName: {
@@ -731,7 +731,7 @@ import {
 - } from 'admin-on-rest';
 + } from 'react-admin';
 
-- const styles = {
+- const styles = createStyles({
 -     wrapper: {
 -         // Avoid IE bug with Flexbox, see #467
 -         display: 'flex',
@@ -761,7 +761,7 @@ import {
 -         zIndex: 1200,
 -     },
 - };
-+ const styles = theme => ({
++ const styles = (theme: Theme) => createStyles({
 +     root: {
 +         display: 'flex',
 +         flexDirection: 'column',

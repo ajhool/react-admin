@@ -19,7 +19,7 @@ const sanitizeRestProps = ({
     staticContext,
     translate,
     ...rest
-}) => rest;
+}: any): any => rest;
 
 const getTabFullPath = (tab, index, baseUrl) =>
     `${baseUrl}${

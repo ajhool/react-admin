@@ -4,7 +4,11 @@ import IconButton from '@material-ui/core/IconButton';
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import RemoveCircle from '@material-ui/icons/RemoveCircle';
 
-const styles = theme => ({
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
+const styles = (theme: Theme) => createStyles({
     removeButton: {},
     removeIcon: {
         color: theme.palette.accent1Color,

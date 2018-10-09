@@ -15,7 +15,11 @@ import defaultSanitizeRestProps from './sanitizeRestProps';
 const sanitizeRestProps = ({ setFilter, setPagination, setSort, ...rest }) =>
     defaultSanitizeRestProps(rest);
 
-const styles = theme => ({
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
+const styles = (theme: Theme) => createStyles({
     root: {},
     label: {
         transform: 'translate(0, 5px) scale(0.75)',

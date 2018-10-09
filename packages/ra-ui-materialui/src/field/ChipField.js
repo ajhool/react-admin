@@ -7,7 +7,11 @@ import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/s
 import classnames from 'classnames';
 import sanitizeRestProps from './sanitizeRestProps';
 
-const styles = {
+interface IProps extends WithStyles<typeof styles> {
+
+}
+
+const styles = createStyles({
     chip: { margin: 4 },
 };
 

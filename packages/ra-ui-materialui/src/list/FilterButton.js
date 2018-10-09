@@ -11,7 +11,7 @@ import { translate } from 'ra-core';
 import FilterButtonMenuItem from './FilterButtonMenuItem';
 import Button from '../button/Button';
 
-const styles = {
+const styles = createStyles({
     root: { display: 'inline-block' },
 };
 

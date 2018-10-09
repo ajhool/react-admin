@@ -12,7 +12,11 @@ import { toggleSidebar } from 'ra-core';
 
 import LoadingIndicator from './LoadingIndicator';
 
-const styles = {
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
+const styles = createStyles({
     title: {
         fontSize: '1.25em',
         lineHeight: '2.5em',
@@ -31,7 +35,7 @@ const styles = {
         color: '#fff',
         textDecoration: 'none',
     },
-};
+});
 
 /**
  * @deprecated

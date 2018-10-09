@@ -3,7 +3,7 @@ import Chip from '@material-ui/core/Chip';
 import { translate } from 'react-admin';
 import segments from '../segments/data';
 
-const styles = {
+const styles = createStyles({
     main: { display: 'flex', flexWrap: 'wrap' },
     chip: { margin: 4 },
 };

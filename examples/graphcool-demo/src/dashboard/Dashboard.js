@@ -9,7 +9,7 @@ import PendingReviews from './PendingReviews';
 import NewCustomers from './NewCustomers';
 import buildDataProvider from '../dataProvider';
 
-const styles = {
+const styles = createStyles({
     flex: { display: 'flex' },
     flexColumn: { display: 'flex', flexDirection: 'column' },
     leftCol: { flex: 1, marginRight: '1em' },

@@ -9,7 +9,7 @@ import { translate, sanitizeListRestProps } from 'ra-core';
 
 import CardActions from '../layout/CardActions';
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
     toolbar: {
         position: 'absolute',
         top: 0,

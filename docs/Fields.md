@@ -753,7 +753,7 @@ All field components accept a `className` prop, allowing you to customize their 
 ```jsx
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
-const styles = {
+const styles = createStyles({
     price: { color: 'purple' },
 };
 
@@ -782,7 +782,7 @@ You may want to customize the cell style inside a `DataGrid`. You can use the `c
 ```jsx
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
-const styles = {
+const styles = createStyles({
     priceCell: { fontWeight: 'bold' },
 };
 
@@ -809,7 +809,7 @@ You may want to override the field header (the `<th>` element in the datagrid). 
 ```jsx
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
-const styles = {
+const styles = createStyles({
     priceHeader: { fontWeight: 'bold' },
 };
 

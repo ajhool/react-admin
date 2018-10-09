@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import ListItem from '@material-ui/core/ListItem';
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
     expandIcon: {
         margin: 0,
         left: -theme.spacing.unit * 6,

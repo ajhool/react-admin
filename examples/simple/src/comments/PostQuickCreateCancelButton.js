@@ -8,7 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import { translate } from 'react-admin'; // eslint-disable-line import/no-unresolved
 
-const styles = {
+const styles = createStyles({
     button: {
         margin: '10px 24px',
         position: 'relative',

@@ -8,7 +8,7 @@ import { stringify } from 'query-string';
 
 import { ProductIcon } from '../products';
 
-const styles = {
+const styles = createStyles({
     icon: { paddingRight: '0.5em' },
     label: {
         display: 'inline-flex',

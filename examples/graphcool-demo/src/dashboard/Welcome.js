@@ -11,7 +11,7 @@ import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/s
 
 import { translate } from 'react-admin';
 
-const styles = {
+const styles = createStyles({
     media: {
         height: '18em',
     },

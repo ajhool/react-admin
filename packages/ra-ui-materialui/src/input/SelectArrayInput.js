@@ -13,6 +13,10 @@ import compose from 'recompose/compose';
 import classnames from 'classnames';
 import { addField, translate, FieldTitle } from 'ra-core';
 
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
 const sanitizeRestProps = ({
     addLabel,
     allowEmpty,
@@ -51,9 +55,9 @@ const sanitizeRestProps = ({
     translateChoice,
     validation,
     ...rest
-}) => rest;
+}: any): any => rest;
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
     root: {},
     chips: {
         display: 'flex',

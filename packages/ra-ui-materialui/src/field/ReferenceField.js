@@ -8,7 +8,11 @@ import LinearProgress from '../layout/LinearProgress';
 import Link from '../Link';
 import sanitizeRestProps from './sanitizeRestProps';
 
-const styles = theme => ({
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
+const styles = (theme: Theme) => createStyles({
     link: {
         color: theme.palette.primary.main,
     },

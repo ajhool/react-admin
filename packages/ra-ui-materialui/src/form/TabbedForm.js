@@ -18,7 +18,11 @@ import { getDefaultValues, translate, REDUX_FORM_NAME } from 'ra-core';
 import Toolbar from './Toolbar';
 import CardContentInner from '../layout/CardContentInner';
 
-const styles = theme => ({
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
+const styles = (theme: Theme) => createStyles({
     errorTabButton: { color: theme.palette.error.main },
 });
 

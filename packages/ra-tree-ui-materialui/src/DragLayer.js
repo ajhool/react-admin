@@ -8,7 +8,8 @@ import { DragLayer } from 'react-dnd';
 import compose from 'recompose/compose';
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import isEqual from 'lodash/isEqual';
-const styles = {
+
+const styles = createStyles({
     layer: {
         position: 'fixed',
         pointerEvents: 'none',
@@ -19,7 +20,7 @@ const styles = {
         height: '100%',
     },
     item: {},
-};
+});
 
 class CustomDragLayer extends Component {
     static propTypes = {

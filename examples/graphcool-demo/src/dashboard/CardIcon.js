@@ -2,7 +2,7 @@ import React from 'react';
 import Card from '@material-ui/core/Card';
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
-const styles = {
+const styles = createStyles({
     card: {
         float: 'left',
         margin: '-20px 20px 0 15px',

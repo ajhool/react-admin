@@ -43,7 +43,7 @@ const sanitizeRestProps = ({
     translateChoice,
     validation,
     ...rest
-}) => rest;
+}: any): any => rest;
 
 export const ReferenceInputView = ({
     allowEmpty,

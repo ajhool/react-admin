@@ -4,7 +4,7 @@ import compose from 'recompose/compose';
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import { translate } from 'ra-core';
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
     item: {
         alignItems: 'center',
         backgroundColor: theme.palette.action.active,
@@ -17,6 +17,7 @@ const styles = theme => ({
         paddingRight: theme.spacing.unit * 4,
     },
 });
+
 class DragPreview extends Component {
     shouldComponentUpdate() {
         return false;

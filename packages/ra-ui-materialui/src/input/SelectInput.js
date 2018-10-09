@@ -7,6 +7,10 @@ import compose from 'recompose/compose';
 import { addField, translate, FieldTitle } from 'ra-core';
 import ResettableTextField from './ResettableTextField';
 
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
 const sanitizeRestProps = ({
     addLabel,
     allowEmpty,
@@ -44,9 +48,9 @@ const sanitizeRestProps = ({
     translateChoice,
     validation,
     ...rest
-}) => rest;
+}: any): any => rest;
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
     input: {
         minWidth: theme.spacing.unit * 20,
     },

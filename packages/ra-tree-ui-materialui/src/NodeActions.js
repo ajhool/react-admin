@@ -2,7 +2,7 @@ import React, { cloneElement, Children, Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
     root: {
         alignItems: 'center',
         marginLeft: 'auto',

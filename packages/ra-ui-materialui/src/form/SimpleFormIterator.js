@@ -13,7 +13,7 @@ import classNames from 'classnames';
 
 import FormInput from '../form/FormInput';
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
     root: {
         padding: 0,
         marginBottom: 0,

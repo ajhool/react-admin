@@ -11,7 +11,11 @@ import Labeled from './Labeled';
 import FileInputPreview from './FileInputPreview';
 import sanitizeRestProps from './sanitizeRestProps';
 
-const styles = {
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
+const styles = createStyles({
     dropZone: {
         background: '#efefef',
         cursor: 'pointer',
@@ -22,9 +26,9 @@ const styles = {
     preview: {},
     removeButton: {},
     root: { width: '100%' },
-};
+});
 
-export class FileInput extends Component {
+export class FileInput extends Component<IProps> {
     static propTypes = {
         accept: PropTypes.string,
         children: PropTypes.element,

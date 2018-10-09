@@ -7,7 +7,7 @@ import { translate, changeLocale, Title } from 'react-admin';
 
 import { changeTheme } from './actions';
 
-const styles = {
+const styles = createStyles({
     label: { width: '10em', display: 'inline-block' },
     button: { margin: '1em' },
 };

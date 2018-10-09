@@ -7,7 +7,7 @@ import { translate } from 'react-admin';
 
 import CardIcon from './CardIcon';
 
-const styles = {
+const styles = createStyles({
     main: {
         flex: '1',
         marginLeft: '1em',

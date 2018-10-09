@@ -4,9 +4,13 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import { ReferenceManyFieldController } from 'ra-core';
 
-const styles = {
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
+const styles = createStyles({
     progress: { marginTop: '1em' },
-};
+});
 
 export const ReferenceManyFieldView = ({
     children,

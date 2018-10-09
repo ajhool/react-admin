@@ -16,7 +16,7 @@ import CardIcon from './CardIcon';
 
 import StarRatingField from '../reviews/StarRatingField';
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
     main: {
         flex: '1',
         marginRight: '1em',

@@ -170,7 +170,7 @@ export const PostShow = (props) => (
 It is possible to override its style by specifying the `style` prop, for example:
 
 ```jsx
-const styles = {
+const styles = createStyles({
     container: {
         display: 'flex',
     },

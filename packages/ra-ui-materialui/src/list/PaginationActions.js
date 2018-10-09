@@ -8,7 +8,7 @@ import ChevronRight from '@material-ui/icons/ChevronRight';
 import compose from 'recompose/compose';
 import { translate } from 'ra-core';
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
     actions: {
         flexShrink: 0,
         color: theme.palette.text.secondary,

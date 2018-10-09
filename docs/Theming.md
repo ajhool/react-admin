@@ -18,7 +18,7 @@ Here is an example customizing an `EditButton` component inside a `Datagrid`, us
 import { NumberField, List, Datagrid, EditButton } from 'react-admin';
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
-const styles = {
+const styles = createStyles({
     button: {
         fontWeight: 'bold',
         // This is JSS syntax to target a deeper element using css selector, here the svg icon for this button
@@ -436,7 +436,7 @@ import {
     setSidebarVisibility,
 } from 'react-admin';
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
     root: {
         display: 'flex',
         flexDirection: 'column',
@@ -642,7 +642,7 @@ import { MenuItemLink, getResources } from 'react-admin';
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 
-const styles = {
+const styles = createStyles({
     root: {}, // Style applied to the MenuItem from material-ui
     active: { fontWeight: 'bold' }, // Style applied when the menu item is the active one
     icon: {}, // Style applied to the icon

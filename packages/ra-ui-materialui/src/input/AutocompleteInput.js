@@ -15,7 +15,11 @@ import classnames from 'classnames';
 
 import { addField, translate, FieldTitle } from 'ra-core';
 
-const styles = theme => ({
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
+const styles = (theme: Theme) => createStyles({
     container: {
         flexGrow: 1,
         position: 'relative',

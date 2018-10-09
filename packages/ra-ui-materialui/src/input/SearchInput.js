@@ -8,11 +8,15 @@ import { translate } from 'ra-core';
 
 import TextInput from './TextInput';
 
-const searchFilterStyles = {
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
+const searchFilterStyles = createStyles({
     input: {
         marginTop: 32,
     },
-};
+});
 
 const SearchInput = ({ classes, translate, ...props }) => (
     <TextInput

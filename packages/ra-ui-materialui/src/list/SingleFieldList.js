@@ -6,9 +6,9 @@ import { linkToRecord } from 'ra-core';
 
 import Link from '../Link';
 
-const styles = {
+const styles = createStyles({
     root: { display: 'flex', flexWrap: 'wrap' },
-};
+});
 
 const sanitizeRestProps = ({ currentSort, setSort, isLoading, ...props }) =>
     props;

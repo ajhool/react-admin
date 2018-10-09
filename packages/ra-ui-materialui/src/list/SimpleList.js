@@ -11,13 +11,13 @@ import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/s
 import { Link } from 'react-router-dom';
 import { linkToRecord, sanitizeListRestProps } from 'ra-core';
 
-const styles = {
+const styles = createStyles({
     link: {
         textDecoration: 'none',
         color: 'inherit',
     },
     tertiary: { float: 'right', opacity: 0.541176 },
-};
+});
 
 const LinkOrNot = withStyles(styles)(
     ({ classes, linkType, basePath, id, children }) =>

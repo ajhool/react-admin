@@ -8,7 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import compose from 'recompose/compose';
 import { changeTheme } from './actions';
 
-const styles = {
+const styles = createStyles({
     label: { width: '10em', display: 'inline-block' },
     button: { margin: '1em' },
 };

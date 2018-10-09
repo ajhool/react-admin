@@ -9,14 +9,14 @@ import DefaultActions from './ShowActions';
 import TitleForRecord from '../layout/TitleForRecord';
 import CardContentInner from '../layout/CardContentInner';
 
-const styles = {
+const styles = createStyles({
     root: {
         display: 'flex',
     },
     card: {
         flex: '1 1 auto',
     },
-};
+});
 
 const sanitizeRestProps = ({
     actions,

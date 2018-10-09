@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
-const styles = {
+const styles = createStyles({
     toolbar: {
         justifyContent: 'space-between',
     },

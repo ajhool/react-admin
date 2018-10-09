@@ -8,7 +8,11 @@ import classnames from 'classnames';
 
 import { SaveButton, DeleteButton } from '../button';
 
-const styles = {
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
+const styles = createStyles({
     mobileToolbar: {
         position: 'fixed',
         bottom: 0,
@@ -26,7 +30,7 @@ const styles = {
         display: 'flex',
         justifyContent: 'space-between',
     },
-};
+});
 
 const valueOrDefault = (value, defaultValue) =>
     typeof value === 'undefined' ? defaultValue : value;

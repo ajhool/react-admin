@@ -26,7 +26,7 @@ const items = [
     { name: 'Review', icon: <ReviewIcon /> },
 ];
 
-const styles = {
+const styles = createStyles({
     main: {
         display: 'flex',
         flexDirection: 'column',

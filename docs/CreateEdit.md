@@ -679,7 +679,7 @@ The input components are wrapped inside a `div` to ensure a good looking form by
 
 {% raw %}
 ```jsx
-const styles = {
+const styles = createStyles({
     inlineBlock: { display: 'inline-flex', marginRight: '1rem' },
 };
 export const UserEdit = withStyles(styles)(({ classes, ...props }) => (

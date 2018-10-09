@@ -12,7 +12,7 @@ import { Link, translate, crudGetMany as crudGetManyAction } from 'react-admin';
 import compose from 'recompose/compose';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-const styles = {
+const styles = createStyles({
     container: { width: '35em' },
     rightAlignedCell: { textAlign: 'right' },
     boldCell: { fontWeight: 'bold' },

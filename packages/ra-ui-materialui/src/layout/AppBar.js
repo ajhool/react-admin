@@ -16,7 +16,11 @@ import LoadingIndicator from './LoadingIndicator';
 import UserMenu from './UserMenu';
 import Headroom from './Headroom';
 
-const styles = theme => ({
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
+const styles = (theme: Theme) => createStyles({
     toolbar: {
         paddingRight: 24,
     },

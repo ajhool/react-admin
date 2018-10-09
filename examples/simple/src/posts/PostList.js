@@ -45,7 +45,7 @@ const PostFilter = props => (
     </Filter>
 );
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
     title: {
         maxWidth: '20em',
         overflow: 'hidden',

@@ -10,7 +10,11 @@ import ClearIcon from '@material-ui/icons/Clear';
 
 import { translate } from 'ra-core';
 
-const styles = {
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
+const styles = createStyles({
     clearIcon: {
         height: 16,
         width: 0,
@@ -25,7 +29,7 @@ const styles = {
     visibleClearButton: {
         width: 24,
     },
-};
+});
 
 /**
  * An override of the default Material-UI TextField which is resettable

@@ -15,12 +15,12 @@ import DefaultTreeNodeContent from './TreeNodeContent';
 import DefaultTreeNodeWithChildren from './TreeNodeWithChildren';
 import RootDropTarget from './RootDropTarget';
 
-export const styles = {
+export const styles = createStyles({
     root: {
         display: 'flex',
         flexDirection: 'column',
     },
-};
+});
 
 const sanitizeRestProps = ({
     currentSort,

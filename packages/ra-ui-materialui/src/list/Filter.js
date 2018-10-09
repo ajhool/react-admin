@@ -6,7 +6,7 @@ import { sanitizeListRestProps } from 'ra-core';
 import FilterForm from './FilterForm';
 import FilterButton from './FilterButton';
 
-const styles = {
+const styles = createStyles({
     button: {},
     form: {},
 };

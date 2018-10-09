@@ -12,7 +12,11 @@ import { translate } from 'ra-core';
 import Button from '../button/Button';
 import BulkDeleteAction from './BulkDeleteAction';
 
-const styles = theme => ({
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
+const styles = (theme: Theme) => createStyles({
     bulkActionsButton: {
         opacity: 1,
         transition: theme.transitions.create('opacity', {

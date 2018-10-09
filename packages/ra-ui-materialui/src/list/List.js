@@ -14,7 +14,7 @@ import BulkActionsToolbar from './BulkActionsToolbar';
 import DefaultActions from './ListActions';
 import defaultTheme from '../defaultTheme';
 
-const styles = {
+const styles = createStyles({
     root: {
         display: 'flex',
     },

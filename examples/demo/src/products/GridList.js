@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import { NumberField } from 'react-admin';
 import { linkToRecord } from 'ra-core';
 
-const styles = {
+const styles = createStyles({
     root: {
         margin: '-2px',
     },

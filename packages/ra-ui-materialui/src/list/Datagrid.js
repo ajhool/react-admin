@@ -13,7 +13,7 @@ import classnames from 'classnames';
 import DatagridHeaderCell from './DatagridHeaderCell';
 import DatagridBody from './DatagridBody';
 
-const styles = {
+const styles = createStyles({
     table: {
         tableLayout: 'auto',
     },
