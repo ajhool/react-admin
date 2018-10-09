@@ -4,13 +4,20 @@ import PropTypes from 'prop-types';
 import CardActions from '../layout/CardActions';
 import { ListButton } from '../button';
 
+interface IProps {
+    basePath: string;
+    hasList: boolean;
+    className: string;
+    resource: any;
+}
+
 const sanitizeRestProps = ({
     basePath,
     className,
     hasList,
     resource,
     ...rest
-}) => rest;
+}: any): any => rest;
 
 /**
  * Action Toolbar for the Create view
@@ -37,7 +44,7 @@ const sanitizeRestProps = ({
  *         </Create>
  *     );
  */
-const CreateActions = ({ basePath, className, hasList, ...rest }) => (
+const CreateActions: React.SFC<IProps> = ({ basePath, className, hasList, ...rest }) => (
     <CardActions className={className} {...sanitizeRestProps(rest)}>
         {hasList && <ListButton basePath={basePath} />}
     </CardActions>

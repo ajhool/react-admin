@@ -5,7 +5,7 @@ import Queue from '@material-ui/icons/Queue';
 import { Link } from 'react-router-dom';
 import { WithStyles } from '@material-ui/core';
 
-import Button from 'ra-ui-materialui/src/button/Button';
+import Button from './Button';
 
 interface IProps extends WithStyles<{}> {
     basePath: string;

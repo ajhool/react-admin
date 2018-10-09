@@ -336,7 +336,7 @@ All react-admin components now accept a `className` prop instead of the `elStyle
 //    <a style="text-decoration:none" href="mailto:foo@example.com">foo@example.com</a>
 //</td>
 + import { EmailField, List, Datagrid } from 'react-admin';
-+ import { withStyles } from '@material-ui/core/styles';
++ import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 + const styles = {
 +     field: {
 +         textDecoration: 'none',
@@ -358,7 +358,7 @@ In addition to `elStyle`, Field and Input components used to support a `style` p
 ```diff
 - import { EmailField, List, Datagrid } from 'admin-on-rest';
 + import { EmailField, List, Datagrid } from 'react-admin';
-+ import { withStyles } from '@material-ui/core/styles';
++ import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
 + const styles = {
 +     cell: {
@@ -395,7 +395,7 @@ Furthermore, some React-admin components such as the `List`, `Filter`, and `Data
 
 ```jsx
 import { EmailField, List, Datagrid } from 'react-admin';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
 const styles = {
     header: { fontWeight: 'bold' },

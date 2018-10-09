@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import MuiTextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import ClearIcon from '@material-ui/icons/Clear';
 
 import { translate } from 'ra-core';

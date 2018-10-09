@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import pure from 'recompose/pure';
 import Button from '@material-ui/core/Button';
 import TablePaginationActions from '@material-ui/core/TablePaginationActions';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import compose from 'recompose/compose';

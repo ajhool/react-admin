@@ -4,7 +4,7 @@ import shouldUpdate from 'recompose/shouldUpdate';
 import ContentCreate from '@material-ui/icons/Create';
 import { Link } from 'react-router-dom';
 import { linkToRecord } from 'ra-core';
-import { WithStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
 import Button from './Button';
 

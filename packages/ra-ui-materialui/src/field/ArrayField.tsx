@@ -3,9 +3,26 @@ import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import pure from 'recompose/pure';
 
-const initialState = {
-    data: {},
-    ids: [],
+type IRecord = any;
+
+interface IProps {
+    addLabel: boolena;
+    basePath: string;
+    children: PropTypes.element.isRequired,
+    record: IRecord;
+    resource: string;
+    sortBy: string;
+    source: string;
+}
+
+interface IState {
+    data: any;
+    ids: number[];
+}
+
+const initialState: IState = {
+    data: {} as any,
+    ids: [] as number[],
 };
 
 /**
@@ -71,15 +88,15 @@ const initialState = {
  *     )
  *     TagsField.defaultProps = { addLabel: true };
  */
-export class ArrayField extends Component {
-    constructor(props) {
+export class ArrayField extends Component<IProps, IState> {
+    constructor(props: Readonly<IProps>) {
         super(props);
         this.state = props.record
             ? this.getDataAndIds(props.record, props.source)
             : initialState;
     }
 
-    componentWillReceiveProps(nextProps, prevProps) {
+    componentWillReceiveProps(nextProps: IProps, prevProps: IProps) {
         if (nextProps.record !== prevProps.record) {
             this.setState(
                 this.getDataAndIds(nextProps.record, nextProps.source)
@@ -87,7 +104,7 @@ export class ArrayField extends Component {
         }
     }
 
-    getDataAndIds(record, source) {
+    getDataAndIds(record: IRecord, source: string) {
         const list = get(record, source);
         return list
             ? {

@@ -1,12 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import compose from 'recompose/compose';
 import classnames from 'classnames';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { translate } from 'ra-core';
 
-const styles = theme => ({
+interface IProps extends WithStyles<typeof styles> {
+    className: string;
+    translate: (tag: string) => string;
+    loadingPrimary: string;
+    loadingSecondary: string;
+}
+
+const styles = (theme: Theme) => createStyles({
     container: {
         display: 'flex',
         flexDirection: 'column',
@@ -31,7 +38,7 @@ const styles = theme => ({
     },
 });
 
-const Loading = ({
+const Loading: React.SFC<IProps> = ({
     classes,
     className,
     translate,
@@ -60,7 +67,7 @@ Loading.defaultProps = {
     loadingSecondary: 'ra.message.loading',
 };
 
-const enhance = compose(
+const enhance = compose<IProps, {}>(
     withStyles(styles),
     translate
 );

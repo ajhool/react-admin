@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import Drawer from '@material-ui/core/Drawer';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
 import { setSidebarVisibility } from 'ra-core';
 
@@ -12,7 +12,16 @@ import Responsive from './Responsive';
 export const DRAWER_WIDTH = 240;
 export const CLOSED_DRAWER_WIDTH = 55;
 
-const styles = theme => ({
+interface IProps extends WithStyles<typeof styles> {
+    children: ReactNode;
+    open: boolean;
+    setSidebarVisibility: (isOpen: boolean) => any;
+    closedSize?: number,
+    size?: number;
+    width?: string;
+}
+
+const styles = (theme: Theme) => createStyles({
     drawerPaper: {
         position: 'relative',
         height: 'auto',
@@ -39,7 +48,22 @@ const styles = theme => ({
 
 // We shouldn't need PureComponent here as it's connected
 // but for some reason it keeps rendering even though mapStateToProps returns the same object
-class Sidebar extends PureComponent {
+class Sidebar extends PureComponent<IProps> {
+    static propTypes = {
+        children: PropTypes.node.isRequired,
+        classes: PropTypes.object,
+        closedSize: PropTypes.number,
+        open: PropTypes.bool.isRequired,
+        setSidebarVisibility: PropTypes.func.isRequired,
+        size: PropTypes.number,
+        width: PropTypes.string,
+    };
+
+    static defaultProps = {
+        size: DRAWER_WIDTH,
+        closedSize: CLOSED_DRAWER_WIDTH,
+    };
+
     componentWillMount() {
         const { width, setSidebarVisibility } = this.props;
         if (width !== 'xs' && width !== 'sm') {
@@ -121,27 +145,24 @@ class Sidebar extends PureComponent {
     }
 }
 
-Sidebar.propTypes = {
-    children: PropTypes.node.isRequired,
-    classes: PropTypes.object,
-    closedSize: PropTypes.number,
-    open: PropTypes.bool.isRequired,
-    setSidebarVisibility: PropTypes.func.isRequired,
-    size: PropTypes.number,
-    width: PropTypes.string,
-};
+interface IState {
+    admin: {
+        ui: {
+            sidebarOpen: boolean;
+            [rest: string]: any;
+        }
+        [rest: string]: any;
+    }
+    locale: string;
+    [rest: string]: any;
+}
 
-Sidebar.defaultProps = {
-    size: DRAWER_WIDTH,
-    closedSize: CLOSED_DRAWER_WIDTH,
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: IState) => ({
     open: state.admin.ui.sidebarOpen,
     locale: state.locale, // force redraw on locale change
 });
 
-export default compose(
+export default compose<IProps, {}>(
     connect(
         mapStateToProps,
         { setSidebarVisibility }

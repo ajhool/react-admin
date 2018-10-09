@@ -2,19 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import compose from 'recompose/compose';
 
 import RefreshIconButton from '../button/RefreshIconButton';
 
-const styles = {
+interface IProps extends WithStyles<typeof styles> {
+    classes: any;
+    className: string;
+    isLoading: boolean;
+    width: string;
+}
+
+const styles = createStyles({
     loader: {
         margin: 14,
     },
-};
+});
 
-export const LoadingIndicator = ({ classes, className, isLoading, ...rest }) =>
+export const LoadingIndicator: React.SFC<IProps> = ({ classes, className, isLoading, ...rest }) =>
     isLoading ? (
         <CircularProgress
             className={classNames('app-loader', classes.loader, className)}
@@ -34,11 +41,16 @@ LoadingIndicator.propTypes = {
     width: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
+interface IState {
+    admin: { loading: number }
+    [key: string]: any;
+}
+
+const mapStateToProps = (state: IState) => ({
     isLoading: state.admin.loading > 0,
 });
 
-export default compose(
+export default compose<IProps, {}>(
     connect(
         mapStateToProps,
         {} // Avoid connect passing dispatch in props

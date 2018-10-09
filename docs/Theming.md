@@ -16,7 +16,7 @@ Here is an example customizing an `EditButton` component inside a `Datagrid`, us
 {% raw %}
 ```jsx
 import { NumberField, List, Datagrid, EditButton } from 'react-admin';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
 const styles = {
     button: {
@@ -65,7 +65,7 @@ import {
     TextInput,
 } from 'react-admin';
 import Icon from '@material-ui/icons/Person';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
 export const VisitorIcon = Icon;
 
@@ -142,7 +142,7 @@ Sometimes you want the format to depend on the value. The following example show
 {% raw %}
 ```jsx
 import { NumberField, List, Datagrid, EditButton } from 'react-admin';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
 const coloredStyles = {
@@ -182,7 +182,7 @@ Furthermore, you may extract this highlighting strategy into an Higher Order Com
 {% raw %}
 ```jsx
 import { NumberField, List, Datagrid, EditButton } from 'react-admin';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
 const coloredStyles = {
@@ -639,7 +639,7 @@ If the default active style does not suit your tastes, you can override it by pa
 import React from 'react';
 import { connect } from 'react-redux';
 import { MenuItemLink, getResources } from 'react-admin';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 
 const styles = {

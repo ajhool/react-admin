@@ -20,7 +20,7 @@ import {
     TextField,
     TextInput,
 } from 'react-admin';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/icons/Person';
 
 import NbItemsField from '../commands/NbItemsField';

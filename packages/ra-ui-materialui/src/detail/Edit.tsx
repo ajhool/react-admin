@@ -2,22 +2,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, WithStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { EditController } from 'ra-core';
 
 import DefaultActions from './EditActions';
-import TitleForRecord from '../layout/TitleForRecord';
-import CardContentInner from '../layout/CardContentInner';
+import TitleForRecord from './TitleForRecord';
+import CardContentInner from './CardContentInner';
 
-const styles = {
+interface IProps extends WithStyles<typeof styles> {
+    actions: ReactElement;
+    aside: ReactNode;
+    basePath: string;
+    children: ReactElement;
+    className: string;
+    defaultTitle: any;
+    hasList: boolean;
+    hasShow: boolean;
+    record: any;
+    redirect: string | boolean;
+    resource: string;
+    save: VoidFunction;
+    title: any;
+    version: number;
+}
+
+const styles = createStyles({
     root: {
         display: 'flex',
     },
     card: {
         flex: '1 1 auto',
     },
-};
+});
 
 const sanitizeRestProps = ({
     actions,
@@ -46,9 +63,9 @@ const sanitizeRestProps = ({
     permissions,
     undoable,
     ...rest
-}) => rest;
+}: any): any => rest;
 
-export const EditView = ({
+export const EditView: React.SFC<IProps> = ({
     actions,
     aside,
     basePath,
@@ -182,7 +199,22 @@ EditView.defaultProps = {
  *     );
  *     export default App;
  */
-export const Edit = props => (
+interface IEditProps {
+    actions: ReactElement;
+    aside: ReactNode;
+    children: ReactNode;
+    classes: PropTypes.object,
+    className: string;
+    hasCreate: boolean;
+    hasEdit: boolean;
+    hasShow: boolean;
+    hasList: boolean;
+    id: any;
+    resource: string;
+    title: any;
+}
+
+export const Edit: React.SFC<IEditProps> = props => (
     <EditController {...props}>
         {controllerProps => <EditView {...props} {...controllerProps} />}
     </EditController>

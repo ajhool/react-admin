@@ -17,4 +17,4 @@ export default ({
     textAlign,
     translateChoice,
     ...rest
-}) => rest;
+}: any): any => rest;

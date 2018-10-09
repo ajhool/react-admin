@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
-import withWidth from '@material-ui/core/withWidth';
+import { withWidth } from '@material-ui/core';
+import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 
-export const Responsive = ({
+interface IProps {
+    xsmall?: ReactElement<any>;
+    small?: ReactElement<any>;
+    medium?: ReactElement<any>;
+    large?: ReactElement<any>;
+    width: Breakpoint;
+}
+
+export const Responsive: React.SFC<IProps> = ({
     xsmall,
     small,
     medium,

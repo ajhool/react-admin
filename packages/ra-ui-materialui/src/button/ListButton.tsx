@@ -10,7 +10,7 @@ interface IProps {
     label: string;
 }
 
-const ListButton: React.SFC = ({ basePath = '', label = 'ra.action.list', ...rest }) => (
+const ListButton: React.SFC<IProps> = ({ basePath = '', label = 'ra.action.list', ...rest }) => (
     <Button component={Link} to={basePath} label={label} {...rest}>
         <ActionList />
     </Button>

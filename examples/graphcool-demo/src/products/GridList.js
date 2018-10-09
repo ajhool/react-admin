@@ -3,7 +3,7 @@ import compose from 'recompose/compose';
 import MuiGridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
 import IconButton from '@material-ui/core/IconButton';
 import ContentCreate from '@material-ui/icons/Create';

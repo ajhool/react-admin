@@ -4,7 +4,7 @@ import { EditButton, translate, NumberField } from 'react-admin';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import AvatarField from './AvatarField';
 import { ColoredNumberField } from './index';
 

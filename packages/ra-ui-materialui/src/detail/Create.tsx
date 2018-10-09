@@ -1,21 +1,37 @@
-import React from 'react';
+import React, { ReactElement, ReactNode, ReactChild } from 'react';
 import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, WithStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { CreateController } from 'ra-core';
 
 import TitleForRecord from '../layout/TitleForRecord';
 import CardContentInner from '../layout/CardContentInner';
 
-const styles = {
+interface IProps extends WithStyles<typeof styles> {
+    actions: ReactElement<any>;
+    aside: ReactNode;
+    basePath: string;
+    children: ReactChild;
+    className: string;
+    defaultTitle: any;
+    hasList: boolean;
+    hasShow: boolean;
+    record: any;
+    redirect: string | boolean;
+    resource: string;
+    save: VoidFunction;
+    title: any;
+}
+
+const styles = createStyles({
     root: {
         display: 'flex',
     },
     card: {
         flex: '1 1 auto',
     },
-};
+});
 
 const sanitizeRestProps = ({
     actions,
@@ -37,9 +53,9 @@ const sanitizeRestProps = ({
     permissions,
     translate,
     ...rest
-}) => rest;
+}: any): any => rest;
 
-export const CreateView = ({
+export const CreateView: React.SFC<IProps> = ({
     actions,
     aside,
     basePath,

@@ -1,6 +1,6 @@
 import React from 'react';
 import ChipInput from 'material-ui-chip-input';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
 const chipInputStyles = {
     label: {

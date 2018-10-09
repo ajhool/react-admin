@@ -1,11 +1,20 @@
-import React, { cloneElement, Component } from 'react';
+import React, { cloneElement, Component, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import MenuItem from '@material-ui/core/MenuItem';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
+interface IProps extends WithStyles<typeof styles> {
+    className: string;
+    leftIcon: ReactNode;
+    onClick: () => void;
+    primaryText: string;
+    staticContext: object;
+    to: string;
+}
+
+const styles = (theme: Theme) => ({
     root: {
         color: theme.palette.text.secondary,
         display: 'flex',
@@ -17,7 +26,7 @@ const styles = theme => ({
     icon: { paddingRight: '1.2em' },
 });
 
-export class MenuItemLink extends Component {
+export class MenuItemLink extends Component<IProps> {
     static propTypes = {
         classes: PropTypes.object.isRequired,
         className: PropTypes.string,
@@ -29,6 +38,7 @@ export class MenuItemLink extends Component {
     };
 
     handleMenuTap = () => {
+        // tslint:disable-next-line:no-unused-expression
         this.props.onClick && this.props.onClick();
     };
 

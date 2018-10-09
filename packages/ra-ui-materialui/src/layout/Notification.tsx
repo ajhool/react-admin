@@ -20,6 +20,7 @@ interface INotification {
     type: string;
     autoHideDuration: number;
     messageArgs: object;
+    undoable: true;
 }
 
 interface IState {
@@ -54,7 +55,7 @@ class Notification extends React.Component<IProps, IState> {
     public state = {
         open: false,
     };
-    
+
     componentWillMount = () => {
         this.setOpenState(this.props);
     };

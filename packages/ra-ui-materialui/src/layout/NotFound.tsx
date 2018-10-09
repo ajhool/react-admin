@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import HotTub from '@material-ui/icons/HotTub';
 import History from '@material-ui/icons/History';
 import compose from 'recompose/compose';
@@ -10,7 +10,13 @@ import classnames from 'classnames';
 import { translate } from 'ra-core';
 import Title from './Title';
 
-const styles = theme => ({
+interface IProps extends WithStyles<typeof styles> {
+    className: string;
+    title: string;
+    translate: (tag: string) => string;
+}
+
+const styles = (theme: Theme) => createStyles({
     container: {
         display: 'flex',
         flexDirection: 'column',
@@ -43,7 +49,7 @@ function goBack() {
     history.go(-1);
 }
 
-const NotFound = ({ classes, className, translate, title, ...rest }) => (
+const NotFound: React.SFC<IProps> = ({ classes, className, translate, title, ...rest }) => (
     <div className={classnames(classes.container, className)} {...rest}>
         <Title defaultTitle={title} />
         <div className={classes.message}>
@@ -66,7 +72,7 @@ NotFound.propTypes = {
     translate: PropTypes.func.isRequired,
 };
 
-const enhance = compose(
+const enhance = compose<IProps, {}>(
     withStyles(styles),
     translate
 );

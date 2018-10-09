@@ -1,26 +1,38 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import inflection from 'inflection';
 import compose from 'recompose/compose';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, WithStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import { getResources, translate } from 'ra-core';
 import DefaultIcon from '@material-ui/icons/ViewList';
 
 import DashboardMenuItem from './DashboardMenuItem';
 import MenuItemLink from './MenuItemLink';
-import Responsive from '../layout/Responsive';
+import Responsive from './Responsive';
 
-const styles = {
+interface IProps extends WithStyles<typeof styles> {
+    className: string;
+    dense: boolean;
+    hasDashboard: boolean;
+    logout: ReactElement;
+    onMenuClick: () => void;
+    open: boolean;
+    pathname: string;
+    resources: any[];
+    translate: any;
+}
+
+const styles = createStyles({
     main: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-start',
     },
-};
+});
 
-const translatedResourceName = (resource, translate) =>
+const translatedResourceName = (resource: any, translate: any) =>
     translate(`resources.${resource.name}.name`, {
         smart_count: 2,
         _:
@@ -32,7 +44,7 @@ const translatedResourceName = (resource, translate) =>
                 : inflection.humanize(inflection.pluralize(resource.name)),
     });
 
-const Menu = ({
+const Menu: React.SFC<IProps> = ({
     classes,
     className,
     dense,
@@ -88,7 +100,7 @@ const mapStateToProps = state => ({
     pathname: state.routing.location.pathname, // used to force redraw on navigation
 });
 
-const enhance = compose(
+const enhance = compose<IProps, {}>(
     translate,
     connect(
         mapStateToProps,
