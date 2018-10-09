@@ -7,11 +7,23 @@ import { translate } from 'ra-core';
 
 import FormInput from './FormInput';
 
-const sanitizeRestProps = ({ label, icon, value, translate, ...rest }) => rest;
+const sanitizeRestProps = ({ label, icon, value, translate, ...rest }: any): any => rest;
 
 const hiddenStyle = { display: 'none' };
 
 class FormTab extends Component {
+    static propTypes = {
+        className: PropTypes.string,
+        children: PropTypes.node,
+        context: PropTypes.oneOf(['header', 'content']),
+        hidden: PropTypes.bool,
+        icon: PropTypes.element,
+        label: PropTypes.string.isRequired,
+        path: PropTypes.string,
+        translate: PropTypes.func.isRequired,
+        value: PropTypes.string,
+    }
+
     renderHeader = ({ className, label, icon, value, translate, ...rest }) => {
         const to = { pathname: value, state: { skipFormReset: true } };
 
@@ -48,18 +60,6 @@ class FormTab extends Component {
             : this.renderContent({ children, ...rest });
     }
 }
-
-FormTab.propTypes = {
-    className: PropTypes.string,
-    children: PropTypes.node,
-    context: PropTypes.oneOf(['header', 'content']),
-    hidden: PropTypes.bool,
-    icon: PropTypes.element,
-    label: PropTypes.string.isRequired,
-    path: PropTypes.string,
-    translate: PropTypes.func.isRequired,
-    value: PropTypes.string,
-};
 
 FormTab.displayName = 'FormTab';
 

@@ -1,7 +1,7 @@
 import QuillSnowStylesheet from './QuillSnowStylesheet';
 
 export default {
-    '@global': Object.assign({}, QuillSnowStylesheet, {
+    '@global': {...QuillSnowStylesheet,
         '.ra-rich-text-input': {
             '& .ql-editor': {
                 fontSize: '1rem',
@@ -129,6 +129,5 @@ export default {
                     border: 0,
                 },
             },
-        },
-    }),
+        }},
 };

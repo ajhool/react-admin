@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, DispatchProp } from 'react-redux';
 import compose from 'recompose/compose';
 import ActionDelete from '@material-ui/icons/Delete';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { crudDeleteMany, startUndoable } from 'ra-core';
 
-import Button from './Button';
+import Button from 'ra-ui-materialui/src/button/Button';
+
+interface IProps extends WithStyles<typeof styles> {
+    basePath: string;
+    dispatchCrudDeleteMany: DispatchProp,
+    filterValues: any,
+    label: string;
+    resource: string,
+    selectedIds: any[];
+    startUndoable: VoidFunction,
+    undoable: boolean;
+}
 
 const sanitizeRestProps = ({
     basePath,
@@ -20,9 +31,9 @@ const sanitizeRestProps = ({
     startUndoable,
     undoable,
     ...rest
-}) => rest;
+}: any): any => rest;
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
     deleteButton: {
         color: theme.palette.error.main,
         '&:hover': {
@@ -35,7 +46,18 @@ const styles = theme => ({
     },
 });
 
-class BulkDeleteButton extends Component {
+class BulkDeleteButton extends Component<IProps> {
+    static propTypes = {
+        basePath: PropTypes.string,
+        classes: PropTypes.object,
+        dispatchCrudDeleteMany: PropTypes.func.isRequired,
+        label: PropTypes.string,
+        resource: PropTypes.string.isRequired,
+        startUndoable: PropTypes.func,
+        selectedIds: PropTypes.arrayOf(PropTypes.any).isRequired,
+        undoable: PropTypes.bool,
+    };
+
     handleClick = () => {
         const {
             basePath,
@@ -66,17 +88,6 @@ class BulkDeleteButton extends Component {
         );
     }
 }
-
-BulkDeleteButton.propTypes = {
-    basePath: PropTypes.string,
-    classes: PropTypes.object,
-    dispatchCrudDeleteMany: PropTypes.func.isRequired,
-    label: PropTypes.string,
-    resource: PropTypes.string.isRequired,
-    startUndoable: PropTypes.func,
-    selectedIds: PropTypes.arrayOf(PropTypes.any).isRequired,
-    undoable: PropTypes.bool,
-};
 
 const EnhancedBulkDeleteButton = compose(
     connect(

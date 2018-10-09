@@ -3,7 +3,7 @@ import localeReducer from './locale';
 import messagedReducer from './messages';
 import loading from './loading';
 
-export default (initialLocale, defaultMessages) =>
+export default (initialLocale: string, defaultMessages: string) =>
     combineReducers({
         locale: localeReducer(initialLocale),
         messages: messagedReducer(defaultMessages),

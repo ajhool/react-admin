@@ -16,7 +16,7 @@ import recordForm from './recordForm';
  * @param {Object} authProvider An auth Provider function
  * @param {Object} i18nProvider An i18n Language Provider function
  */
-export default (dataProvider, authProvider, i18nProvider) =>
+export default (dataProvider: I18NProvider, authProvider: AuthProvider, i18nProvider: I18NProvider) =>
     function* admin() {
         yield all([
             i18n(i18nProvider)(),

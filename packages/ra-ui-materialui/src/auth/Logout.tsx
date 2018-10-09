@@ -1,16 +1,14 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import MenuItem from '@material-ui/core/MenuItem';
-import { withStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { withStyles, Theme, createStyles, WithStyles } from '@material-ui/core/styles';
 import ExitIcon from '@material-ui/icons/PowerSettingsNew';
 import * as classnames from 'classnames';
 import { translate, userLogout as userLogoutAction } from 'ra-core';
 
-
-interface IProps {
-    classes: any;
+interface IProps extends WithStyles<typeof styles> {
     className: string;
     translate: translate;
     userLogout: typeof userLogoutAction;
@@ -47,31 +45,26 @@ const sanitizeRestProps = ({
  *
  * Used for the Logout Menu item in the sidebar
  */
-class Logout extends PureComponent<IProps>{
-    static propTypes = {
-        classes: PropTypes.object,
-        className: PropTypes.string,
-        translate: PropTypes.func,
-        userLogout: PropTypes.func,
-        redirectTo: PropTypes.string,
-    }
+const Logout: React.SFC<IProps> = ({ classes, className, translate, userLogout, ...rest }) => (
+        <MenuItem
+            className={classnames('logout', classes.menuItem, className)}
+            onClick={userLogout}
+            {...sanitizeRestProps(rest)}
+        >
+            <span className={classes.iconMenuPaddingStyle}>
+                <ExitIcon />
+            </span>
+            {translate('ra.auth.logout')}
+        </MenuItem>
+    );
 
-    render(){
-        const { classes, className, translate, userLogout, ...rest } = this.props;
-        return (
-            <MenuItem
-                className={classnames('logout', classes.menuItem, className)}
-                onClick={userLogout}
-                {...sanitizeRestProps(rest)}
-            >
-                <span className={classes.iconMenuPaddingStyle}>
-                    <ExitIcon />
-                </span>
-                {translate('ra.auth.logout')}
-            </MenuItem>
-        )
-    }
-};
+Logout.propTypes = {
+    classes: PropTypes.object,
+    className: PropTypes.string,
+    translate: PropTypes.func,
+    userLogout: PropTypes.func,
+    redirectTo: PropTypes.string,
+}
 
 const mapStateToProps = (state: IState) => ({
     theme: state.theme,

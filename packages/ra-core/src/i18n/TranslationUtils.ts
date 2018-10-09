@@ -26,6 +26,7 @@ import { DEFAULT_LOCALE } from '.';
 export const resolveBrowserLocale = (defaultLocale = DEFAULT_LOCALE) => {
     // from http://blog.ksol.fr/user-locale-detection-browser-javascript/
     // Rely on the window.navigator object to determine user locale
+    // @ts-ignore browserLanguage and userLanguage are nonstandard navigator fields.
     const { language, browserLanguage, userLanguage } = window.navigator;
     return (language || browserLanguage || userLanguage || defaultLocale).split(
         '-'
@@ -51,5 +52,5 @@ export const resolveBrowserLocale = (defaultLocale = DEFAULT_LOCALE) => {
  *         </Admin>
  *     );
  */
-export const mergeTranslations = (...translationsModules) =>
+export const mergeTranslations = (...translationsModules: any[]) =>
     merge({}, ...translationsModules);

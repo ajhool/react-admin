@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ReactChildren, ChangeEventHandler } from 'react';
 import PropTypes from 'prop-types';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import { FieldTitle } from 'ra-core';
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
     label: {
         position: 'relative',
     },
@@ -23,6 +23,23 @@ const styles = theme => ({
     },
 });
 
+interface IProps extends WithStyles<typeof styles> {
+    basePath: string;
+    children: ReactChildren;
+    className: string;
+    fullWidth: boolean;
+    id: string;
+    input: object;
+    isRequired: boolean;
+    label: string;
+    meta: object;
+    onChange: ChangeEventHandler;
+    record: object;
+    resource: string;
+    source: string;
+    labelStyle: object;
+}
+
 /**
  * Use any component as read-only Input, labeled just like other Inputs.
  *
@@ -38,7 +55,7 @@ const styles = theme => ({
  *     <FooComponent source="title" />
  * </Labeled>
  */
-export const Labeled = ({
+export const Labeled: React.SFC<IProps> = ({
     children,
     classes,
     className,
@@ -69,7 +86,7 @@ export const Labeled = ({
             fullWidth={fullWidth}
             error={meta && meta.touched && meta.error}
         >
-            <InputLabel htmlFor={id} shrink className={classes.label}>
+            <InputLabel htmlFor={id} shrink={true} className={classes.label}>
                 <FieldTitle
                     label={label}
                     source={source}
@@ -80,15 +97,15 @@ export const Labeled = ({
             <div className={classes.value}>
                 {children && typeof children.type !== 'string'
                     ? React.cloneElement(children, {
-                          input,
-                          resource,
-                          ...restProps,
-                      })
+                        input,
+                        resource,
+                        ...restProps,
+                    })
                     : children}
             </div>
         </FormControl>
     );
-};
+}
 
 Labeled.propTypes = {
     basePath: PropTypes.string,
@@ -106,6 +123,6 @@ Labeled.propTypes = {
     resource: PropTypes.string,
     source: PropTypes.string,
     labelStyle: PropTypes.object,
-};
+}
 
 export default withStyles(styles)(Labeled);

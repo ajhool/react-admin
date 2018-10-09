@@ -16,13 +16,13 @@ export const CRUD_GET_LIST_LOADING = 'RA/CRUD_GET_LIST_LOADING';
 export const CRUD_GET_LIST_FAILURE = 'RA/CRUD_GET_LIST_FAILURE';
 export const CRUD_GET_LIST_SUCCESS = 'RA/CRUD_GET_LIST_SUCCESS';
 
-export interface ResponsePayload {
+export interface IResponsePayload {
     pagination: string;
     sort: string;
     filter: string;
 }
 
-export interface ResponseMeta {
+export interface IResponseMeta {
     resource: string;
     fetch: string;
     onFailure: {
@@ -32,17 +32,23 @@ export interface ResponseMeta {
         }
     }
     onSuccess: {
-        
     }
 }
 
-export interface Response {
+export interface IResponse {
     type: string;
-    payload: ResponsePayload;
-    meta: ResponseMeta;
+    payload: IResponsePayload;
+    meta: IResponseMeta;
 }
 
-export const crudGetList = (resource: IResource, pagination, sort, filter): GetListResponse => ({
+interface IPagination {
+    page: number;
+    perPage: number;
+}
+
+type ISort = 'ASC' | 'DESC';
+
+export const crudGetList = (resource: IResource, pagination: IPagination, sort: ISort, filter: string) => ({
     type: CRUD_GET_LIST,
     payload: { pagination, sort, filter },
     meta: {
@@ -62,7 +68,7 @@ export const CRUD_GET_ALL_LOADING = 'RA/CRUD_GET_ALL_LOADING';
 export const CRUD_GET_ALL_FAILURE = 'RA/CRUD_GET_ALL_FAILURE';
 export const CRUD_GET_ALL_SUCCESS = 'RA/CRUD_GET_ALL_SUCCESS';
 
-export const crudGetAll = (resource: IResource, sort, filter, maxResults, callback) => ({
+export const crudGetAll = (resource: IResource, sort: ISort, filter: string, maxResults: number, callback: VoidFunction) => ({
     type: CRUD_GET_ALL,
     payload: { sort, filter, pagination: { page: 1, perPage: maxResults } },
     meta: {
@@ -108,7 +114,7 @@ export const CRUD_CREATE_LOADING = 'RA/CRUD_CREATE_LOADING';
 export const CRUD_CREATE_FAILURE = 'RA/CRUD_CREATE_FAILURE';
 export const CRUD_CREATE_SUCCESS = 'RA/CRUD_CREATE_SUCCESS';
 
-export const crudCreate = (resource: IResource, data, basePath: string, redirectTo: string = 'edit') => ({
+export const crudCreate = (resource: IResource, data: any, basePath: string, redirectTo: string = 'edit') => ({
     type: CRUD_CREATE,
     payload: { data },
     meta: {
@@ -312,11 +318,11 @@ export const CRUD_GET_MATCHING_FAILURE = 'RA/CRUD_GET_MATCHING_FAILURE';
 export const CRUD_GET_MATCHING_SUCCESS = 'RA/CRUD_GET_MATCHING_SUCCESS';
 
 export const crudGetMatching = (
-    reference,
+    reference: number,
     relatedTo: string,
-    pagination,
-    sort,
-    filter
+    pagination: IPagination,
+    sort: ISort,
+    filter: VoidFunction
 ) => ({
     type: CRUD_GET_MATCHING,
     payload: { pagination, sort, filter },
@@ -342,14 +348,14 @@ export const CRUD_GET_MANY_REFERENCE_SUCCESS =
     'RA/CRUD_GET_MANY_REFERENCE_SUCCESS';
 
 export const crudGetManyReference = (
-    reference,
-    target,
+    reference: string,
+    target: string,
     id: number,
-    relatedTo,
-    pagination,
-    sort,
-    filter,
-    source
+    relatedTo: number,
+    pagination: IPagination,
+    sort: ISort,
+    filter: VoidFunction,
+    source: string
 ) => ({
     type: CRUD_GET_MANY_REFERENCE,
     payload: { target, id, pagination, sort, filter, source },

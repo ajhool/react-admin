@@ -1,4 +1,4 @@
-import React, { createElement } from 'react';
+import React, { createElement, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createHashHistory';
@@ -9,13 +9,39 @@ import withContext from 'recompose/withContext';
 import createAdminStore from './createAdminStore';
 import TranslationProvider from './i18n/TranslationProvider';
 import CoreAdminRouter from './CoreAdminRouter';
+import { History } from 'history';
+
+type ComponentOrFunction = React.Component | (() => React.Component);
+
+interface IProps {
+    appLayout: ComponentOrFunction;
+    authProvider: string;
+    children: ComponentOrFunction;
+    catchAll: ComponentOrFunction;
+    customSagas: Array<any>;
+    customReducers: any;
+    customRoutes: Array<string>;
+    dashboard: ComponentOrFunction;
+    dataProvider: string;
+    history: History;
+    i18nProvider: I18NProvider;
+    initialState: string;
+    loading: ComponentOrFunction;
+    locale: string;
+    loginPage: ComponentOrFunction;
+    logoutButton: ComponentOrFunction;
+    menu: ComponentOrFunction;
+    theme: object;
+    title: ReactNode;
+}
 
 const componentPropType = PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.string,
 ]);
 
-class CoreAdmin extends React.Component {
+
+class CoreAdmin extends React.Component<IProps> {
     static propTypes = {
         appLayout: componentPropType,
         authProvider: PropTypes.func,
@@ -42,10 +68,10 @@ class CoreAdmin extends React.Component {
         store: PropTypes.object,
     };
 
-    reduxIsAlreadyInitialized = false;
-    history = null;
+    reduxIsAlreadyInitialized: boolean = false;
+    history: History | null = null;
 
-    constructor(props, context) {
+    constructor(props: IProps, context) {
         super(props, context);
         if (context.store) {
             this.reduxIsAlreadyInitialized = true;
@@ -84,7 +110,7 @@ React-admin requires a valid dataProvider function to work.`);
 
         return (
             <TranslationProvider>
-                <ConnectedRouter history={this.history}>
+                <ConnectedRouter history={this.history!}>
                     <Switch>
                         <Route
                             exact

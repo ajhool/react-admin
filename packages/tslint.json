@@ -11,6 +11,8 @@
     "member-ordering": false,
     "semicolon": false,
     "no-shadowed-variable": false,
-    
+    "max-line-length": false,
+    "jsx-no-multiline-js": false,
+    "object-literal-key-quotes": false
   }
 }

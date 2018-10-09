@@ -8,13 +8,13 @@ export const changeListParams = (resource: string, params: any) => ({
     meta: { resource },
 });
 
-export const setListSelectedIds = (resource: string, ids: string[] | number[] ) => ({
+export const setListSelectedIds = (resource: string, ids: number[]) => ({
     type: SET_LIST_SELECTED_IDS,
     payload: ids,
     meta: { resource },
 });
 
-export const toggleListItem = (resource: string, id: string | number) => ({
+export const toggleListItem = (resource: string, id: number) => ({
     type: TOGGLE_LIST_ITEM,
     payload: id,
     meta: { resource },

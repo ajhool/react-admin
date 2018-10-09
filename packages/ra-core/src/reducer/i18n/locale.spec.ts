@@ -1,7 +1,7 @@
 import assert from 'assert';
 
 import reducer from './locale';
-import { DEFAULT_LOCALE } from '../../i18n/index';
+import { DEFAULT_LOCALE } from '../../i18n';
 import {
     CHANGE_LOCALE_SUCCESS,
     CHANGE_LOCALE_FAILURE,

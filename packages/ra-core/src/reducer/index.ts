@@ -26,3 +26,10 @@ export const getReferenceResource = (state, props) =>
 export const isLoggedIn = state => adminIsLoggedIn(state.admin);
 export const getLocale = state => adminGetLocale(state.i18n);
 export { getPossibleReferences } from './admin';
+
+interface IRootState {
+    admin:
+    i18n:   
+    form: any;
+    routing: any;
+}

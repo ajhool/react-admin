@@ -5,9 +5,10 @@ import {
     changeLocaleFailure,
 } from '../actions';
 import I18NProvider from 'ra-language-english';
+import { SagaIterator } from 'redux-saga';
 
 export default (i18nProvider: I18NProvider) => {
-    function* loadMessages(action: any) {
+    function* loadMessages(action: any): SagaIterator {
         const locale = action.payload;
 
         try {
@@ -17,7 +18,7 @@ export default (i18nProvider: I18NProvider) => {
             yield put(changeLocaleFailure(action.payload.locale, err));
         }
     }
-    return function*() {
+    return function*(): SagaIterator  {
         yield all([takeLatest(CHANGE_LOCALE, loadMessages)]);
     };
 };

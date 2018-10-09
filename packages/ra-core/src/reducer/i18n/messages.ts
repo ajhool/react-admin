@@ -1,4 +1,4 @@
-import { CHANGE_LOCALE_SUCCESS } from '../../actions/index';
+import { CHANGE_LOCALE_SUCCESS } from '../../actions';
 
 export default defaultMessages => {
     return (previousState = defaultMessages, { type, payload }) => {

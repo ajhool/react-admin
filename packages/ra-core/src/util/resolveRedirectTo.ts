@@ -4,7 +4,7 @@ type RedirectFunc = (basePath: string, id: string | number, data?: any) => strin
 
 type RedirectTo = 'list' | 'create' | 'edit' | 'show' | string | RedirectFunc;
 
-export default (redirectTo: RedirectTo, basePath: string, id: string | number, data?: string) => {
+export default (redirectTo: RedirectTo, basePath: string, id: number, data?: string) => {
     if (typeof redirectTo === 'function') {
         return redirectTo(basePath, id, data);
     }

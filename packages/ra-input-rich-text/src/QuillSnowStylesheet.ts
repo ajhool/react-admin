@@ -4,15 +4,15 @@ import { CSSProperties } from 'react';
 /**
  * Almost all of these entries have the form:
  *  [className: string]: CSSProperties
- * However, '@media (pointer: coarse)': 
+ * However, '@media (pointer: coarse)':
  *      has a value with signature: { [className: string]: CSSProperties }
  */
-type CSSStylesheet = { 
+export interface ICSSStylesheet {
     [className: string]: CSSProperties | { [className: string]: CSSProperties };
     '@media (pointer: coarse)': { [className: string]: CSSProperties }
 };
 
-const QuillSnowStylesheet: CSSStylesheet = {
+const QuillSnowStylesheet: ICSSStylesheet = {
     '.ql-container': {
         boxSizing: 'border-box',
         fontFamily: 'Helvetica, Arial, sans-serif',
@@ -53,6 +53,7 @@ const QuillSnowStylesheet: CSSStylesheet = {
     '.ql-editor > *': {
         cursor: 'text',
     },
+    // tslint:disable-next-line:max-line-length
     '.ql-editor p, .ql-editor ol, .ql-editor ul, .ql-editor pre, .ql-editor blockquote, .ql-editor h1, .ql-editor h2, .ql-editor h3, .ql-editor h4, .ql-editor h5, .ql-editor h6': {
         margin: '0',
         padding: '0',

@@ -4,7 +4,7 @@ import lodashMemoize from 'lodash/memoize';
 /* @link http://stackoverflow.com/questions/46155/validate-email-address-in-javascript */
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // eslint-disable-line no-useless-escape
 
-const isEmpty = value =>
+const isEmpty = (value?: any)  =>
     typeof value === 'undefined' || value === null || value === '';
 
 const getMessage = (message, messageArgs, value, values, props) =>
@@ -36,28 +36,28 @@ export const required = memoize((message = 'ra.validation.required') =>
 );
 
 export const minLength = memoize(
-    (min, message = 'ra.validation.minLength') => (value, values, props) =>
+    (min: number, message = 'ra.validation.minLength') => (value, values, props) =>
         !isEmpty(value) && value.length < min
             ? getMessage(message, { min }, value, values, props)
             : undefined
 );
 
 export const maxLength = memoize(
-    (max, message = 'ra.validation.maxLength') => (value, values, props) =>
+    (max: number, message = 'ra.validation.maxLength') => (value, values, props) =>
         !isEmpty(value) && value.length > max
             ? getMessage(message, { max }, value, values, props)
             : undefined
 );
 
 export const minValue = memoize(
-    (min, message = 'ra.validation.minValue') => (value, values, props) =>
+    (min: number, message = 'ra.validation.minValue') => (value, values, props) =>
         !isEmpty(value) && value < min
             ? getMessage(message, { min }, value, values, props)
             : undefined
 );
 
 export const maxValue = memoize(
-    (max, message = 'ra.validation.maxValue') => (value, values, props) =>
+    (max: number, message = 'ra.validation.maxValue') => (value, values, props) =>
         !isEmpty(value) && value > max
             ? getMessage(message, { max }, value, values, props)
             : undefined

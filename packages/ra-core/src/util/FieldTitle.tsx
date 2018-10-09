@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import inflection from 'inflection';
 import pure from 'recompose/pure';
@@ -14,45 +14,39 @@ interface IProps {
     translate: translate;
 }
 
-class FieldTitle extends PureComponent<IProps> {
-    static propTypes = {
-        isRequired: PropTypes.bool,
-        resource: PropTypes.string,
-        source: PropTypes.string,
-        label: PropTypes.string,
-        translate: PropTypes.func.isRequired,
-    };
+const FieldTitle: React.SFC<IProps> = ({
+    resource,
+    source,
+    label,
+    isRequired,
+    translate,
+}) => (
+    <span>
+        {typeof label !== 'undefined'
+            ? translate(label, { _: label })
+            : typeof source !== 'undefined'
+                ? translate(`resources.${resource}.fields.${source}`, {
+                        _: inflection.transform(source, [
+                            'underscore',
+                            'humanize',
+                        ]),
+                    })
+                : ''}
+        {isRequired && ' *'}
+    </span>
+);
 
-    static defaultTypes = {
-        translate: (x: any) => x,
-    };
+FieldTitle.propTypes = {
+    isRequired: PropTypes.bool,
+    resource: PropTypes.string,
+    source: PropTypes.string,
+    label: PropTypes.string,
+    translate: PropTypes.func.isRequired,
+};
 
-    render(){
-        const {
-            resource,
-            source,
-            label,
-            isRequired,
-            translate,
-        } = this.props;
-
-        return (
-            <span>
-                {typeof label !== 'undefined'
-                    ? translate(label, { _: label })
-                    : typeof source !== 'undefined'
-                        ? translate(`resources.${resource}.fields.${source}`, {
-                              _: inflection.transform(source, [
-                                  'underscore',
-                                  'humanize',
-                              ]),
-                          })
-                        : ''}
-                {isRequired && ' *'}
-            </span>
-        );
-    }
-}
+FieldTitle.defaultTypes = {
+    translate: (x: any) => x,
+};
 
 const enhance = compose(
     translate,

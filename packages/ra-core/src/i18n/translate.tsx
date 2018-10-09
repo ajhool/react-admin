@@ -5,7 +5,7 @@ import warning from '../util/warning';
 
 type IBaseComponentProps = any;
 
-interface IBaseComponent extends StatelessComponent<IBaseComponentProps> {
+export interface IBaseComponent extends StatelessComponent<IBaseComponentProps> {
     defaultProps: {
         translate: any;
     }
@@ -29,7 +29,7 @@ interface IBaseComponent extends StatelessComponent<IBaseComponentProps> {
  *
  * @param {*} BaseComponent The component to decorate
  */
-const translate = ( BaseComponent: IBaseComponent ) => {
+const translate = (BaseComponent: IBaseComponent) => {
     warning(
         typeof BaseComponent === 'string',
         `The translate function is a Higher Order Component, and should not be called directly with a translation key. Use the translate function passed as prop to your component props instead:
@@ -57,7 +57,7 @@ const MyHelloButton = ({ translate }) => (
             return <BaseComponent {...props} />;
         }
     }
-    
+
     return TranslatedComponent;
 };
 

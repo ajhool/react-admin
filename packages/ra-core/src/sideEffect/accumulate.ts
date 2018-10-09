@@ -1,7 +1,14 @@
 import { delay } from 'redux-saga';
 import { call, cancel, fork, put, takeEvery } from 'redux-saga/effects';
+import { ActionCreator } from 'redux';
 
-type Ids = Array<string | number>
+type Ids = number[];
+interface Payload {
+    payload: {
+        ids: Ids;
+        resource: string;
+    }
+}
 
 /**
  * Distinct reducer on ids
@@ -10,7 +17,7 @@ type Ids = Array<string | number>
  * addIds([1, 2, 3], { payload: { ids: [3, 4] } })
  *   => [1, 2, 3, 4]
  */
-const addIds = (oldIds : Ids, { payload: { ids } }: { payload: { ids: Ids } }) => {
+const addIds = (oldIds: Ids, { payload: { ids } }: { payload: { ids: Ids } }) => {
     // Using a Set ensure we only keep distinct values
     const oldIdsSet = new Set(oldIds);
     ids.forEach(id => oldIdsSet.add(id));
@@ -28,7 +35,7 @@ export const finalizeFactory = (tasks, accumulations) =>
      *
      * @see https://redux-saga.js.org/docs/recipes/#debouncing
      */
-    function* finalize(key, actionCreator) {
+    function* finalize(key: string, actionCreator: ActionCreator<any>) {
         // combined with cancel(), this debounces the calls
         yield call(delay, 50);
 

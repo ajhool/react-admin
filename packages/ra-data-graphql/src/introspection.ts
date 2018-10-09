@@ -30,7 +30,7 @@ export const filterTypesByIncludeExclude = ({ include, exclude }) => {
  * @param {ApolloClient} client The Apollo client
  * @param {Object} options The introspection options
  */
-export default async (client: ApolloClient<any>, options: Introspection) => {
+export default async (client: ApolloClient<any>, options ) => {
     const schema = options.schema
         ? options.schema
         : await client

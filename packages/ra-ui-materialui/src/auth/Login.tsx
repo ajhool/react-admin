@@ -1,26 +1,18 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Card from '@material-ui/core/Card';
 import Avatar from '@material-ui/core/Avatar';
-import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import LockIcon from '@material-ui/icons/Lock';
 
 import defaultTheme from '../defaultTheme';
 import Notification from '../layout/Notification';
 import DefaultLoginForm from './LoginForm';
 
-interface IClasses {
-    card: string;
-    avatar: string;
-    icon: string;
-    main: string;
-}  
-
-interface ILoginProps {
+interface ILoginProps extends WithStyles<typeof styles> {
     className: string | PropTypes.Requireable<string>;
     authProvider: () => void | PropTypes.Requireable<(...args: any[]) => any>;
-    classes: IClasses;
     input: object;
     meta: object;
     previousRoute: string;
@@ -49,7 +41,7 @@ const styles = (theme: Theme) => createStyles({
         justifyContent: 'center',
     },
     icon: {
-        //@ts-ignore
+        // @ts-ignore
         backgroundColor: theme.palette.secondary[500],
     },
 });
@@ -83,41 +75,37 @@ const sanitizeRestProps = ({
  *        </Admin>
  *     );
  */
-class Login extends PureComponent<ILoginProps> {
-    static propTypes = {
-        className: PropTypes.string,
-        authProvider: PropTypes.func,
-        classes: PropTypes.object,
-        input: PropTypes.object,
-        meta: PropTypes.object,
-        previousRoute: PropTypes.string,
-        loginForm: PropTypes.element,
-    };
 
-    static defaultProps = {
-        theme: defaultTheme,
-        loginForm: <DefaultLoginForm />,
-    }
+const Login: React.SFC<ILoginProps> = ({ classes, className, loginForm, ...rest }) => (
+    <div
+        className={classnames(classes.main, className)}
+        {...sanitizeRestProps(rest)}
+    >
+        <Card className={classes.card}>
+            <div className={classes.avatar}>
+                <Avatar className={classes.icon}>
+                    <LockIcon />
+                </Avatar>
+            </div>
+            {loginForm}
+        </Card>
+        <Notification />
+    </div>
+);
 
-    render() {
-        const { classes, className, loginForm, ...rest } = this.props;
-        return (
-        <div
-            className={classnames(classes.main, className)}
-            {...sanitizeRestProps(rest)}
-        >
-            <Card className={classes.card}>
-                <div className={classes.avatar}>
-                    <Avatar className={classes.icon}>
-                        <LockIcon />
-                    </Avatar>
-                </div>
-                {loginForm}
-            </Card>
-            <Notification />
-        </div>
-        )
-    };
+Login.propTypes = {
+    className: PropTypes.string,
+    authProvider: PropTypes.func,
+    classes: PropTypes.object,
+    input: PropTypes.object,
+    meta: PropTypes.object,
+    previousRoute: PropTypes.string,
+    loginForm: PropTypes.element,
+};
+
+Login.defaultProps = {
+    theme: defaultTheme,
+    loginForm: <DefaultLoginForm />,
 }
 
 export default withStyles(styles)(Login);
