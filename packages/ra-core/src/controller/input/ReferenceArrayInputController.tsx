@@ -18,7 +18,46 @@ import {
 import { getStatusForArrayInput as getDataStatus } from './referenceDataStatus';
 import translate from '../../i18n/translate';
 
-const referenceSource = (resource, source) => `${resource}@${source}`;
+interface IFilter {
+    [field: string]: any;
+}
+
+interface ISort {
+    field: string;
+    order: 'ASC' | 'DESC';
+}
+
+interface IPagination {
+    page: number;
+    perPage?: number;
+}
+
+interface IProps {
+    allowEmpty: boolean;
+    basePath?: string;
+    children: PropTypes.func.isRequired,
+    className?: string;
+    crudGetMatching: PropTypes.func.isRequired,
+    crudGetMany: PropTypes.func.isRequired,
+    filter?: IFilter;
+    filterToQuery: PropTypes.func.isRequired,
+    input: PropTypes.object.isRequired,
+    label?: string;
+    matchingReferences?: string[] | any;
+    meta?: any;
+    onChange?: PropTypes.func,
+    perPage?: number;
+    record?: PropTypes.object,
+    reference: string;
+    referenceRecords?: number[];
+    referenceSource: PropTypes.func.isRequired,
+    resource: string;
+    sort: ISort;
+    source?: string;
+    translate: VoidFunction;
+}
+
+const referenceSource = (resource: string, source: string): string => `${resource}@${source}`;
 
 /**
  * An Input component for fields containing a list of references to another resource.
@@ -98,8 +137,57 @@ const referenceSource = (resource, source) => `${resource}@${source}`;
  *     <SelectArrayInput optionText="name" />
  * </ReferenceArrayInput>
  */
-export class ReferenceArrayInputController extends Component {
-    constructor(props) {
+export class ReferenceArrayInputController extends Component<IProps> {
+    static propTypes = {
+        allowEmpty: PropTypes.bool.isRequired,
+        basePath: PropTypes.string,
+        children: PropTypes.func.isRequired,
+        className: PropTypes.string,
+        crudGetMatching: PropTypes.func.isRequired,
+        crudGetMany: PropTypes.func.isRequired,
+        filter: PropTypes.object,
+        filterToQuery: PropTypes.func.isRequired,
+        input: PropTypes.object.isRequired,
+        label: PropTypes.string,
+        matchingReferences: PropTypes.oneOfType([
+            PropTypes.array,
+            PropTypes.object,
+        ]),
+        meta: PropTypes.object,
+        onChange: PropTypes.func,
+        perPage: PropTypes.number,
+        record: PropTypes.object,
+        reference: PropTypes.string.isRequired,
+        referenceRecords: PropTypes.array,
+        referenceSource: PropTypes.func.isRequired,
+        resource: PropTypes.string.isRequired,
+        sort: PropTypes.shape({
+            field: PropTypes.string,
+            order: PropTypes.oneOf(['ASC', 'DESC']),
+        }),
+        source: PropTypes.string,
+        translate: PropTypes.func.isRequired,
+    };
+
+    defaultProps = {
+        allowEmpty: false,
+        filter: {},
+        filterToQuery: (searchText: string) => ({ q: searchText }),
+        matchingReferences: null,
+        perPage: 25,
+        sort: { field: 'id', order: 'DESC' },
+        referenceRecords: [],
+        referenceSource, // used in unit tests
+    };
+
+    params: {
+        pagination: IPagination;
+        sort?: ISort;
+        filter?: IFilter;
+    }
+    debouncedSetFilter: any;
+
+    constructor(props: Readonly<IProps>) {
         super(props);
         const { perPage, sort, filter } = props;
         // stored as a property rather than state because we don't want redraw of async updates
@@ -111,7 +199,7 @@ export class ReferenceArrayInputController extends Component {
         this.fetchReferencesAndOptions();
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: IProps) {
         let shouldFetchOptions = false;
 
         if ((this.props.record || {}).id !== (nextProps.record || {}).id) {
@@ -143,21 +231,21 @@ export class ReferenceArrayInputController extends Component {
         }
     }
 
-    setFilter = filter => {
+    setFilter = (filter: IFilter) => {
         if (filter !== this.params.filter) {
             this.params.filter = this.props.filterToQuery(filter);
             this.fetchOptions();
         }
     };
 
-    setPagination = pagination => {
+    setPagination = (pagination: IPagination) => {
         if (pagination !== this.params.pagination) {
             this.params.pagination = pagination;
             this.fetchOptions();
         }
     };
 
-    setSort = sort => {
+    setSort = (sort: ISort) => {
         if (sort !== this.params.sort) {
             this.params.sort = sort;
             this.fetchOptions();
@@ -195,7 +283,7 @@ export class ReferenceArrayInputController extends Component {
         );
     };
 
-    fetchReferencesAndOptions(nextProps) {
+    fetchReferencesAndOptions(nextProps: IProps) {
         this.fetchReferences(nextProps);
         this.fetchOptions(nextProps);
     }
@@ -230,48 +318,6 @@ export class ReferenceArrayInputController extends Component {
     }
 }
 
-ReferenceArrayInputController.propTypes = {
-    allowEmpty: PropTypes.bool.isRequired,
-    basePath: PropTypes.string,
-    children: PropTypes.func.isRequired,
-    className: PropTypes.string,
-    crudGetMatching: PropTypes.func.isRequired,
-    crudGetMany: PropTypes.func.isRequired,
-    filter: PropTypes.object,
-    filterToQuery: PropTypes.func.isRequired,
-    input: PropTypes.object.isRequired,
-    label: PropTypes.string,
-    matchingReferences: PropTypes.oneOfType([
-        PropTypes.array,
-        PropTypes.object,
-    ]),
-    meta: PropTypes.object,
-    onChange: PropTypes.func,
-    perPage: PropTypes.number,
-    record: PropTypes.object,
-    reference: PropTypes.string.isRequired,
-    referenceRecords: PropTypes.array,
-    referenceSource: PropTypes.func.isRequired,
-    resource: PropTypes.string.isRequired,
-    sort: PropTypes.shape({
-        field: PropTypes.string,
-        order: PropTypes.oneOf(['ASC', 'DESC']),
-    }),
-    source: PropTypes.string,
-    translate: PropTypes.func.isRequired,
-};
-
-ReferenceArrayInputController.defaultProps = {
-    allowEmpty: false,
-    filter: {},
-    filterToQuery: searchText => ({ q: searchText }),
-    matchingReferences: null,
-    perPage: 25,
-    sort: { field: 'id', order: 'DESC' },
-    referenceRecords: [],
-    referenceSource, // used in unit tests
-};
-
 const makeMapStateToProps = () =>
     createSelector(
         [
@@ -296,7 +342,7 @@ const makeMapStateToProps = () =>
         })
     );
 
-const EnhancedReferenceArrayInputController = compose(
+const EnhancedReferenceArrayInputController = compose<IProps, {}>(
     translate,
     connect(
         makeMapStateToProps(),
