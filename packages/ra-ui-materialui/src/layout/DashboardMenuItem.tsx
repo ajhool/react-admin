@@ -5,7 +5,14 @@ import { translate } from 'ra-core';
 
 import MenuItemLink from './MenuItemLink';
 
-const DashboardMenuItem = ({ className, onClick, translate, ...props }) => (
+interface IProps {
+    classes: object;
+    className: string;
+    onClick: React.MouseEventHandler;
+    translate: any;
+}
+
+const DashboardMenuItem: React.SFC<IProps> = ({ className, onClick, translate, ...props }) => (
     <MenuItemLink
         onClick={onClick}
         to="/"

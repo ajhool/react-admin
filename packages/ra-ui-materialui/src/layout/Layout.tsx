@@ -1,4 +1,4 @@
-import React, { Component, createElement } from 'react';
+import React, { Component, createElement, ReactChild, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
@@ -7,6 +7,9 @@ import {
     MuiThemeProvider,
     createMuiTheme,
     withStyles,
+    createStyles,
+    Theme,
+    WithStyles
 } from '@material-ui/core/styles';
 import compose from 'recompose/compose';
 
@@ -16,8 +19,28 @@ import Menu from './Menu';
 import Notification from './Notification';
 import Error from './Error';
 import defaultTheme from '../defaultTheme';
+import { History } from 'history';
+import { MuiThemeProviderProps } from '@material-ui/core/styles/MuiThemeProvider';
 
-const styles = theme => ({
+type ComponentPropType = (() => ReactChild) | string;
+
+interface IProps extends WithStyles<typeof styles> {
+    appBar: ComponentPropType,
+    children: (() => ReactNode) | ReactNode ;
+    className: string;
+    customRoutes: string[];
+    dashboard: ComponentPropType;
+    error: ComponentPropType,
+    history: History;
+    logout: ReactNode | (() => ReactNode) | string;
+    menu: ComponentPropType,
+    notification: ComponentPropType,
+    open: boolean;
+    sidebar: ComponentPropType,
+    title: ReactNode;
+}
+
+const styles = (theme: Theme) => createStyles({
     root: {
         display: 'flex',
         flexDirection: 'column',
@@ -56,18 +79,18 @@ const sanitizeRestProps = ({
     location,
     match,
     ...props
-}) => props;
+}: any): any => props;
 
-class Layout extends Component {
+class Layout extends Component<IProps> {
     state = { hasError: false, errorMessage: null, errorInfo: null };
 
-    constructor(props) {
+    constructor(props: Readonly<IProps>) {
         super(props);
         /**
          * Reset the error state upon navigation
          *
          * @see https://stackoverflow.com/questions/48121750/browser-navigation-broken-by-use-of-react-error-boundaries
-         * */
+         */
         props.history.listen(() => {
             if (this.state.hasError) {
                 this.setState({ hasError: false });
@@ -166,7 +189,7 @@ const mapStateToProps = state => ({
     open: state.admin.ui.sidebarOpen,
 });
 
-const EnhancedLayout = compose(
+const EnhancedLayout = compose<IProps, {}>(
     connect(
         mapStateToProps,
         {} // Avoid connect passing dispatch in props
@@ -175,8 +198,9 @@ const EnhancedLayout = compose(
     withStyles(styles)
 )(Layout);
 
-class LayoutWithTheme extends Component {
-    constructor(props) {
+// tslint:disable-next-line:max-classes-per-file
+class LayoutWithTheme extends Component<MuiThemeProviderProps> {
+    constructor(props: MuiThemeProviderProps) {
         super(props);
         this.theme = createMuiTheme(props.theme);
     }

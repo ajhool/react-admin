@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import CardContent from '@material-ui/core/CardContent';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, WithStyles } from '@material-ui/core/styles';
 
-const styles = {
+interface IProps extends WithStyles<typeof styles> {
+    className: string;
+    children: ReactNode;
+}
+
+const styles = createStyles({
     root: {
         paddingTop: 0,
         paddingBottom: 0,
@@ -15,7 +20,7 @@ const styles = {
             paddingBottom: 16,
         },
     },
-};
+});
 
 /**
  * Overrides material-ui CardContent to allow inner content
@@ -24,7 +29,7 @@ const styles = {
  * padding double the spacing between each CardContent, leading to too much
  * wasted space. Use this component as a CardContent alternative.
  */
-const CardContentInner = ({ classes, className, children }) => (
+const CardContentInner: React.SFC<IProps> = ({ classes, className, children }) => (
     <CardContent className={classnames(classes.root, className)}>
         {children}
     </CardContent>

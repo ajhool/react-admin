@@ -315,6 +315,12 @@
   version "10.3.5"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.3.5.tgz#8423cdf6e6fb83433e489900d7600d3b61c8260c"
 
+"@types/papaparse@^4.5.4":
+  version "4.5.4"
+  resolved "https://registry.yarnpkg.com/@types/papaparse/-/papaparse-4.5.4.tgz#3c52c95fe31688ffe3c21c892791f981223cc821"
+  dependencies:
+    "@types/node" "*"
+
 "@types/prop-types@*":
   version "15.5.6"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.6.tgz#9c03d3fed70a8d517c191b7734da2879b50ca26c"

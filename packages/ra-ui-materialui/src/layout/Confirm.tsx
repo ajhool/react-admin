@@ -6,13 +6,24 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import ActionCheck from '@material-ui/icons/CheckCircle';
 import AlertError from '@material-ui/icons/ErrorOutline';
 import classnames from 'classnames';
 
-const styles = theme => ({
+interface IProps extends WithStyles<typeof styles> {
+    cancel: string;
+    confirm: string;
+    confirmColor: string;
+    content: string;
+    isOpen: boolean;
+    onClose: () => void;
+    onConfirm: () => void;
+    title: string;
+}
+
+const styles = (theme: Theme) => createStyles({
     confirmPrimary: {
         color: theme.palette.primary.main,
     },
@@ -46,7 +57,7 @@ const styles = theme => ({
  *     onClose={() => { // do something }}
  * />
  */
-const Confirm = ({
+const Confirm: React.SFC<IProps> = ({
     isOpen,
     title,
     content,
@@ -77,7 +88,7 @@ const Confirm = ({
                     [classes.confirmWarning]: confirmColor === 'warning',
                     [classes.confirmPrimary]: confirmColor === 'primary',
                 })}
-                autoFocus
+                autoFocus={true}
             >
                 <ActionCheck className={classes.iconPaddingStyle} />
                 {confirm}

@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, WithStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
 import ViewTitle from './ViewTitle';
 
-const styles = {
+interface IProps extends WithStyles<typeof styles> {
+    className: string;
+    title: any;
+    actions: ReactElement<any>;
+    actionProps: object;
+}
+
+const styles = createStyles({
     root: {
         display: 'flex',
         justifyContent: 'space-between',
     },
-};
+});
 
 /**
  * @deprecated
  */
-export const Header = ({
+export const Header: React.SFC<IProps> = ({
     classes,
     className,
     title,
