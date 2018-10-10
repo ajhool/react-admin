@@ -5,6 +5,18 @@ import { addField, FieldTitle } from 'ra-core';
 
 import sanitizeRestProps from './sanitizeRestProps';
 
+interface IProps {
+    classes?: any;
+    className?: string;
+    input?: any;
+    isRequired?: boolean;
+    label?: string;
+    meta?: any;
+    options?: any;
+    resource?: string;
+    source?: string;
+}
+
 /**
  * Convert Date object to String
  *
@@ -20,20 +32,40 @@ const dateFormatter = v => {
     return `${yyyy}-${(pad + MM).slice(-2)}-${(pad + dd).slice(-2)}`;
 };
 
-const sanitizeValue = value => {
+const sanitizeValue = (value: any) => {
     // null, undefined and empty string values should not go through dateFormatter
     // otherwise, it returns undefined and will make the input an uncontrolled one.
     if (value == null || value === '') {
         return '';
     }
 
-    const finalValue = typeof value instanceof Date ? value : new Date(value);
+    const finalValue = (typeof value instanceof Date) ? value : new Date(value);
     return dateFormatter(finalValue);
 };
 
-export class DateInput extends Component {
-    onChange = event => {
+export class DateInput extends Component<IProps> {
+    static propTypes = {
+        classes: PropTypes.object,
+        className: PropTypes.string,
+        input: PropTypes.object,
+        isRequired: PropTypes.bool,
+        label: PropTypes.string,
+        meta: PropTypes.object,
+        options: PropTypes.object,
+        resource: PropTypes.string,
+        source: PropTypes.string,
+    };
+
+    static defaultProps = {
+        options: {},
+    };
+
+    onChange: React.MouseEventHandler = event => {
         this.props.input.onChange(event.target.value);
+    };
+
+    onBlur: React.MouseEventHandler = event => {
+        this.props.input.onBlur(event.target);
     };
 
     render() {
@@ -84,21 +116,5 @@ export class DateInput extends Component {
         );
     }
 }
-
-DateInput.propTypes = {
-    classes: PropTypes.object,
-    className: PropTypes.string,
-    input: PropTypes.object,
-    isRequired: PropTypes.bool,
-    label: PropTypes.string,
-    meta: PropTypes.object,
-    options: PropTypes.object,
-    resource: PropTypes.string,
-    source: PropTypes.string,
-};
-
-DateInput.defaultProps = {
-    options: {},
-};
 
 export default addField(DateInput);

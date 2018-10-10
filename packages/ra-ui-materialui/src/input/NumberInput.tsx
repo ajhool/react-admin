@@ -3,7 +3,24 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { addField, FieldTitle } from 'ra-core';
 
-import sanitizeRestProps from './sanitizeRestProps';
+import sanitizeRestProps from 'ra-ui-materialui/src/input/sanitizeRestProps';
+
+interface IProps {
+    className?: string;
+    input?: any;
+    isRequired?: boolean;
+    label?: string;
+    meta?: any;
+    name?: string;
+    onBlur?: React.MouseEventHandlerB
+    onChange?: PropTypes.func,
+    onFocus?: PropTypes.func,
+    options?: PropTypes.object,
+    resource?: PropTypes.string,
+    source?: PropTypes.string,
+    step?: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    validate?: VoidFunction | VoidFunction[];
+}
 
 /**
  * An Input component for a number
@@ -17,8 +34,8 @@ import sanitizeRestProps from './sanitizeRestProps';
  *
  * The object passed as `options` props is passed to the material-ui <TextField> component
  */
-export class NumberInput extends Component {
-    handleBlur = event => {
+export class NumberInput extends Component<IProps> {
+    handleBlur: React.EventHandler<HTMLInputElement> = event => {
         /**
          * Necessary because of a React bug on <input type="number">
          * @see https://github.com/facebook/react/issues/1425
@@ -30,12 +47,12 @@ export class NumberInput extends Component {
         this.props.input.onBlur(numericValue);
     };
 
-    handleFocus = event => {
+    handleFocus: React.FocusEventHandler<HTMLInputElement> = event => {
         this.props.onFocus(event);
         this.props.input.onFocus(event);
     };
 
-    handleChange = event => {
+    handleChange: React.ChangeEventHandler<HTMLInputElement> = event => {
         /**
          * Necessary because of a React bug on <input type="number">
          * @see https://github.com/facebook/react/issues/1425

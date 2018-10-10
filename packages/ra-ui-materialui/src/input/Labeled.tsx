@@ -24,20 +24,20 @@ const styles = (theme: Theme) => createStyles({
 });
 
 interface IProps extends WithStyles<typeof styles> {
-    basePath: string;
-    children: ReactChildren;
-    className: string;
-    fullWidth: boolean;
-    id: string;
-    input: object;
-    isRequired: boolean;
-    label: string;
-    meta: object;
-    onChange: ChangeEventHandler;
-    record: object;
-    resource: string;
-    source: string;
-    labelStyle: object;
+    basePath?: string;
+    children?: ReactChildren;
+    className?: string;
+    fullWidth?: boolean;
+    id?: string;
+    input?: any;
+    isRequired?: boolean;
+    label?: string;
+    meta?: any;
+    onChange?: ChangeEventHandler;
+    record?: any;
+    resource?: string;
+    source?: string;
+    labelStyle?: any;
 }
 
 /**

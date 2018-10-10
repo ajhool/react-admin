@@ -16,8 +16,35 @@ import classnames from 'classnames';
 import { addField, translate, FieldTitle } from 'ra-core';
 
 interface IProps extends WithStyles<typeof styles> {
-    
+    allowEmpty?: boolean;
+    alwaysRenderSuggestions?: boolean; // used only for unit tests
+    choices?: any[];
+    className?: string;
+    InputProps?: any;
+    input?: any;
+    isRequired?: boolean;
+    label?: string;
+    limitChoicesToValue?: boolean;
+    meta?: any;
+    options?: any;
+    optionText: string | VoidFunction;
+    optionValue: string;
+    resource?: string;
+    setFilter?: VoidFunction;
+    source?: any;
+    suggestionComponent?: VoidFunction;
+    translate: any;
+    translateChoice: boolean;
+    inputValueMatcher?: PropTypes.func,
 }
+
+interface IState {
+    dirty: boolean;
+    inputValue: any;
+    searchText: string;
+    selectedItem: any[] | null;
+    suggestions: string[];
+};
 
 const styles = (theme: Theme) => createStyles({
     container: {
@@ -93,7 +120,46 @@ const styles = (theme: Theme) => createStyles({
  * @example
  * <AutocompleteInput source="author_id" options={{ fullWidth: true }} />
  */
-export class AutocompleteInput extends React.Component {
+export class AutocompleteInput extends React.Component<IProps, IState> {
+    static propTypes = {
+        allowEmpty: PropTypes.bool,
+        alwaysRenderSuggestions: PropTypes.bool, // used only for unit tests
+        choices: PropTypes.arrayOf(PropTypes.object),
+        classes: PropTypes.object,
+        className: PropTypes.string,
+        InputProps: PropTypes.object,
+        input: PropTypes.object,
+        isRequired: PropTypes.bool,
+        label: PropTypes.string,
+        limitChoicesToValue: PropTypes.bool,
+        meta: PropTypes.object,
+        options: PropTypes.object,
+        optionText: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
+            .isRequired,
+        optionValue: PropTypes.string.isRequired,
+        resource: PropTypes.string,
+        setFilter: PropTypes.func,
+        source: PropTypes.string,
+        suggestionComponent: PropTypes.func,
+        translate: PropTypes.func.isRequired,
+        translateChoice: PropTypes.bool.isRequired,
+        inputValueMatcher: PropTypes.func,
+    };
+
+    static defaultProps = {
+        choices: [],
+        options: {},
+        optionText: 'name',
+        optionValue: 'id',
+        limitChoicesToValue: false,
+        translateChoice: true,
+        inputValueMatcher: (input, suggestion, getOptionText) =>
+            getOptionText(suggestion)
+                .toLowerCase()
+                .trim()
+                .includes(input.toLowerCase().trim()),
+    };
+
     state = {
         dirty: false,
         inputValue: null,
@@ -491,45 +557,6 @@ export class AutocompleteInput extends React.Component {
         );
     }
 }
-
-AutocompleteInput.propTypes = {
-    allowEmpty: PropTypes.bool,
-    alwaysRenderSuggestions: PropTypes.bool, // used only for unit tests
-    choices: PropTypes.arrayOf(PropTypes.object),
-    classes: PropTypes.object,
-    className: PropTypes.string,
-    InputProps: PropTypes.object,
-    input: PropTypes.object,
-    isRequired: PropTypes.bool,
-    label: PropTypes.string,
-    limitChoicesToValue: PropTypes.bool,
-    meta: PropTypes.object,
-    options: PropTypes.object,
-    optionText: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
-        .isRequired,
-    optionValue: PropTypes.string.isRequired,
-    resource: PropTypes.string,
-    setFilter: PropTypes.func,
-    source: PropTypes.string,
-    suggestionComponent: PropTypes.func,
-    translate: PropTypes.func.isRequired,
-    translateChoice: PropTypes.bool.isRequired,
-    inputValueMatcher: PropTypes.func,
-};
-
-AutocompleteInput.defaultProps = {
-    choices: [],
-    options: {},
-    optionText: 'name',
-    optionValue: 'id',
-    limitChoicesToValue: false,
-    translateChoice: true,
-    inputValueMatcher: (input, suggestion, getOptionText) =>
-        getOptionText(suggestion)
-            .toLowerCase()
-            .trim()
-            .includes(input.toLowerCase().trim()),
-};
 
 export default compose(
     addField,

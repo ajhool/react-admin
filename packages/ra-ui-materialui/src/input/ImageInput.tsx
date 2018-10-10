@@ -2,11 +2,14 @@ import compose from 'recompose/compose';
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import { addField, translate } from 'ra-core';
 
-import { FileInput } from './FileInput';
+import { FileInput, IProps as IFileInputProps } from './FileInput';
 
-interface IProps extends WithStyles<typeof styles> {
+interface IWithStyles extends WithStyles<typeof styles> {
     
 }
+
+// File input will have its own set of Style classes. Must do a union here. 
+type IProps =  IWithStyles & IFileInputProps; 
 
 const styles = createStyles({
     root: { width: '100%' },
@@ -35,7 +38,7 @@ const styles = createStyles({
     },
 });
 
-export class ImageInput extends FileInput {
+export class ImageInput extends FileInput<IProps> {
     static defaultProps = {
         ...FileInput.defaultProps,
         labelMultiple: 'ra.input.image.upload_several',

@@ -5,7 +5,11 @@ import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/s
 import RemoveCircle from '@material-ui/icons/RemoveCircle';
 
 interface IProps extends WithStyles<typeof styles> {
-    
+    children: React.ReactElement<any>;
+    className?: string;
+    file?: File;
+    onRemove: VoidFunction;
+    revokeObjectURL?: VoidFunction;
 }
 
 const styles = (theme: Theme) => createStyles({
@@ -15,7 +19,20 @@ const styles = (theme: Theme) => createStyles({
     },
 });
 
-export class FileInputPreview extends Component {
+export class FileInputPreview extends Component<IProps> {
+    static propTypes = {
+        children: PropTypes.element.isRequired,
+        classes: PropTypes.object,
+        className: PropTypes.string,
+        file: PropTypes.object,
+        onRemove: PropTypes.func.isRequired,
+        revokeObjectURL: PropTypes.func,
+    };
+
+    static defaultProps = {
+        file: undefined,
+    };
+
     componentWillUnmount() {
         const { file, revokeObjectURL } = this.props;
 

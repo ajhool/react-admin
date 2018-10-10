@@ -6,6 +6,20 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 
 import sanitizeRestProps from './sanitizeRestProps';
+import { SimpleFormIterator } from '../form/SimpleFormIterator';
+
+interface IProps {
+    children: SimpleFormIterator, // Must be a form iterator.
+    className: string,
+    defaultValue?: any;
+    isRequired?: boolean;
+    label?: string;
+    resource?: string;
+    source?: string;
+    record?: any;
+    options?: any;
+    validate?: ()=>void;
+}
 
 /**
  * To edit arrays of data embedded inside a record, <ArrayInput> creates a list of sub-forms.
@@ -48,7 +62,7 @@ import sanitizeRestProps from './sanitizeRestProps';
  *
  * @see https://redux-form.com/7.3.0/examples/fieldarrays/
  */
-export class ArrayInput extends Component {
+export class ArrayInput extends Component<IProps> {
     renderFieldArray = fieldProps => {
         const { children, record, resource, source } = this.props;
         return cloneElement(children, {

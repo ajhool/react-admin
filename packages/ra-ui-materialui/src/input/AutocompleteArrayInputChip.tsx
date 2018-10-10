@@ -1,8 +1,8 @@
 import React from 'react';
-import ChipInput from 'material-ui-chip-input';
+import ChipInput from './material-ui-chip-input';
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
-interface IProps extends WithStyles<typeof styles> {
+interface IProps extends WithStyles<typeof chipInputStyles> {
     
 }
 
@@ -20,6 +20,6 @@ const chipInputStyles = createStyles({
     },
 });
 
-const AutocompleteArrayInputChip = props => <ChipInput {...props} />;
+const AutocompleteArrayInputChip: React.SFC<IProps> = props => <ChipInput {...props} />;
 
 export default withStyles(chipInputStyles)(AutocompleteArrayInputChip);

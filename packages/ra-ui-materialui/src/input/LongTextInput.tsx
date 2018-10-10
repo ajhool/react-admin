@@ -5,7 +5,21 @@ import ResettableTextField from './ResettableTextField';
 
 import sanitizeRestProps from './sanitizeRestProps';
 
-export const LongTextInput = ({
+interface IProps {
+    className: string;
+    input: any;
+    isRequired: boolean;
+    label: string;
+    fullWidth: boolean;
+    meta: any;
+    name: string;
+    options: any;
+    resource: string;
+    source: string;
+    validate: () => VoidFunction | VoidFunction[];
+}
+
+export const LongTextInput: React.SFC<IProps> = ({
     className,
     input,
     meta,

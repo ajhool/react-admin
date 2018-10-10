@@ -5,6 +5,22 @@ import { addField, FieldTitle } from 'ra-core';
 import ResettableTextField from './ResettableTextField';
 import sanitizeRestProps from './sanitizeRestProps';
 
+interface IProps {
+    className?: string;
+    input?: any;
+    isRequired?: boolean;
+    label?: string | boolean;
+    meta?: any;
+    name?: string;
+    onBlur?: React.MouseEventHandler | VoidFunction;
+    onChange?: React.MouseEventHandler | VoidFunction;
+    onFocus?: React.MouseEventHandler | VoidFunction;
+    options?: any;
+    resource?: string;
+    source?: string;
+    type?: string;
+}
+
 /**
  * An Input component for a string
  *
@@ -19,7 +35,31 @@ import sanitizeRestProps from './sanitizeRestProps';
  *
  * The object passed as `options` props is passed to the <ResettableTextField> component
  */
-export class TextInput extends Component {
+export class TextInput extends Component<IProps> {
+    static propTypes = {
+        className: PropTypes.string,
+        input: PropTypes.object,
+        isRequired: PropTypes.bool,
+        label: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+        meta: PropTypes.object,
+        name: PropTypes.string,
+        onBlur: PropTypes.func,
+        onChange: PropTypes.func,
+        onFocus: PropTypes.func,
+        options: PropTypes.object,
+        resource: PropTypes.string,
+        source: PropTypes.string,
+        type: PropTypes.string,
+    };
+
+    static defaultProps = {
+        onBlur: () => {},
+        onChange: () => {},
+        onFocus: () => {},
+        options: {},
+        type: 'text',
+    };
+
     handleBlur = eventOrValue => {
         this.props.onBlur(eventOrValue);
         this.props.input.onBlur(eventOrValue);
@@ -84,29 +124,5 @@ export class TextInput extends Component {
         );
     }
 }
-
-TextInput.propTypes = {
-    className: PropTypes.string,
-    input: PropTypes.object,
-    isRequired: PropTypes.bool,
-    label: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    meta: PropTypes.object,
-    name: PropTypes.string,
-    onBlur: PropTypes.func,
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    options: PropTypes.object,
-    resource: PropTypes.string,
-    source: PropTypes.string,
-    type: PropTypes.string,
-};
-
-TextInput.defaultProps = {
-    onBlur: () => {},
-    onChange: () => {},
-    onFocus: () => {},
-    options: {},
-    type: 'text',
-};
 
 export default addField(TextInput);

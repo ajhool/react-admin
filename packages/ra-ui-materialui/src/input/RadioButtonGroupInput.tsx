@@ -11,10 +11,23 @@ import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/s
 import compose from 'recompose/compose';
 import { addField, translate, FieldTitle } from 'ra-core';
 
-import sanitizeRestProps from './sanitizeRestProps';
+import sanitizeRestProps from 'ra-ui-materialui/src/input/sanitizeRestProps';
 
 interface IProps extends WithStyles<typeof styles> {
-    
+    choices?: any[];
+    className?: string;
+    id?: string;
+    input?: any;
+    isRequired?: boolean;
+    label?: string;
+    options?: any;
+    optionText: string | ((choice: any) => string) | React.ReactElement<any>;
+    optionValue: string;
+    resource?: string;
+    source?: string;
+    translate: any;
+    translateChoice: boolean;
+    meta?: any;
 }
 
 const styles = createStyles({
@@ -80,12 +93,43 @@ const styles = createStyles({
  *
  * The object passed as `options` props is passed to the material-ui <RadioButtonGroup> component
  */
-export class RadioButtonGroupInput extends Component {
-    handleChange = (event, value) => {
+export class RadioButtonGroupInput extends Component<IProps> {
+    static propTypes = {
+        choices: PropTypes.arrayOf(PropTypes.object),
+        classes: PropTypes.object,
+        className: PropTypes.string,
+        id: PropTypes.string,
+        input: PropTypes.object,
+        isRequired: PropTypes.bool,
+        label: PropTypes.string,
+        options: PropTypes.object,
+        optionText: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.func,
+            PropTypes.element,
+        ]).isRequired,
+        optionValue: PropTypes.string.isRequired,
+        resource: PropTypes.string,
+        source: PropTypes.string,
+        translate: PropTypes.func.isRequired,
+        translateChoice: PropTypes.bool.isRequired,
+        meta: PropTypes.object,
+    };
+
+    static defaultProps = {
+        classes: {},
+        choices: [],
+        options: {},
+        optionText: 'name',
+        optionValue: 'id',
+        translateChoice: true,
+    };
+
+    handleChange: React.ChangeEventHandler<HTMLOptGroupElement> = (event, value) => {
         this.props.input.onChange(value);
     };
 
-    renderRadioButton = choice => {
+    renderRadioButton = (choice: any) => {
         const {
             id,
             optionText,
@@ -178,38 +222,7 @@ export class RadioButtonGroupInput extends Component {
     }
 }
 
-RadioButtonGroupInput.propTypes = {
-    choices: PropTypes.arrayOf(PropTypes.object),
-    classes: PropTypes.object,
-    className: PropTypes.string,
-    id: PropTypes.string,
-    input: PropTypes.object,
-    isRequired: PropTypes.bool,
-    label: PropTypes.string,
-    options: PropTypes.object,
-    optionText: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.func,
-        PropTypes.element,
-    ]).isRequired,
-    optionValue: PropTypes.string.isRequired,
-    resource: PropTypes.string,
-    source: PropTypes.string,
-    translate: PropTypes.func.isRequired,
-    translateChoice: PropTypes.bool.isRequired,
-    meta: PropTypes.object,
-};
-
-RadioButtonGroupInput.defaultProps = {
-    classes: {},
-    choices: [],
-    options: {},
-    optionText: 'name',
-    optionValue: 'id',
-    translateChoice: true,
-};
-
-export default compose(
+export default compose<IProps, {}>(
     addField,
     translate,
     withStyles(styles)

@@ -7,8 +7,34 @@ import { addField, FieldTitle } from 'ra-core';
 
 import sanitizeRestProps from './sanitizeRestProps';
 
-export class BooleanInput extends Component {
-    handleChange = (event, value) => {
+interface IProps {
+    className?: string;
+    id?: string;
+    input?: any;
+    isRequired?: boolean;
+    label?: string;
+    resource?: string;
+    source?: string;
+    options?: any;
+}
+
+export class BooleanInput extends Component<IProps> {
+    static propTypes = {
+        className: PropTypes.string,
+        id: PropTypes.string,
+        input: PropTypes.object,
+        isRequired: PropTypes.bool,
+        label: PropTypes.string,
+        resource: PropTypes.string,
+        source: PropTypes.string,
+        options: PropTypes.object,
+    };
+
+    static defaultProps = {
+        options: {},
+    };
+
+    handleChange = (event: any, value: any) => {
         this.props.input.onChange(value);
     };
 
@@ -54,20 +80,5 @@ export class BooleanInput extends Component {
         );
     }
 }
-
-BooleanInput.propTypes = {
-    className: PropTypes.string,
-    id: PropTypes.string,
-    input: PropTypes.object,
-    isRequired: PropTypes.bool,
-    label: PropTypes.string,
-    resource: PropTypes.string,
-    source: PropTypes.string,
-    options: PropTypes.object,
-};
-
-BooleanInput.defaultProps = {
-    options: {},
-};
 
 export default addField(BooleanInput);

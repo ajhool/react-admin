@@ -19,7 +19,33 @@ import { addField, translate, FieldTitle } from 'ra-core';
 import AutocompleteArrayInputChip from './AutocompleteArrayInputChip';
 
 interface IProps extends WithStyles<typeof styles> {
-    
+    allowEmpty?: boolean;
+    alwaysRenderSuggestions?: boolean; // used only for unit tests
+    choices?: any[];
+    className?: string;
+    InputProps?: any;
+    input?: any;
+    inputValueMatcher?: VoidFunction;
+    isRequired?: boolean;
+    label?: string;
+    limitChoicesToValue?: boolean;
+    meta?: any;
+    options?: any;
+    optionText: string | VoidFunction;
+    optionValue: string;
+    resource?: string;
+    setFilter?: VoidFunction;
+    source?: string;
+    suggestionComponent?: VoidFunction;
+    translate: VoidFunction;
+    translateChoice: boolean;
+}
+
+interface IState {
+    dirty: boolean;
+    inputValue: string;
+    searchText: string;
+    suggestions: [] as string[];
 }
 
 const styles = (theme: Theme) => createStyles({
@@ -105,8 +131,33 @@ const styles = (theme: Theme) => createStyles({
  * @example
  * <AutocompleteInput source="author_id" options={{ fullWidth: true }} />
  */
-export class AutocompleteArrayInput extends React.Component {
-    state = {
+export class AutocompleteArrayInput extends React.Component<IProps, IState> {
+    static propTypes = {
+        allowEmpty: PropTypes.bool,
+        alwaysRenderSuggestions: PropTypes.bool, // used only for unit tests
+        choices: PropTypes.arrayOf(PropTypes.object),
+        classes: PropTypes.object,
+        className: PropTypes.string,
+        InputProps: PropTypes.object,
+        input: PropTypes.object,
+        inputValueMatcher: PropTypes.func,
+        isRequired: PropTypes.bool,
+        label: PropTypes.string,
+        limitChoicesToValue: PropTypes.bool,
+        meta: PropTypes.object,
+        options: PropTypes.object,
+        optionText: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
+            .isRequired,
+        optionValue: PropTypes.string.isRequired,
+        resource: PropTypes.string,
+        setFilter: PropTypes.func,
+        source: PropTypes.string,
+        suggestionComponent: PropTypes.func,
+        translate: PropTypes.func.isRequired,
+        translateChoice: PropTypes.bool.isRequired,
+    }
+    
+    static state = {
         dirty: false,
         inputValue: null,
         searchText: '',
@@ -145,9 +196,9 @@ export class AutocompleteArrayInput extends React.Component {
         }
     }
 
-    getSuggestionValue = suggestion => get(suggestion, this.props.optionValue);
+    getSuggestionValue = (suggestion: string) => get(suggestion, this.props.optionValue);
 
-    getSuggestionText = suggestion => {
+    getSuggestionText = (suggestion: string) => {
         if (!suggestion) return '';
 
         const { optionText, translate, translateChoice } = this.props;
@@ -473,29 +524,7 @@ export class AutocompleteArrayInput extends React.Component {
     }
 }
 
-AutocompleteArrayInput.propTypes = {
-    allowEmpty: PropTypes.bool,
-    alwaysRenderSuggestions: PropTypes.bool, // used only for unit tests
-    choices: PropTypes.arrayOf(PropTypes.object),
-    classes: PropTypes.object,
-    className: PropTypes.string,
-    InputProps: PropTypes.object,
-    input: PropTypes.object,
-    inputValueMatcher: PropTypes.func,
-    isRequired: PropTypes.bool,
-    label: PropTypes.string,
-    limitChoicesToValue: PropTypes.bool,
-    meta: PropTypes.object,
-    options: PropTypes.object,
-    optionText: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
-        .isRequired,
-    optionValue: PropTypes.string.isRequired,
-    resource: PropTypes.string,
-    setFilter: PropTypes.func,
-    source: PropTypes.string,
-    suggestionComponent: PropTypes.func,
-    translate: PropTypes.func.isRequired,
-    translateChoice: PropTypes.bool.isRequired,
+AutocompleteArrayInput.
 };
 
 AutocompleteArrayInput.defaultProps = {

@@ -11,12 +11,27 @@ import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/s
 import compose from 'recompose/compose';
 import { addField, translate, FieldTitle } from 'ra-core';
 
-import defaultSanitizeRestProps from './sanitizeRestProps';
-const sanitizeRestProps = ({ setFilter, setPagination, setSort, ...rest }) =>
+import defaultSanitizeRestProps from 'ra-ui-materialui/src/input/sanitizeRestProps';
+const sanitizeRestProps = ({ setFilter, setPagination, setSort, ...rest }: any): any =>
     defaultSanitizeRestProps(rest);
 
 interface IProps extends WithStyles<typeof styles> {
-    
+    choices?: any[];
+    className?: string;
+    label?: string;
+    source?: string;
+    options?: any;
+    id?: string;
+    input: {
+        onChange: VoidFunction;
+    };
+    isRequired?: boolean;
+    optionText: string | ((id: number) => string) | React.ReactElement<any>;
+    optionValue: string;
+    resource?: string;
+    translate: any;
+    translateChoice: boolean;
+    meta?: any;
 }
 
 const styles = (theme: Theme) => createStyles({
@@ -89,12 +104,44 @@ const styles = (theme: Theme) => createStyles({
  *
  * The object passed as `options` props is passed to the material-ui <Checkbox> components
  */
-export class CheckboxGroupInput extends Component {
-    handleCheck = (event, isChecked) => {
+export class CheckboxGroupInput extends Component<IProps> {
+    static propTypes = {
+        choices: PropTypes.arrayOf(PropTypes.object),
+        classes: PropTypes.object,
+        className: PropTypes.string,
+        label: PropTypes.string,
+        source: PropTypes.string,
+        options: PropTypes.object,
+        id: PropTypes.string,
+        input: PropTypes.shape({
+            onChange: PropTypes.func.isRequired,
+        }),
+        isRequired: PropTypes.bool,
+        optionText: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.func,
+            PropTypes.element,
+        ]).isRequired,
+        optionValue: PropTypes.string.isRequired,
+        resource: PropTypes.string,
+        translate: PropTypes.func.isRequired,
+        translateChoice: PropTypes.bool.isRequired,
+        meta: PropTypes.object,
+    };
+
+    static defaultProps = {
+        choices: [],
+        options: {},
+        optionText: 'name',
+        optionValue: 'id',
+        translateChoice: true,
+    };
+
+    handleCheck = (event, isChecked: boolean) => {
         const {
             input: { value, onChange },
         } = this.props;
-        let newValue;
+        let newValue: any;
         try {
             // try to convert string value to number, e.g. '123'
             newValue = JSON.parse(event.target.value);
@@ -109,7 +156,7 @@ export class CheckboxGroupInput extends Component {
         }
     };
 
-    renderCheckbox = choice => {
+    renderCheckbox = (choice: any) => {
         const {
             id,
             input: { value },
@@ -197,39 +244,7 @@ export class CheckboxGroupInput extends Component {
     }
 }
 
-CheckboxGroupInput.propTypes = {
-    choices: PropTypes.arrayOf(PropTypes.object),
-    classes: PropTypes.object,
-    className: PropTypes.string,
-    label: PropTypes.string,
-    source: PropTypes.string,
-    options: PropTypes.object,
-    id: PropTypes.string,
-    input: PropTypes.shape({
-        onChange: PropTypes.func.isRequired,
-    }),
-    isRequired: PropTypes.bool,
-    optionText: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.func,
-        PropTypes.element,
-    ]).isRequired,
-    optionValue: PropTypes.string.isRequired,
-    resource: PropTypes.string,
-    translate: PropTypes.func.isRequired,
-    translateChoice: PropTypes.bool.isRequired,
-    meta: PropTypes.object,
-};
-
-CheckboxGroupInput.defaultProps = {
-    choices: [],
-    options: {},
-    optionText: 'name',
-    optionValue: 'id',
-    translateChoice: true,
-};
-
-const EnhancedCheckboxGroupInput = compose(
+const EnhancedCheckboxGroupInput = compose<IProps, {}>(
     addField,
     translate,
     withStyles(styles)

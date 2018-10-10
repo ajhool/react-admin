@@ -25,8 +25,11 @@
         "watch": "rimraf ./lib && cross-env NODE_ENV=production babel --watch ./src -d ./lib --ignore spec.js,test.js"
     },
     "devDependencies": {
+        "@types/autosuggest-highlight": "^3.1.0",
         "@types/classnames": "^2.2.6",
         "@types/papaparse": "^4.5.4",
+        "@types/react-autosuggest": "^9.3.6",
+        "@types/react-dropzone": "^4.2.2",
         "@types/react-redux": "^6.0.9",
         "babel-cli": "~6.26.0",
         "cross-env": "^5.2.0",

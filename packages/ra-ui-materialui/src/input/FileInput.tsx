@@ -7,12 +7,39 @@ import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/s
 import classnames from 'classnames';
 import { addField, translate } from 'ra-core';
 
-import Labeled from './Labeled';
-import FileInputPreview from './FileInputPreview';
-import sanitizeRestProps from './sanitizeRestProps';
+import Labeled from 'ra-ui-materialui/src/input/Labeled';
+import FileInputPreview from 'ra-ui-materialui/src/input/FileInputPreview';
+import sanitizeRestProps from 'ra-ui-materialui/src/input/sanitizeRestProps';
 
-interface IProps extends WithStyles<typeof styles> {
-    
+export interface IProps extends WithStyles<typeof styles> {
+    accept?: string;
+    children?: React.ReactChildren;
+    className?: string;
+    disableClick?: boolean;
+    id?: string;
+    input?: any;
+    isRequired?: boolean;
+    label?: string;
+    labelMultiple?: string;
+    labelSingle?: string;
+    maxSize?: number;
+    minSize?: number;
+    multiple?: boolean;
+    options?: any;
+    resource?: string;
+    source?: string;
+    translate: any;
+    placeholder?: React.ReactNode;
+}
+
+export interface ITransformedFile {
+    rawFile: File;
+    [source: string]: file.preview,
+    [title: string]: string | undefined;
+};
+
+interface IState {
+    files: ITransformedFile[];
 }
 
 const styles = createStyles({
@@ -28,7 +55,7 @@ const styles = createStyles({
     root: { width: '100%' },
 });
 
-export class FileInput extends Component<IProps> {
+export class FileInput<IPropsExtended> extends Component<IProps & IPropsExtended, IState> {
     static propTypes = {
         accept: PropTypes.string,
         children: PropTypes.element,
@@ -58,7 +85,7 @@ export class FileInput extends Component<IProps> {
         onUpload: () => {},
     };
 
-    constructor(props) {
+    constructor(props: Readonly<IProps & IPropsExtended>) {
         super(props);
         let files = props.input.value || [];
         if (!Array.isArray(files)) {
@@ -70,7 +97,7 @@ export class FileInput extends Component<IProps> {
         };
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: IProps) {
         let files = nextProps.input.value || [];
         if (!Array.isArray(files)) {
             files = [files];
@@ -79,7 +106,7 @@ export class FileInput extends Component<IProps> {
         this.setState({ files: files.map(this.transformFile) });
     }
 
-    onDrop = files => {
+    onDrop = (files: File[]) => {
         const updatedFiles = this.props.multiple
             ? [...this.state.files, ...files.map(this.transformFile)]
             : [...files.map(this.transformFile)];
@@ -93,7 +120,7 @@ export class FileInput extends Component<IProps> {
         }
     };
 
-    onRemove = file => () => {
+    onRemove = (file: ITransformedFile) => () => {
         const filteredFiles = this.state.files.filter(
             stateFile => !shallowEqual(stateFile, file)
         );
@@ -108,7 +135,7 @@ export class FileInput extends Component<IProps> {
     };
 
     // turn a browser dropped file structure into expected structure
-    transformFile = file => {
+    transformFile = (file: File): ITransformedFile => {
         if (!(file instanceof File)) {
             return file;
         }
@@ -214,7 +241,7 @@ export class FileInput extends Component<IProps> {
     }
 }
 
-export default compose(
+export default compose<IProps, {}>(
     addField,
     translate,
     withStyles(styles)

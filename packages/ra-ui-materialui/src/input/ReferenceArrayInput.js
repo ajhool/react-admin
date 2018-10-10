@@ -58,7 +58,7 @@ export const ReferenceArrayInputView = ({
     translate,
     warning,
     ...rest
-}) => {
+}: any): any => {
     const translatedLabel = translate(
         label || `resources.${resource}.fields.${source}`,
         { _: label }
