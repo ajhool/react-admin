@@ -1,4 +1,4 @@
-const removeKey = (target: Object, path: string): Object =>
+const removeKey = (target: object, path: string): object =>
     Object.keys(target).reduce((acc, key) => {
         if (key !== path) {
             return Object.assign({}, acc, { [key]: (target as any)[key]});
@@ -7,7 +7,7 @@ const removeKey = (target: Object, path: string): Object =>
         return acc;
     }, {});
 
-const deepRemoveKey = (target: Object, path: string): Object => {
+const deepRemoveKey = (target: object, path: string): object => {
     const paths = path.split('.');
 
     if (paths.length === 1) {

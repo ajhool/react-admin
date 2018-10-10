@@ -1,18 +1,10 @@
-import { Children, ReactChildren, Component, ReactElement } from 'react';
+import { Children, ReactChildren } from 'react';
 import PropTypes from 'prop-types';
 import Polyglot from 'node-polyglot';
 import { connect } from 'react-redux';
 import { compose, withContext } from 'recompose';
 import defaultMessages from 'ra-language-english';
 import { defaultsDeep } from 'lodash';
-
-interface ITranslationProviderArgs {
-    children: ReactChildren;
-    locale: string;
-    messages: any;
-}
-
-type ITranslationProvider = ReactElement<ITranslationProviderArgs>;
 
 interface IProps {
     locale: string;
@@ -39,7 +31,7 @@ interface IState {
  *         </Provider>
  *     );
  */
-const TranslationProvider = ({ children }: IProps) => Children.only(children) as ITranslationProvider;
+const TranslationProvider: React.SFC<IProps> = ({ children }: IProps) => Children.only(children);
 
 TranslationProvider.propTypes = {
     locale: PropTypes.string.isRequired,
@@ -81,7 +73,7 @@ const withI18nContext = withContext(
     }
 );
 
-export default compose(
+export default compose<IProps, {}>(
     connect(mapStateToProps),
     withI18nContext
 )(TranslationProvider);

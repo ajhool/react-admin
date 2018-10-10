@@ -8,7 +8,6 @@ import { registerResource, unregisterResource } from './actions';
 
 /**
  * These props allow for a component or for a function that creates a component.
- * 
  */
 type FunctionOrComponent = ComponentType<any> | ((args: any) => Component<any>);
 

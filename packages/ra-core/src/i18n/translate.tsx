@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import wrapDisplayName from 'recompose/wrapDisplayName';
 import warning from '../util/warning';
 
-type IBaseComponentProps = any;
+export type IBaseComponentProps = any;
 
 export interface IBaseComponent extends StatelessComponent<IBaseComponentProps> {
     defaultProps: {

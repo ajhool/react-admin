@@ -21,7 +21,7 @@ export const fetchActionsWithArrayOfRecordsResponse = [
 ];
 export const fetchActionsWithTotalResponse = [GET_LIST, GET_MANY_REFERENCE];
 
-export type DataFetchActions = 
+export type DataFetchActions =
     GET_LIST |
     GET_ONE |
     GET_MANY |
