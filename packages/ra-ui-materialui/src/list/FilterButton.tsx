@@ -10,16 +10,23 @@ import { translate } from 'ra-core';
 
 import FilterButtonMenuItem from './FilterButtonMenuItem';
 import Button from '../button/Button';
+import Filter from './Filter';
 
 interface IProps extends WithStyles<typeof styles> {
-
-}
+    resource: string;
+    filters: Filter[];
+    displayedFilters: any;
+    filterValues: any;
+    showFilter: VoidFunction;
+    translate: any;
+    className?: string;
+};
 
 const styles = createStyles({
     root: { display: 'inline-block' },
 });
 
-export class FilterButton extends Component {
+export class FilterButton extends Component<IProps> {
     constructor(props) {
         super(props);
         this.state = {

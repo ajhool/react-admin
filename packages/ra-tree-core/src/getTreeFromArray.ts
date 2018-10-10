@@ -1,9 +1,15 @@
 import { arrayToTree } from "performant-array-to-tree";
 
+interface ITreeNode: {
+    id: number;
+    record: data;
+    children: any;
+}
+
 /**
  * Recursivly create nodes.
  */
-const createNode = ({ children, ...node }) => ({
+const createNode = ({ children, ...node }): ITreeNode => ({
     id: node.data.id,
     record: node.data,
     children: children ? children.map(child => createNode(child)) : [],
@@ -12,10 +18,10 @@ const createNode = ({ children, ...node }) => ({
 /**
  * Recursivly add a parent property to every nodes so that they can a reference to their parent
  */
-const addParent = (node, parent) => ({
+const addParent = (node: ITreeNode, parent: ITreeNode) => ({
     ...node,
     children: node.children.map(child => addParent(child, node)),
-    parent,
+    parent
 });
 
 /**

@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import MenuItem from '@material-ui/core/MenuItem';
 import { FieldTitle } from 'ra-core';
 
-class FilterButtonMenuItem extends Component {
+interface IProps {
+    filter: any;
+    onShow: VoidFunction;
+    resource: string;
+}
+
+class FilterButtonMenuItem extends Component<IProps> {
     static propTypes = {
         filter: PropTypes.object.isRequired,
         onShow: PropTypes.func.isRequired,

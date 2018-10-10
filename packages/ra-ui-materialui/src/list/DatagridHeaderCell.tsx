@@ -10,7 +10,17 @@ import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/s
 import { FieldTitle, translate } from 'ra-core';
 
 interface IProps extends WithStyles<typeof styles> {
-
+    className?: string;
+    field: PropTypes.element,
+    currentSort: {
+        sort: string;
+        order: 'ASC' | 'DESC';
+    };
+    isSorting?: boolean;
+    sortable?: boolean;
+    resource?: string;
+    translate: any;
+    updateSort: VoidFunction;
 }
 
 // remove the sort icons when not active
@@ -23,9 +33,9 @@ const styles = createStyles({
             display: 'inline',
         },
     },
-};
+});
 
-export const DatagridHeaderCell = ({
+export const DatagridHeaderCell: React.SFC<IProps> = ({
     classes,
     className,
     field,
@@ -96,7 +106,7 @@ DatagridHeaderCell.propTypes = {
     updateSort: PropTypes.func.isRequired,
 };
 
-const enhance = compose(
+const enhance = compose<IProps, {}>(
     shouldUpdate(
         (props, nextProps) =>
             props.isSorting !== nextProps.isSorting ||

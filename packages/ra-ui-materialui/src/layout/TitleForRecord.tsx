@@ -2,7 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Title from './Title';
 
-const TitleForRecord = ({ defaultTitle, record, title }) =>
+interface IProps {
+    defaultTitle?: any;
+    record?: any;
+    title?: any;
+}
+
+const TitleForRecord: React.SFC<IProps> = ({ defaultTitle, record, title }) =>
     record ? (
         <Title title={title} record={record} defaultTitle={defaultTitle} />
     ) : (

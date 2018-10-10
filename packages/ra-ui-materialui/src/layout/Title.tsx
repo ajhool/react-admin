@@ -3,6 +3,14 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { translate, warning } from 'ra-core';
 
+interface IProps {
+    defaultTitle?: string;
+    className?: string;
+    record?: any;
+    translate: any;
+    title?: string | Element;
+}
+
 const Title = ({
     className,
     defaultTitle,
@@ -10,7 +18,7 @@ const Title = ({
     title,
     translate,
     ...rest
-}) => {
+}): React.SFC<IProps> => {
     const container = document.getElementById('react-admin-title');
     if (!container) return null;
     warning(!defaultTitle && !title, 'Missing title prop in <Title> element');
