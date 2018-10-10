@@ -13,11 +13,15 @@ import { addField, translate, FieldTitle } from 'ra-core';
 
 import sanitizeRestProps from './sanitizeRestProps';
 
-const styles = {
+interface IProps extends WithStyles<typeof styles> {
+    
+}
+
+const styles = createStyles({
     label: {
         position: 'relative',
     },
-};
+});
 
 /**
  * An Input component for a radio button group, using an array of objects for the options

@@ -8,7 +8,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import classnames from 'classnames';
 import { linkToRecord } from 'ra-core';
 
-import DatagridCell from './DatagridCell';
+import DatagridCell from 'ra-ui-materialui/src/list/DatagridCell';
 
 interface IProps {
     basePath?: string;

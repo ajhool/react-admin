@@ -12,6 +12,8 @@ import {
 
 import getFetchedAt from '../../../../util/getFetchedAt';
 
+export type IState = number[];
+
 export const addRecordIdsFactory = getFetchedAt => (
     newRecordIds = [],
     oldRecordIds
@@ -29,7 +31,7 @@ export const addRecordIdsFactory = getFetchedAt => (
 
 const addRecordIds = addRecordIdsFactory(getFetchedAt);
 
-export default (previousState = [], { type, payload }) => {
+export default (previousState: IState = [], { type, payload }) => {
     switch (type) {
         case CRUD_GET_LIST_SUCCESS:
             return addRecordIds(payload.data.map(({ id }) => id), []);

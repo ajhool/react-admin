@@ -89,13 +89,11 @@ const LoginForm: React.SFC<IProps> = ({
     </form>
 );
 
-
 LoginForm.propTypes = {
     ...propTypes,
     classes: PropTypes.object,
     redirectTo: PropTypes.string,
 };
-
 
 const mapStateToProps = state => ({ isLoading: state.admin.loading > 0 });
 

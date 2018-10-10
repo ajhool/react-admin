@@ -6,6 +6,13 @@ import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { translate } from 'ra-core';
 
+interface IProps {
+    children: PropTypes.node,
+    label: PropTypes.string.isRequired,
+    logout: PropTypes.node,
+    translate: PropTypes.func.isRequired,
+}
+
 class UserMenu extends React.Component {
     static propTypes = {
         children: PropTypes.node,

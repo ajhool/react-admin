@@ -10,6 +10,14 @@ export const SET_FILTER = 'SET_FILTER';
 const oppositeOrder = direction =>
     direction === SORT_DESC ? SORT_ASC : SORT_DESC;
 
+interface IState {
+    order: typeof SORT_ASC | typeof SORT_DESC;
+    page: number;
+    sort: string;
+    perPage: number;
+    filter: string;
+}
+
 /**
  * This reducer is for the react-router query string, NOT for redux.
  */
@@ -21,6 +29,8 @@ export default (previousState, { type, payload }) => {
                     ...previousState,
                     order: oppositeOrder(previousState.order),
                     page: 1,
+                    perPage,
+                    filter
                 };
             }
 

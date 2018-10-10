@@ -10,7 +10,7 @@ import draggable from './draggable';
 import droppable from './droppable';
 import DragLayer from './DragLayer';
 import DefaultDragPreview from './DragPreview';
-import DefaultTreeNode from './TreeNode';
+import DefaultTreeNode from 'ra-tree-ui-materialui/src/TreeNode';
 import DefaultTreeNodeContent from './TreeNodeContent';
 import DefaultTreeNodeWithChildren from './TreeNodeWithChildren';
 import RootDropTarget from './RootDropTarget';

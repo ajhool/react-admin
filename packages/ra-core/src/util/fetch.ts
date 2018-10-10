@@ -1,20 +1,20 @@
 import HttpError from './HttpError';
 import { stringify } from 'query-string';
 
-interface JSONOptions {
+interface IJSONOptions {
     headers?: Headers;
     body?: any;
     user?: any;
 }
 
-interface JSONResponse {
+interface IJSONResponse {
     status: number;
     statusText: string;
     headers: Headers;
     body: string;
 }
 
-export const fetchJson = (url: string, options: JSONOptions = {}) => {
+export const fetchJson = (url: string, options: IJSONOptions = {}) => {
     const requestHeaders =
         options.headers ||
         new Headers({
@@ -30,17 +30,17 @@ export const fetchJson = (url: string, options: JSONOptions = {}) => {
         requestHeaders.set('Authorization', options.user.token);
     }
 
-    //@ts-ignore options has additional parameters that fetch doesn't recognize. That's okay.
+    // @ts-ignore options has additional parameters that fetch doesn't recognize. That's okay.
     return fetch(url, { ...options, headers: requestHeaders })
-        .then((response: Response): Promise<JSONResponse> =>
-            response.text().then((text: string): JSONResponse => ({
+        .then((response: Response): Promise<IJSONResponse> =>
+            response.text().then((text: string): IJSONResponse => ({
                 status: response.status,
                 statusText: response.statusText,
                 headers: response.headers,
                 body: text,
             }))
         )
-        .then(({ status, statusText, headers, body }: JSONResponse): any => {
+        .then(({ status, statusText, headers, body }: IJSONResponse): any => {
             let json;
             try {
                 json = JSON.parse(body);
@@ -62,7 +62,7 @@ export const fetchJson = (url: string, options: JSONOptions = {}) => {
 
 export const queryParameters = stringify;
 
-const isValidObject = (value: Buffer | Object | Array<any>): boolean => {
+const isValidObject = (value: Buffer | object | any[]): boolean => {
     if (!value) {
         return false;
     }

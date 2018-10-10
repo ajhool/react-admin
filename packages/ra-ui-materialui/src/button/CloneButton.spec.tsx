@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import { CloneButton } from './CloneButton';
+import { CloneButton } from 'ra-ui-materialui/src/button/CloneButton';
 
 describe('<CloneButton />', () => {
     it('should pass a clone of the record in the location state', () => {

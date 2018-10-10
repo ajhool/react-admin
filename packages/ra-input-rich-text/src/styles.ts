@@ -2,7 +2,7 @@ import QuillSnowStylesheet from './QuillSnowStylesheet';
 
 export default {
     '@global': {...QuillSnowStylesheet,
-        '.ra-rich-text-input': {
+                '.ra-rich-text-input': {
             '& .ql-editor': {
                 fontSize: '1rem',
                 fontFamily: "Roboto, 'sans-serif'",

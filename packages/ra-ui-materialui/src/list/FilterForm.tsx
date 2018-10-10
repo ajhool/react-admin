@@ -7,7 +7,7 @@ import compose from 'recompose/compose';
 import withProps from 'recompose/withProps';
 import lodashSet from 'lodash/set';
 
-import FilterFormInput from './FilterFormInput';
+import FilterFormInput from 'ra-ui-materialui/src/list/FilterFormInput';
 
 interface IProps extends WithStyles<typeof styles> {
 

@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import { SaveButton } from './SaveButton';
+import { SaveButton } from 'ra-ui-materialui/src/button/SaveButton';
 
 const translate = label => label;
 

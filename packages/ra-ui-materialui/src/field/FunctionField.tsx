@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import pure from 'recompose/pure';
 import Typography from '@material-ui/core/Typography';
 
-import sanitizeRestProps from './sanitizeRestProps';
+import sanitizeRestProps from 'ra-ui-materialui/src/field/sanitizeRestProps';
 
 interface IProps {
     addLabel?: boolean;

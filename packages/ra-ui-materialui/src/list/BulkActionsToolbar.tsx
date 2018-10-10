@@ -7,9 +7,9 @@ import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/s
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 import { translate, sanitizeListRestProps } from 'ra-core';
 
-import CardActions from '../layout/CardActions';
+import CardActions from 'ra-ui-materialui/src/layout/CardActions';
 
-interface IProps extends WithStyles<typeof styles>{
+interface IProps extends WithStyles<typeof styles> {
 
 }
 

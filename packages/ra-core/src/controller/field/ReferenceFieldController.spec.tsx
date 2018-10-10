@@ -2,7 +2,7 @@ import React from 'react';
 import assert from 'assert';
 import { shallow } from 'enzyme';
 
-import { ReferenceFieldController } from './ReferenceFieldController';
+import { ReferenceFieldController } from 'ra-core/src/controller/field/ReferenceFieldController';
 
 describe('<ReferenceFieldController />', () => {
     it('should call crudGetManyAccumulate on componentDidMount if reference source is defined', () => {

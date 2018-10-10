@@ -8,7 +8,7 @@ import { Actions as UndoActions, TypeKeys as UndoTypeKeys } from '../../actions/
 // TODO: replace any with the shape of the payload in notificationActions.
 export type IState = INotificationPayload[];
 
-export default (previousState: IState = [], action: NotificationActions | UndoActions) => {
+export default (previousState: IState = [], action: UndoActions | NotificationActions) => {
     switch (action.type) {
         case NotificationTypeKeys.SHOW_NOTIFICATION:
             return previousState.concat(action.payload);

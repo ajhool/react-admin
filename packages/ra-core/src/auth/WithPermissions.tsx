@@ -9,6 +9,18 @@ import { AUTH_GET_PERMISSIONS } from '../auth/types';
 import { isLoggedIn } from '../reducer';
 import warning from '../util/warning';
 
+interface IProps {
+    authProvider?: any;
+    authParams?: any;
+    children?: any;
+    location?: any;
+    match?: any;
+    render?: any;
+    isLoggedIn?: boolean;
+    staticContext?: any;
+    userCheck?: typeof userCheck;
+}
+
 const isEmptyChildren = children => Children.count(children) === 0;
 
 /**

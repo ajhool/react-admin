@@ -7,6 +7,11 @@ import warning from '../util/warning';
 
 import { REDUX_FORM_NAME } from './constants';
 
+interface IProps {
+    children: any;
+    data?: any;
+}
+
 /**
  * Get the current (edited) value of the record from the form and pass it
  * to child function
@@ -45,7 +50,7 @@ import { REDUX_FORM_NAME } from './constants';
  *     </Edit>
  * );
  */
-export const FormDataConsumer = ({
+export const FormDataConsumer: React.SFC<IProps> = ({
     children,
     formData,
     source,
