@@ -1,20 +1,19 @@
 import {
-    SHOW_NOTIFICATION,
-    HIDE_NOTIFICATION,
+    TypeKeys as NotificationTypeKeys,
+    Actions as NotificationActions,
     INotificationPayload
 } from '../../actions/notificationActions';
-import { UNDO } from '../../actions/undoActions';
-import { AnyAction } from 'redux';
+import { Actions as UndoActions, TypeKeys as UndoTypeKeys } from '../../actions/undoActions';
 
 // TODO: replace any with the shape of the payload in notificationActions.
 export type IState = INotificationPayload[];
 
-export default (previousState: IState = [], { type, payload }: AnyAction) => {
-    switch (type) {
-        case SHOW_NOTIFICATION:
-            return previousState.concat(payload);
-        case HIDE_NOTIFICATION:
-        case UNDO:
+export default (previousState: IState = [], action: NotificationActions | UndoActions) => {
+    switch (action.type) {
+        case NotificationTypeKeys.SHOW_NOTIFICATION:
+            return previousState.concat(action.payload);
+        case NotificationTypeKeys.HIDE_NOTIFICATION:
+        case UndoTypeKeys.UNDO:
             return previousState.slice(1);
         default:
             return previousState;

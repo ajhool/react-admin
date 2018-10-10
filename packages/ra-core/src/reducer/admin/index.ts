@@ -25,15 +25,15 @@ export default combineReducers({
     auth,
 });
 
-export const getPossibleReferenceValues = (state, props) =>
+export const getPossibleReferenceValues = (state: IState, props) =>
     referencesGetPossibleReferenceValues(state.references, props);
 
-export const getResources = state => resourceGetResources(state.resources);
+export const getResources = (state: IState) => resourceGetResources(state.resources);
 
-export const getReferenceResource = (state, props) => {
+export const getReferenceResource = (state: IState, props) => {
     return resourceGetReferenceResource(state.resources, props);
 };
 
-export const isLoggedIn = state => authIsLoggedIn(state.auth);
+export const isLoggedIn = (state: IState) => authIsLoggedIn(state.auth);
 
 export { getPossibleReferences } from './references';

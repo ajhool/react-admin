@@ -1,10 +1,19 @@
-import { Component, createElement } from 'react';
+import { Component, createElement, ReactElement } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { initializeForm as initializeFormAction } from '../actions/formActions';
+import { initializeForm as initializeFormAction } from './formActions';
 
-export class DefaultValue extends Component {
+interface IProps {
+    decordatedComponent: ReactElement<any> | VoidFunction;
+    defaultValue?: any;
+    initializeForm?: typeof initializeFormAction; // TODO
+    input?: object;
+    source: string;
+    validate?: () => void | string[]; // TODO
+}
+
+export class DefaultValue extends Component<IProps> {
     static propTypes = {
         decoratedComponent: PropTypes.oneOfType([
             PropTypes.element,
@@ -30,7 +39,7 @@ export class DefaultValue extends Component {
         });
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: IProps) {
         const { defaultValue, input, initializeForm, source } = this.props;
         if (typeof defaultValue === 'undefined' || input) {
             return;

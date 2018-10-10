@@ -1,16 +1,16 @@
 import {
-    CHANGE_LOCALE,
-    CHANGE_LOCALE_SUCCESS,
-    CHANGE_LOCALE_FAILURE,
+    TypeKeys,
+    Actions as LocaleActions
 } from '../../actions/localeActions';
-import { AnyAction } from 'redux';
 
-export default (loading: boolean = false, action: AnyAction) => {
+export type IState = boolean;
+
+export default (loading: IState = false, action: LocaleActions) => {
     switch (action.type) {
-        case CHANGE_LOCALE:
+        case TypeKeys.CHANGE_LOCALE:
             return true;
-        case CHANGE_LOCALE_SUCCESS:
-        case CHANGE_LOCALE_FAILURE:
+        case TypeKeys.CHANGE_LOCALE_SUCCESS:
+        case TypeKeys.CHANGE_LOCALE_FAILURE:
             return false;
         default:
             return loading;

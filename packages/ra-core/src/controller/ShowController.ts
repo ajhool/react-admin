@@ -3,8 +3,25 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import inflection from 'inflection';
-import translate from '../i18n/translate';
+import translate from 'ra-core/src/i18n/translate';
 import { crudGetOne as crudGetOneAction } from '../actions';
+
+interface IProps {
+    basePath: string;
+    children: VoidFunction;
+    crudGetOne: typeof crudGetOneAction
+    record?: any;
+    hasCreate?: boolean;
+    hasEdit?: boolean;
+    hasList?: boolean;
+    hasShow?: boolean;
+    id: string; // TODO: Shouldn't this be number? PropTypes says it's a string
+    isLoading: boolean;
+    resource: string;
+    title?: any;
+    translate?: VoidFunction;
+    version: number;
+}
 
 /**
  * Page component for the Show view
@@ -48,12 +65,29 @@ import { crudGetOne as crudGetOneAction } from '../actions';
  *     );
  *     export default App;
  */
-export class ShowController extends Component {
+export class ShowController extends Component<IProps> {
+    static propTypes = {
+        basePath: PropTypes.string.isRequired,
+        children: PropTypes.func.isRequired,
+        crudGetOne: PropTypes.func.isRequired,
+        record: PropTypes.object,
+        hasCreate: PropTypes.bool,
+        hasEdit: PropTypes.bool,
+        hasList: PropTypes.bool,
+        hasShow: PropTypes.bool,
+        id: PropTypes.string.isRequired,
+        isLoading: PropTypes.bool.isRequired,
+        resource: PropTypes.string.isRequired,
+        title: PropTypes.any,
+        translate: PropTypes.func,
+        version: PropTypes.number.isRequired,
+    };
+
     componentDidMount() {
         this.updateData();
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: IProps) {
         if (
             this.props.id !== nextProps.id ||
             nextProps.version !== this.props.version
@@ -103,24 +137,7 @@ export class ShowController extends Component {
     }
 }
 
-ShowController.propTypes = {
-    basePath: PropTypes.string.isRequired,
-    children: PropTypes.func.isRequired,
-    crudGetOne: PropTypes.func.isRequired,
-    record: PropTypes.object,
-    hasCreate: PropTypes.bool,
-    hasEdit: PropTypes.bool,
-    hasList: PropTypes.bool,
-    hasShow: PropTypes.bool,
-    id: PropTypes.string.isRequired,
-    isLoading: PropTypes.bool.isRequired,
-    resource: PropTypes.string.isRequired,
-    title: PropTypes.any,
-    translate: PropTypes.func,
-    version: PropTypes.number.isRequired,
-};
-
-function mapStateToProps(state, props) {
+function mapStateToProps(state, props: IProps) {
     return {
         id: props.id,
         record: state.admin.resources[props.resource]
@@ -131,7 +148,7 @@ function mapStateToProps(state, props) {
     };
 }
 
-export default compose(
+export default compose<IProps, {}>(
     connect(
         mapStateToProps,
         { crudGetOne: crudGetOneAction }

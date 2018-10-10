@@ -1,6 +1,5 @@
-import { INITIALIZE_FORM, RESET_FORM } from '../../actions/formActions';
+import { TypeKeys as FormTypeKeys, Actions as FormActions } from '../../actions/formActions';
 import { set } from 'lodash';
-import { AnyAction } from 'redux';
 
 // TODO: Not really sure what the shape of this is.
 export interface IState {
@@ -9,19 +8,19 @@ export interface IState {
 
 const initialState = {};
 
-export default (previousState: any = initialState, { type, payload }: AnyAction) => {
-    if (type === RESET_FORM) {
+export default (previousState: any = initialState, action: FormActions) => {
+    if (action.type === FormTypeKeys.RESET_FORM) {
         return initialState;
     }
 
-    if (type !== INITIALIZE_FORM) {
+    if (action.type !== FormTypeKeys.INITIALIZE_FORM) {
         return previousState;
     }
 
-    return Object.keys(payload).reduce(
+    return Object.keys(action.payload).reduce(
         (acc, key) => {
             // Ensure we correctly set default values for path with dot notation
-            set(acc, key, payload[key]);
+            set(acc, key, action.payload[key]);
             return acc;
         },
         { ...previousState }

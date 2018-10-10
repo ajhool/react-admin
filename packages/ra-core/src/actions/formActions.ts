@@ -24,4 +24,4 @@ export const resetForm = (): IResetForm => ({
     type: TypeKeys.RESET_FORM,
 });
 
-export type IFormActions = IInitializeForm | IResetForm;
+export type Actions = IInitializeForm | IResetForm;

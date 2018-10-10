@@ -1,14 +1,15 @@
 import { DEFAULT_LOCALE } from '../../i18n';
-import { CHANGE_LOCALE_SUCCESS } from '../../actions/localeActions';
-import { AnyAction } from 'redux';
+import { TypeKeys, Actions as LocaleActions } from '../../actions/localeActions';
 
-export default (initialLocale: string = DEFAULT_LOCALE) => (
+export type IState = string;
+
+export default (initialLocale: IState = DEFAULT_LOCALE) => (
     previousLocale: string = initialLocale,
-    { type, payload }: AnyAction
+    action: LocaleActions
 ) => {
-    switch (type) {
-        case CHANGE_LOCALE_SUCCESS:
-            return payload.locale;
+    switch (action.type) {
+        case TypeKeys.CHANGE_LOCALE_SUCCESS:
+            return action.payload.locale;
         default:
             return previousLocale;
     }

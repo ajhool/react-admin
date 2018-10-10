@@ -4,7 +4,7 @@ import data from './data';
 import list from './list';
 
 export interface IState {
-    [name: string] : {
+    [name: string]: {
         props: any;
         data: data;
         list: any;

@@ -10,7 +10,7 @@ export enum TypeKeys {
     FETCH_CANCEL = 'RA/FETCH_CANCEL',
 }
 
-interface IFetchStart {
+export interface IFetchStart {
     type: TypeKeys.FETCH_START;
 }
 
@@ -18,7 +18,7 @@ export const fetchStart = (): IFetchStart => ({
     type: TypeKeys.FETCH_START,
 });
 
-interface IFetchEnd {
+export interface IFetchEnd {
     type: TypeKeys.FETCH_END;
 }
 
@@ -26,7 +26,7 @@ export const fetchEnd = (): IFetchEnd => ({
     type: TypeKeys.FETCH_END,
 });
 
-interface IFetchError {
+export interface IFetchError {
     type: TypeKeys.FETCH_ERROR;
 }
 
@@ -34,7 +34,7 @@ export const fetchError = (): IFetchError => ({
     type: TypeKeys.FETCH_ERROR,
 });
 
-interface IFetchCancel {
+export interface IFetchCancel {
     type: TypeKeys.FETCH_CANCEL;
 }
 

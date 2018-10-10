@@ -16,7 +16,7 @@ export default combineReducers({
     possibleValues,
 });
 
-export const getPossibleReferenceValues = (state, props) =>
+export const getPossibleReferenceValues = (state: IState, props) =>
     pvGetPossibleReferenceValues(state.possibleValues, props);
 
 export const getPossibleReferences = pvGetPossibleReferences;

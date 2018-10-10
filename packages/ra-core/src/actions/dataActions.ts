@@ -16,12 +16,12 @@ export const CRUD_GET_LIST_LOADING = 'RA/CRUD_GET_LIST_LOADING';
 export const CRUD_GET_LIST_FAILURE = 'RA/CRUD_GET_LIST_FAILURE';
 export const CRUD_GET_LIST_SUCCESS = 'RA/CRUD_GET_LIST_SUCCESS';
 
-interface IPagination {
+export interface IPagination {
     page: number;
     perPage: number;
 }
 
-interface ISort {
+export interface ISort {
     field: string;
     order: 'ASC' | 'DESC';
 }
@@ -40,7 +40,7 @@ export enum TypeKeys {
     CRUD_GET_MANY_REFERENCE = 'RA/CRUD_GET_MANY_REFERENCE'
 }
 
-interface IFilter {
+export interface IFilter {
     todo: string;
 }
 
@@ -124,7 +124,7 @@ export const CRUD_GET_ONE_LOADING = 'RA/CRUD_GET_ONE_LOADING';
 export const CRUD_GET_ONE_FAILURE = 'RA/CRUD_GET_ONE_FAILURE';
 export const CRUD_GET_ONE_SUCCESS = 'RA/CRUD_GET_ONE_SUCCESS';
 
-interface ICrudGetOne {
+export interface ICrudGetOne {
     type: TypeKeys.CRUD_GET_ONE,
     payload: { id: number },
     meta: {
@@ -165,7 +165,7 @@ export const CRUD_CREATE_LOADING = 'RA/CRUD_CREATE_LOADING';
 export const CRUD_CREATE_FAILURE = 'RA/CRUD_CREATE_FAILURE';
 export const CRUD_CREATE_SUCCESS = 'RA/CRUD_CREATE_SUCCESS';
 
-interface ICrudCreate {
+export interface ICrudCreate {
     type: TypeKeys.CRUD_CREATE;
     payload: { data: any };
     meta: {
@@ -223,7 +223,7 @@ export const CRUD_UPDATE_FAILURE = 'RA/CRUD_UPDATE_FAILURE';
 export const CRUD_UPDATE_SUCCESS = 'RA/CRUD_UPDATE_SUCCESS';
 export const CRUD_UPDATE_OPTIMISTIC = 'RA/CRUD_UPDATE_OPTIMISTIC';
 
-interface ICrudUpdate {
+export interface ICrudUpdate {
     type: TypeKeys.CRUD_UPDATE,
     payload: {
         id: number;
@@ -292,7 +292,7 @@ export const CRUD_UPDATE_MANY_FAILURE = 'RA/CRUD_UPDATE_MANY_FAILURE';
 export const CRUD_UPDATE_MANY_SUCCESS = 'RA/CRUD_UPDATE_MANY_SUCCESS';
 export const CRUD_UPDATE_MANY_OPTIMISTIC = 'RA/CRUD_UPDATE_MANY_OPTIMISTIC';
 
-interface ICrudUpdateMany {
+export interface ICrudUpdateMany {
     type: TypeKeys.CRUD_UPDATE_MANY;
     payload: {
         ids: number[];
@@ -493,7 +493,7 @@ export const CRUD_GET_MANY_SUCCESS = 'RA/CRUD_GET_MANY_SUCCESS';
 
 // Reference related actions
 
-interface ICrudGetMany {
+export interface ICrudGetMany {
     type: TypeKeys.CRUD_GET_MANY,
     payload: {
         ids: number[];
@@ -530,7 +530,7 @@ export const CRUD_GET_MATCHING_LOADING = 'RA/CRUD_GET_MATCHING_LOADING';
 export const CRUD_GET_MATCHING_FAILURE = 'RA/CRUD_GET_MATCHING_FAILURE';
 export const CRUD_GET_MATCHING_SUCCESS = 'RA/CRUD_GET_MATCHING_SUCCESS';
 
-interface ICrudGetMatching {
+export interface ICrudGetMatching {
     type: TypeKeys.CRUD_GET_MATCHING;
     payload: {
         pagination: IPagination;
@@ -580,7 +580,7 @@ export const CRUD_GET_MANY_REFERENCE_FAILURE =
 export const CRUD_GET_MANY_REFERENCE_SUCCESS =
     'RA/CRUD_GET_MANY_REFERENCE_SUCCESS';
 
-interface ICrudGetManyReference {
+export interface ICrudGetManyReference {
     type: TypeKeys.CRUD_GET_MANY_REFERENCE;
     payload: {
         target: string;

@@ -28,10 +28,12 @@ export const setSidebarVisibility = (isOpen: boolean): ISetSidebarVisibility => 
 
 // export const REFRESH_VIEW = 'RA/REFRESH_VIEW';
 
-export interface IRefereshView {
+export interface IRefreshView {
     type: TypeKeys.REFRESH_VIEW,
 }
 
-export const refreshView = (): IRefereshView => ({
+export const refreshView = (): IRefreshView => ({
     type: TypeKeys.REFRESH_VIEW,
 });
+
+export type Actions = IToggleSidebar | ISetSidebarVisibility | IRefreshView;

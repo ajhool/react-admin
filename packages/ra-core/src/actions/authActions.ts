@@ -53,7 +53,7 @@ export const userCheck = (payload: object, pathName: string, routeParams: any): 
 
 // export const USER_LOGOUT = 'RA/USER_LOGOUT';
 
-interface IUserLogout {
+export interface IUserLogout {
     type: TypeKeys.USER_LOGOUT;
     payload: {
         redirectTo: string

@@ -1,4 +1,4 @@
-import { crudGetMany, crudGetMatching } from './dataActions';
+import { crudGetMany, crudGetMatching, ICrudGetMatching, IFilter, ISort, IPagination } from './dataActions';
 import { IResource } from './resourcesActions';
 
 export enum TypeKeys {
@@ -23,13 +23,10 @@ export const crudGetManyAccumulate = (resource: IResource, ids: number[]): ICrud
 
 interface ICrudGetMatchingAccumulate {
     type: TypeKeys.CRUD_GET_MATCHING_ACCUMULATE;
-    payload: {
-        type: TypeKeys.CRUD_GET_MATCHING_ACCUMULATE;
-        meta: {
-            accumulate: () => TODO: IMPORT ICrudGetMatching action from dataActions! use that, here!
-            accumulateValues: () => true;
-            accumulateKey: string;
-        }
+    meta: {
+        accumulate: () => ICrudGetMatching;
+        accumulateValues: () => true;
+        accumulateKey: string;
     }
 }
 

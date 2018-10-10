@@ -40,7 +40,6 @@ function* handleNotification({ error, meta: { notification, optimistic } }: IHan
 
 export default function*() {
     yield takeEvery(
-        // @ts-ignore
         action => action.meta && action.meta.notification,
         handleNotification
     );

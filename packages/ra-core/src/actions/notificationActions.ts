@@ -19,15 +19,15 @@ export interface INotificationOptions {
 
 export type INotificationTypes = 'info' | 'warning';
 
-export interface IShowNotification {
-    type: string;
-    payload: INotificationOptions & { type: INotificationTypes, message: string };
-};
-
 export interface INotificationPayload extends INotificationOptions {
-    type: INotificationTypes;
+    type: 'warning' | 'info';
     message: string;
 }
+
+export interface IShowNotification {
+    type: string;
+    payload: INotificationPayload;
+};
 
 /**
  * Shows a snackbar/toast notification on the screen
@@ -40,7 +40,7 @@ export interface INotificationPayload extends INotificationOptions {
  */
 export const showNotification = (
     message: string,
-    type: INotificationTypes = 'info',
+    type: 'warning' | 'info' = 'info',
     notificationOptions?: INotificationOptions
 ): IShowNotification => ({
     type: TypeKeys.SHOW_NOTIFICATION,
@@ -53,10 +53,12 @@ export const showNotification = (
 
 // export const HIDE_NOTIFICATION = 'RA/HIDE_NOTIFICATION';
 
-interface IHideNotification {
+export interface IHideNotification {
     type: TypeKeys.HIDE_NOTIFICATION;
 }
 
 export const hideNotification = (): IHideNotification => ({
     type: TypeKeys.HIDE_NOTIFICATION,
 });
+
+export type Actions = IShowNotification | IHideNotification;

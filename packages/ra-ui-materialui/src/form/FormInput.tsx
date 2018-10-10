@@ -12,8 +12,8 @@ const styles = (theme: Theme) => createStyles({
 });
 
 interface IProps extends WithStyles<typeof styles> {
-    className: string;
-    input: any;
+    className?: string;
+    input?: any;
 }
 
 const FormInput: React.SFC<IProps> = ({ classes, input, ...rest }) => {

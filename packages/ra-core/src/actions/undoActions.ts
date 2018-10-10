@@ -12,7 +12,7 @@ export enum TypeKeys {
     STOP_OPTIMISTIC_MODE = 'RA/STOP_OPTIMISTIC_MODE',
 }
 
-interface IStartUndoable {
+export interface IStartUndoable {
     type: TypeKeys.UNDOABLE;
     payload: {
         action: any;
@@ -25,7 +25,7 @@ export const startUndoable = (action: any): IStartUndoable => ({
 });
 
 // Simple generic for actions that only have a type.
-interface IPayloadlessAction<T> { type: T };
+export interface IPayloadlessAction<T> { type: T };
 
 export type IUndo = IPayloadlessAction<TypeKeys.UNDO>;
 export const undo = (): IUndo => ({

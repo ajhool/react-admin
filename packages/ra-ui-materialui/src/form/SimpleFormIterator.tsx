@@ -11,10 +11,24 @@ import AddIcon from '@material-ui/icons/AddCircleOutline';
 import { translate } from 'ra-core';
 import classNames from 'classnames';
 
-import FormInput from '../form/FormInput';
+import FormInput from 'ra-ui-materialui/src/form/FormInput';
 
 interface IProps extends WithStyles<typeof styles> {
-    
+    defaultValue?: any;
+    basePath?: string;
+    children?: any;
+    className?: string;
+    fields: any[];
+    meta: {
+        error: any,
+        submitFailed: any
+    }
+    record?: object;
+    source: string;
+    resource?: string;
+    translate?: any;
+    disableAdd?: boolean;
+    disableRemove?: boolean;
 }
 
 const styles = (theme: Theme) => createStyles({
@@ -63,8 +77,32 @@ const styles = (theme: Theme) => createStyles({
     },
 });
 
-export class SimpleFormIterator extends Component {
-    constructor(props) {
+export class SimpleFormIterator extends Component<IProps> {
+    nextId: number;
+    ids: number[];
+
+    static propTypes = {
+        defaultValue: PropTypes.any,
+        basePath: PropTypes.string,
+        children: PropTypes.node,
+        classes: PropTypes.object,
+        className: PropTypes.string,
+        fields: PropTypes.object,
+        meta: PropTypes.object,
+        record: PropTypes.object,
+        source: PropTypes.string,
+        resource: PropTypes.string,
+        translate: PropTypes.func,
+        disableAdd: PropTypes.bool,
+        disableRemove: PropTypes.bool,
+    };
+
+    static defaultProps = {
+        disableAdd: false,
+        disableRemove: false,
+    };
+
+    constructor(props: IProps) {
         super(props);
         // we need a unique id for each field for a proper enter/exit animation
         // but redux-form doesn't provide one (cf https://github.com/erikras/redux-form/issues/2735)
@@ -82,7 +120,7 @@ export class SimpleFormIterator extends Component {
         this.ids = this.nextId > 0 ? Array.from(Array(this.nextId).keys()) : [];
     }
 
-    removeField = index => () => {
+    removeField = (index: number) => () => {
         const { fields } = this.props;
         this.ids.splice(index, 1);
         fields.remove(index);
@@ -196,28 +234,7 @@ export class SimpleFormIterator extends Component {
     }
 }
 
-SimpleFormIterator.defaultProps = {
-    disableAdd: false,
-    disableRemove: false,
-};
-
-SimpleFormIterator.propTypes = {
-    defaultValue: PropTypes.any,
-    basePath: PropTypes.string,
-    children: PropTypes.node,
-    classes: PropTypes.object,
-    className: PropTypes.string,
-    fields: PropTypes.object,
-    meta: PropTypes.object,
-    record: PropTypes.object,
-    source: PropTypes.string,
-    resource: PropTypes.string,
-    translate: PropTypes.func,
-    disableAdd: PropTypes.bool,
-    disableRemove: PropTypes.bool,
-};
-
-export default compose(
+export default compose<IProps, {}>(
     translate,
     withStyles(styles)
 )(SimpleFormIterator);

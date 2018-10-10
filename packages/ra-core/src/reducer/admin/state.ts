@@ -1,19 +1,21 @@
 'use strict'
 
-import { IState as uiState} from './ui';
-import { IState as savingState } from './saving';
-import { IState as recordState } from './record';
-import { IState as notificationState } from './notifications';
-import { IState as loadingState } from './loading';
-import { IState as authState } from './auth';
+import { IState as IUIState} from './ui';
+import { IState as ISavingState } from './saving';
+import { IState as IRecordState } from './record';
+import { IState as INotificationState } from './notifications';
+import { IState as ILoadingState } from './loading';
+import { IState as IAuthState } from './auth';
+import { IState as IResourcesState } from './resource';
 
 export interface IState {
-  readonly ui: uiState;
-  readonly saving: savingState;
-  readonly record: recordState;
-  readonly notifications: notificationState;
-  readonly loading: loadingState;
-  readonly auth: authState;
+  readonly ui: IUIState;
+  readonly saving: ISavingState;
+  readonly record: IRecordState;
+  readonly notifications: INotificationState;
+  readonly loading: ILoadingState;
+  readonly auth: IAuthState;
+  readonly resources: IResourcesState
 }
 
 export default IState;
