@@ -6,6 +6,27 @@ import get from 'lodash/get';
 import { crudGetManyAccumulate as crudGetManyAccumulateAction } from '../../actions';
 import { linkToRecord } from '../../util';
 
+interface IProps {
+    addLabel?: boolean;
+    allowEmpty: boolean;
+    basePath: string;
+    children: () => void; // TODO
+    classes?: any;
+    className?: string;
+    cellClassName?: string;
+    headerClassName?: string;
+    crudGetManyAccumulate: typeof crudGetManyAccumulateAction;
+    label?: string;
+    record?: any;
+    reference: string;
+    referenceRecord?: object;
+    resource?: string;
+    sortBy?: string;
+    source: string;
+    translateChoice?: () => void;
+    linkType: string | boolean;
+}
+
 /**
  * Fetch reference record, and delegate rendering to child component.
  *
@@ -35,7 +56,7 @@ import { linkToRecord } from '../../util';
  *     <TextField source="name" />
  * </ReferenceField>
  */
-export class ReferenceFieldController extends Component {
+export class ReferenceFieldController extends Component<IProps> {
     componentDidMount() {
         this.fetchReference(this.props);
     }

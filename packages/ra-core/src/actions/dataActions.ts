@@ -21,7 +21,10 @@ interface IPagination {
     perPage: number;
 }
 
-type ISort = 'ASC' | 'DESC';
+interface ISort {
+    field: string;
+    order: 'ASC' | 'DESC';
+}
 
 export enum TypeKeys {
     CRUD_GET_LIST = 'RA/CRUD_GET_LIST',

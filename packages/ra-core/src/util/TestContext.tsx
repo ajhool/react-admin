@@ -6,6 +6,11 @@ import { reducer as formReducer } from 'redux-form';
 import { TranslationProvider } from 'ra-core';
 import merge from 'lodash/merge';
 
+interface IProps {
+    store: object;
+    children: any;
+}
+
 const defaultStore = {
     admin: {
         resources: {},
@@ -29,7 +34,7 @@ const defaultStore = {
  *     </AdminContext>
  * );
  */
-const TestContext = ({ store, children }) => {
+const TestContext: React.SFC<IProps> = ({ store, children }) => {
     const storeWithDefault = createStore(() => merge(store, defaultStore));
     return (
         <Provider store={storeWithDefault}>

@@ -1,7 +1,7 @@
 const removeKey = (target: object, path: string): object =>
-    Object.keys(target).reduce((acc, key) => {
+    Object.keys(target).reduce((acc, key: string) => {
         if (key !== path) {
-            return Object.assign({}, acc, { [key]: (target as any)[key]});
+            return {...acc, [key]: (target as any) [key]};
         }
 
         return acc;
@@ -21,7 +21,7 @@ const deepRemoveKey = (target: object, path: string): object => {
         return removeKey(target, deepKey);
     }
 
-    return Object.assign({}, target, { [deepKey]: deep });
+    return {...target, [deepKey]: deep };
 };
 
 export default deepRemoveKey;

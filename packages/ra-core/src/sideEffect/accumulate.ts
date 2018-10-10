@@ -3,7 +3,7 @@ import { call, cancel, fork, put, takeEvery } from 'redux-saga/effects';
 import { ActionCreator } from 'redux';
 
 type Ids = number[];
-interface Payload {
+interface IPayload {
     payload: {
         ids: Ids;
         resource: string;

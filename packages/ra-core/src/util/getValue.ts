@@ -1,6 +1,6 @@
 import { get } from 'lodash';
 
-export default (value: Object, path: Array<string> | string) => {
+export default (value: object, path: string[] | string) => {
     if (typeof value === 'object') {
         return get(value, path);
     }
