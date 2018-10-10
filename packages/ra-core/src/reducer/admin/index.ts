@@ -37,3 +37,5 @@ export const getReferenceResource = (state: IState, props) => {
 export const isLoggedIn = (state: IState) => authIsLoggedIn(state.auth);
 
 export { getPossibleReferences } from './references';
+
+export { IState };

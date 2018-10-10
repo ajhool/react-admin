@@ -11,9 +11,13 @@ import { translate } from 'ra-core';
 import FilterButtonMenuItem from './FilterButtonMenuItem';
 import Button from '../button/Button';
 
+interface IProps extends WithStyles<typeof styles> {
+
+}
+
 const styles = createStyles({
     root: { display: 'inline-block' },
-};
+});
 
 export class FilterButton extends Component {
     constructor(props) {

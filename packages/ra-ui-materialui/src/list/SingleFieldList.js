@@ -6,6 +6,10 @@ import { linkToRecord } from 'ra-core';
 
 import Link from '../Link';
 
+interface IProps extends WithStyles<typeof styles> {
+
+}
+
 const styles = createStyles({
     root: { display: 'flex', flexWrap: 'wrap' },
 });

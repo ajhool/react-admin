@@ -6,10 +6,10 @@ import admin, {
     getReferenceResource as adminGetReferenceResource,
     getPossibleReferenceValues as adminGetPossibleReferenceValues,
     isLoggedIn as adminIsLoggedIn,
-    IAdminState
+    IState as IAdminState
 } from './admin';
 export { getNotification } from './admin/notifications';
-import i18nReducer, { getLocale as adminGetLocale } from './i18n';
+import i18nReducer, { getLocale as adminGetLocale, IState as II18NState } from './i18n';
 export default (customReducers, locale, messages) =>
     combineReducers({
         admin,
@@ -19,18 +19,21 @@ export default (customReducers, locale, messages) =>
         ...customReducers,
     });
 
-export const getPossibleReferenceValues = (state, props) =>
-    adminGetPossibleReferenceValues(state.admin, props);
-export const getResources = state => adminGetResources(state.admin);
-export const getReferenceResource = (state, props) =>
-    adminGetReferenceResource(state.admin, props);
-export const isLoggedIn = state => adminIsLoggedIn(state.admin);
-export const getLocale = state => adminGetLocale(state.i18n);
-export { getPossibleReferences } from './admin';
 
-interface IRootState {
-    admin: IAdminState;
-    i18n: II18N;
-    form: any;
-    routing: any;
+export interface IRootState {
+    readonly admin: IAdminState;
+    readonly i18n: II18NState;
+    readonly form: any;
+    readonly routing: any;
 }
+
+// selectors:
+
+export const getPossibleReferenceValues = (state: IRootState, props) =>
+    adminGetPossibleReferenceValues(state.admin, props);
+export const getResources = (state: IRootState) => adminGetResources(state.admin);
+export const getReferenceResource = (state: IRootState, props) =>
+    adminGetReferenceResource(state.admin, props);
+export const isLoggedIn = (state: IRootState) => adminIsLoggedIn(state.admin);
+export const getLocale = (state: IRootState) => adminGetLocale(state.i18n);
+export { getPossibleReferences } from './admin';

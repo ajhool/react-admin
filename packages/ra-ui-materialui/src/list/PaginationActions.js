@@ -8,6 +8,10 @@ import ChevronRight from '@material-ui/icons/ChevronRight';
 import compose from 'recompose/compose';
 import { translate } from 'ra-core';
 
+interface IProps extends WithStyles<typeof styles> {
+
+}
+
 const styles = (theme: Theme) => createStyles({
     actions: {
         flexShrink: 0,
@@ -17,7 +21,7 @@ const styles = (theme: Theme) => createStyles({
     hellip: { padding: '1.2em' },
 });
 
-export class PaginationActions extends Component {
+export class PaginationActions extends Component<IProps> {
     /**
      * Warning: material-ui's page is 0-based
      */

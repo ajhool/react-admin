@@ -7,6 +7,7 @@ import { IState as INotificationState } from './notifications';
 import { IState as ILoadingState } from './loading';
 import { IState as IAuthState } from './auth';
 import { IState as IResourcesState } from './resource';
+import { IState as IReferencesState } from './references';
 
 export interface IState {
   readonly ui: IUIState;
@@ -15,7 +16,8 @@ export interface IState {
   readonly notifications: INotificationState;
   readonly loading: ILoadingState;
   readonly auth: IAuthState;
-  readonly resources: IResourcesState
+  readonly resources: IResourcesState;
+  readonly references: IReferencesState;
 }
 
 export default IState;

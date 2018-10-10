@@ -14,6 +14,10 @@ import BulkActionsToolbar from './BulkActionsToolbar';
 import DefaultActions from './ListActions';
 import defaultTheme from '../defaultTheme';
 
+interface IProps extends WithStyles<typeof styles> {
+
+}
+
 const styles = createStyles({
     root: {
         display: 'flex',
@@ -34,7 +38,7 @@ const styles = createStyles({
         alignSelf: 'flex-start',
     },
     noResults: { padding: 20 },
-};
+});
 
 const sanitizeRestProps = ({
     actions,
@@ -93,7 +97,7 @@ const sanitizeRestProps = ({
     translate,
     version,
     ...rest
-}) => rest;
+}: any): any => rest;
 
 export const ListView = ({
     // component props

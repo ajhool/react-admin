@@ -9,11 +9,18 @@ import compose from 'recompose/compose';
 import classnames from 'classnames';
 import { translate } from 'ra-core';
 
-import Button from '../button/Button';
-import BulkDeleteAction from './BulkDeleteAction';
+import Button from 'ra-ui-materialui/src/button/Button';
+import BulkDeleteAction from 'ra-ui-materialui/src/list/BulkDeleteAction';
 
 interface IProps extends WithStyles<typeof styles> {
-    
+    basePath?: string;
+    className?: string;
+    children?: PropTypes.node,
+    filterValues?: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+    label?: PropTypes.string,
+    resource?: PropTypes.string,
+    selectedIds?: any[];
+    translate: any;
 }
 
 const styles = (theme: Theme) => createStyles({
@@ -55,10 +62,33 @@ const sanitizeRestProps = ({
     ...rest
 }) => rest;
 
+interface IState {
+    isOpen: boolean;
+    activeAction: null
+}
+
 /**
  * @deprecated pass a Fragment with button children as bulkActionButtons props instead
  */
-class BulkActions extends Component {
+class BulkActions extends Component<IProps, IState>  {
+    static propTypes = {
+        basePath: PropTypes.string,
+        classes: PropTypes.object,
+        className: PropTypes.string,
+        children: PropTypes.node,
+        filterValues: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+        label: PropTypes.string,
+        resource: PropTypes.string,
+        selectedIds: PropTypes.arrayOf(PropTypes.any),
+        translate: PropTypes.func.isRequired,
+    };
+
+    static defaultProps = {
+        children: <BulkDeleteAction />,
+        label: 'ra.action.bulk_actions',
+        selectedIds: [],
+    };
+
     state = {
         isOpen: false,
         activeAction: null,
@@ -170,25 +200,7 @@ class BulkActions extends Component {
     }
 }
 
-BulkActions.propTypes = {
-    basePath: PropTypes.string,
-    classes: PropTypes.object,
-    className: PropTypes.string,
-    children: PropTypes.node,
-    filterValues: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-    label: PropTypes.string,
-    resource: PropTypes.string,
-    selectedIds: PropTypes.arrayOf(PropTypes.any),
-    translate: PropTypes.func.isRequired,
-};
-
-BulkActions.defaultProps = {
-    children: <BulkDeleteAction />,
-    label: 'ra.action.bulk_actions',
-    selectedIds: [],
-};
-
-const EnhancedButton = compose(
+const EnhancedButton = compose<IProps, {}>(
     withStyles(styles),
     translate
 )(BulkActions);

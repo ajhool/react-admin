@@ -4,7 +4,19 @@ import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import { crudDeleteMany, startUndoable, translate } from 'ra-core';
 
-class BulkDeleteAction extends Component {
+interface IProps {
+    basePath?: string;
+    dispatchCrudDeleteMany: typeof crudDeleteMany;
+    label?: string;
+    onExit: VoidFunction;
+    resource: string;
+    startUndoable?: typeof startUndoable;
+    selectedIds: any[];
+    translate: VoidFunction
+    undoable?: boolean;
+};
+
+class BulkDeleteAction extends Component<IProps> {
     componentDidMount = () => {
         if (process.env.NODE_ENV !== 'production') {
             // eslint-disable-next-line no-console
@@ -45,7 +57,7 @@ BulkDeleteAction.propTypes = {
     undoable: PropTypes.bool,
 };
 
-const EnhancedBulkDeleteAction = compose(
+const EnhancedBulkDeleteAction = compose<IProps, {}>(
     connect(
         undefined,
         {

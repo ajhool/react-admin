@@ -5,6 +5,7 @@ import get from 'lodash/get';
 
 import { crudGetManyAccumulate as crudGetManyAccumulateAction } from '../../actions';
 import { linkToRecord } from '../../util';
+import { IRootState } from 'ra-core/src/reducer';
 
 interface IProps {
     addLabel?: boolean;
@@ -57,17 +58,47 @@ interface IProps {
  * </ReferenceField>
  */
 export class ReferenceFieldController extends Component<IProps> {
+    static propTypes = {
+        addLabel: PropTypes.bool,
+        allowEmpty: PropTypes.bool.isRequired,
+        basePath: PropTypes.string.isRequired,
+        children: PropTypes.func.isRequired,
+        classes: PropTypes.object,
+        className: PropTypes.string,
+        cellClassName: PropTypes.string,
+        headerClassName: PropTypes.string,
+        crudGetManyAccumulate: PropTypes.func.isRequired,
+        label: PropTypes.string,
+        record: PropTypes.object,
+        reference: PropTypes.string.isRequired,
+        referenceRecord: PropTypes.object,
+        resource: PropTypes.string,
+        sortBy: PropTypes.string,
+        source: PropTypes.string.isRequired,
+        translateChoice: PropTypes.func,
+        linkType: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
+            .isRequired,
+    };
+
+    static defaultProps = {
+        allowEmpty: false,
+        classes: {},
+        linkType: 'edit',
+        referenceRecord: null,
+        record: {},
+    };
+
     componentDidMount() {
         this.fetchReference(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: IProps) {
         if (this.props.record.id !== nextProps.record.id) {
             this.fetchReference(nextProps);
         }
     }
 
-    fetchReference(props) {
+    fetchReference(props: IProps) {
         const source = get(props.record, props.source);
         if (source !== null && typeof source !== 'undefined') {
             this.props.crudGetManyAccumulate(props.reference, [source]);
@@ -98,44 +129,14 @@ export class ReferenceFieldController extends Component<IProps> {
     }
 }
 
-ReferenceFieldController.propTypes = {
-    addLabel: PropTypes.bool,
-    allowEmpty: PropTypes.bool.isRequired,
-    basePath: PropTypes.string.isRequired,
-    children: PropTypes.func.isRequired,
-    classes: PropTypes.object,
-    className: PropTypes.string,
-    cellClassName: PropTypes.string,
-    headerClassName: PropTypes.string,
-    crudGetManyAccumulate: PropTypes.func.isRequired,
-    label: PropTypes.string,
-    record: PropTypes.object,
-    reference: PropTypes.string.isRequired,
-    referenceRecord: PropTypes.object,
-    resource: PropTypes.string,
-    sortBy: PropTypes.string,
-    source: PropTypes.string.isRequired,
-    translateChoice: PropTypes.func,
-    linkType: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
-        .isRequired,
-};
-
-ReferenceFieldController.defaultProps = {
-    allowEmpty: false,
-    classes: {},
-    linkType: 'edit',
-    referenceRecord: null,
-    record: {},
-};
-
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = (state: IRootState, props: IProps) => ({
     referenceRecord:
         state.admin.resources[props.reference].data[
             get(props.record, props.source)
         ],
 });
 
-export default connect(
+export default connect<IProps>(
     mapStateToProps,
     {
         crudGetManyAccumulate: crudGetManyAccumulateAction,

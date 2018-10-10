@@ -11,6 +11,10 @@ import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/s
 import { Link } from 'react-router-dom';
 import { linkToRecord, sanitizeListRestProps } from 'ra-core';
 
+interface IProps extends WithStyles<typeof styles> {
+
+}
+
 const styles = createStyles({
     link: {
         textDecoration: 'none',

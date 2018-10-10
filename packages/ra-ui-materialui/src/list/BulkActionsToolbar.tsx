@@ -9,6 +9,10 @@ import { translate, sanitizeListRestProps } from 'ra-core';
 
 import CardActions from '../layout/CardActions';
 
+interface IProps extends WithStyles<typeof styles>{
+
+}
+
 const styles = (theme: Theme) => createStyles({
     toolbar: {
         position: 'absolute',

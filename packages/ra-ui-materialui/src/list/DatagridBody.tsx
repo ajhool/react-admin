@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import shouldUpdate from 'recompose/shouldUpdate';
 import TableBody from '@material-ui/core/TableBody';
@@ -6,7 +6,26 @@ import classnames from 'classnames';
 
 import DatagridRow from './DatagridRow';
 
-const DatagridBody = ({
+interface IProps {
+    basePath?: string;
+    classes?: any;
+    className?: string;
+    children?: ReactNode;
+    data: any;
+    hasBulkActions: boolean;
+    hover?: boolean;
+    ids: any[];
+    isLoading?: boolean;
+    onToggleItem?: VoidFunction;
+    resource?: string;
+    rowClick?: string | VoidFunction;
+    rowStyle?: VoidFunction;
+    selectedIds: any[];
+    styles?: any;
+    version?: number;
+}
+
+const DatagridBody: React.SFC<IProps> = ({
     basePath,
     children,
     classes,
@@ -77,11 +96,11 @@ DatagridBody.defaultProps = {
     ids: [],
 };
 
-const areArraysEqual = (arr1, arr2) =>
-    arr1.length == arr2.length && arr1.every((v, i) => v === arr2[i]);
+const areArraysEqual = (arr1: any[], arr2: any[]) =>
+    arr1.length === arr2.length && arr1.every((v, i) => v === arr2[i]);
 
 const PureDatagridBody = shouldUpdate(
-    (props, nextProps) =>
+    (props: IProps, nextProps: IProps) =>
         props.version !== nextProps.version ||
         nextProps.isLoading === false ||
         !areArraysEqual(props.ids, nextProps.ids) ||

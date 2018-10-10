@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
 import classnames from 'classnames';
+
+interface IProps {
+    className?: string;
+    field?: ReactElement<any>;
+    record?: any; // eslint-disable-line react/forbid-prop-types
+    basePath?: string;
+    resource?: string;
+}
 
 const sanitizeRestProps = ({
     cellClassName,
@@ -13,9 +21,9 @@ const sanitizeRestProps = ({
     basePath,
     resource,
     ...rest
-}) => rest;
+}: any): any => rest;
 
-export const DatagridCell = ({
+export const DatagridCell: React.SFC<IProps> = ({
     className,
     field,
     record,

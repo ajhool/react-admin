@@ -1,6 +1,6 @@
 import {
-    CRUD_GET_MATCHING_SUCCESS,
-    CRUD_GET_MATCHING_FAILURE,
+    Actions as DataActions,
+    TypeKeys as DataTypeKeys
 } from '../../../actions/dataActions';
 
 export type RelatedTo = number[] | { error: Error};
@@ -11,24 +11,24 @@ export interface IState {
 
 const initialState = {};
 
-export default (previousState = initialState, { type, payload, meta }) => {
-    switch (type) {
-        case CRUD_GET_MATCHING_SUCCESS:
+export default (previousState: IState = initialState, action: DataActions) => {
+    switch (action.type) {
+        case DataTypeKeys.CRUD_GET_MATCHING_SUCCESS:
             return {
                 ...previousState,
-                [meta.relatedTo]: payload.data.map(record => record.id),
+                [action.meta.relatedTo]: action.payload.data.map(record => record.id),
             };
-        case CRUD_GET_MATCHING_FAILURE:
+        case DataTypeKeys.CRUD_GET_MATCHING_FAILURE:
             return {
                 ...previousState,
-                [meta.relatedTo]: { error: payload.error },
+                [action.meta.relatedTo]: { error: action.payload.error },
             };
         default:
             return previousState;
     }
 };
 
-export const getPossibleReferenceValues = (state, props) =>
+export const getPossibleReferenceValues = (state: IState, props) =>
     state[props.referenceSource(props.resource, props.source)];
 
 export const getPossibleReferences = (

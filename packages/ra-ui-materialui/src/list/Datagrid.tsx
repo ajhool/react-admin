@@ -10,8 +10,32 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 import classnames from 'classnames';
 
-import DatagridHeaderCell from './DatagridHeaderCell';
-import DatagridBody from './DatagridBody';
+import DatagridHeaderCell from 'ra-ui-materialui/src/list/DatagridHeaderCell';
+import DatagridBody from 'ra-ui-materialui/src/list/DatagridBody';
+
+interface IProps extends WithStyles<typeof styles> {
+    basePath?: string;
+    children: PropTypes.node.isRequired,
+    className?: PropTypes.string,
+    currentSort: {
+        sort: 'ASC' | "DESC";
+        order: string;
+    };
+    data: any;
+    hasBulkActions: boolean;
+    hover?: boolean;
+    ids: any[];
+    isLoading?: boolean;
+    onSelect?: VoidFunction;
+    onToggleItem?: VoidFunction;
+    resource?: string;
+    rowClick?: string | VoidFunction;
+    rowStyle?: VoidFunction;
+    selectedIds: any[];
+    setSort?: VoidFunction;
+    total?: number;
+    version?: number;
+}
 
 const styles = createStyles({
     table: {
@@ -36,7 +60,7 @@ const styles = createStyles({
             padding: '0 12px',
         },
     },
-};
+});
 
 /**
  * The Datagrid component renders a list of records as a table.
@@ -75,7 +99,39 @@ const styles = createStyles({
  *     </Datagrid>
  * </ReferenceManyField>
  */
-class Datagrid extends Component {
+class Datagrid extends Component<IProps> {
+    static propTypes = {
+        basePath: PropTypes.string,
+        children: PropTypes.node.isRequired,
+        classes: PropTypes.object,
+        className: PropTypes.string,
+        currentSort: PropTypes.shape({
+            sort: PropTypes.string,
+            order: PropTypes.string,
+        }).isRequired,
+        data: PropTypes.object.isRequired,
+        hasBulkActions: PropTypes.bool.isRequired,
+        hover: PropTypes.bool,
+        ids: PropTypes.arrayOf(PropTypes.any).isRequired,
+        isLoading: PropTypes.bool,
+        onSelect: PropTypes.func,
+        onToggleItem: PropTypes.func,
+        resource: PropTypes.string,
+        rowClick: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        rowStyle: PropTypes.func,
+        selectedIds: PropTypes.arrayOf(PropTypes.any).isRequired,
+        setSort: PropTypes.func,
+        total: PropTypes.number,
+        version: PropTypes.number,
+    };
+
+    static defaultProps = {
+        data: {},
+        hasBulkActions: false,
+        ids: [],
+        selectedIds: [],
+    }
+
     updateSort = event => {
         event.stopPropagation();
         this.props.setSort(event.currentTarget.dataset.sort);
@@ -189,37 +245,5 @@ class Datagrid extends Component {
         );
     }
 }
-
-Datagrid.propTypes = {
-    basePath: PropTypes.string,
-    children: PropTypes.node.isRequired,
-    classes: PropTypes.object,
-    className: PropTypes.string,
-    currentSort: PropTypes.shape({
-        sort: PropTypes.string,
-        order: PropTypes.string,
-    }).isRequired,
-    data: PropTypes.object.isRequired,
-    hasBulkActions: PropTypes.bool.isRequired,
-    hover: PropTypes.bool,
-    ids: PropTypes.arrayOf(PropTypes.any).isRequired,
-    isLoading: PropTypes.bool,
-    onSelect: PropTypes.func,
-    onToggleItem: PropTypes.func,
-    resource: PropTypes.string,
-    rowClick: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    rowStyle: PropTypes.func,
-    selectedIds: PropTypes.arrayOf(PropTypes.any).isRequired,
-    setSort: PropTypes.func,
-    total: PropTypes.number,
-    version: PropTypes.number,
-};
-
-Datagrid.defaultProps = {
-    data: {},
-    hasBulkActions: false,
-    ids: [],
-    selectedIds: [],
-};
 
 export default withStyles(styles)(Datagrid);

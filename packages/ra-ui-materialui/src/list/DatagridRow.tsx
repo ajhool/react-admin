@@ -10,6 +10,24 @@ import { linkToRecord } from 'ra-core';
 
 import DatagridCell from './DatagridCell';
 
+interface IProps {
+    basePath?: string;
+    children?: ReactNode;
+    classes?: any;
+    className?: string;
+    hasBulkActions: boolean;
+    hover?: boolean;
+    id?: any;
+    onToggleItem?: VoidFunction;
+    push?: typeof push;
+    record: any;
+    resource?: string;
+    rowClick?: string | VoidFunction;
+    selected?: boolean;
+    style?: any;
+    styles?: any;
+}
+
 const sanitizeRestProps = ({
     basePath,
     children,
@@ -26,9 +44,34 @@ const sanitizeRestProps = ({
     style,
     styles,
     ...rest
-}) => rest;
+}: any): any => rest;
 
-class DatagridRow extends Component {
+class DatagridRow extends Component<IProps> {
+    static propTypes = {
+        basePath: PropTypes.string,
+        children: PropTypes.node,
+        classes: PropTypes.object,
+        className: PropTypes.string,
+        hasBulkActions: PropTypes.bool.isRequired,
+        hover: PropTypes.bool,
+        id: PropTypes.any,
+        onToggleItem: PropTypes.func,
+        push: PropTypes.func,
+        record: PropTypes.object.isRequired,
+        resource: PropTypes.string,
+        rowClick: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        selected: PropTypes.bool,
+        style: PropTypes.object,
+        styles: PropTypes.object,
+    };
+
+    static defaultProps = {
+        hasBulkActions: false,
+        hover: true,
+        record: {},
+        selected: false,
+    };
+
     handleToggle = event => {
         this.props.onToggleItem(this.props.id);
         event.stopPropagation();
@@ -103,31 +146,6 @@ class DatagridRow extends Component {
         );
     }
 }
-
-DatagridRow.propTypes = {
-    basePath: PropTypes.string,
-    children: PropTypes.node,
-    classes: PropTypes.object,
-    className: PropTypes.string,
-    hasBulkActions: PropTypes.bool.isRequired,
-    hover: PropTypes.bool,
-    id: PropTypes.any,
-    onToggleItem: PropTypes.func,
-    push: PropTypes.func,
-    record: PropTypes.object.isRequired,
-    resource: PropTypes.string,
-    rowClick: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    selected: PropTypes.bool,
-    style: PropTypes.object,
-    styles: PropTypes.object,
-};
-
-DatagridRow.defaultProps = {
-    hasBulkActions: false,
-    hover: true,
-    record: {},
-    selected: false,
-};
 
 export default connect(
     null,

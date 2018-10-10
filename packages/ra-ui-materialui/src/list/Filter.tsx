@@ -6,13 +6,42 @@ import { sanitizeListRestProps } from 'ra-core';
 import FilterForm from './FilterForm';
 import FilterButton from './FilterButton';
 
-const styles = createStyles({
+const styles = () => createStyles({
     button: {},
     form: {},
-};
+});
 
-export class Filter extends Component {
-    constructor(props) {
+interface IProps extends WithStyles<typeof styles> {
+    children?: ReactChildren;
+    context?: 'form' | 'button';
+    debounce: number;
+    displayedFilters?: any;
+    filterValues?: any;
+    hideFilter?: VoidFunction;
+    setFilters?: VoidFunction;
+    showFilter?: VoidFunction;
+    resource: string;
+}
+
+export class Filter extends Component<IProps> {
+    static propTypes = {
+        children: PropTypes.node,
+        classes: PropTypes.object,
+        context: PropTypes.oneOf(['form', 'button']),
+        debounce: PropTypes.number.isRequired,
+        displayedFilters: PropTypes.object,
+        filterValues: PropTypes.object,
+        hideFilter: PropTypes.func,
+        setFilters: PropTypes.func,
+        showFilter: PropTypes.func,
+        resource: PropTypes.string.isRequired,
+    };
+
+    static defaultProps = {
+        debounce: 500,
+    };
+
+    constructor(props: Readonly<IProps>) {
         super(props);
     }
 
@@ -78,22 +107,5 @@ export class Filter extends Component {
             : this.renderForm();
     }
 }
-
-Filter.propTypes = {
-    children: PropTypes.node,
-    classes: PropTypes.object,
-    context: PropTypes.oneOf(['form', 'button']),
-    debounce: PropTypes.number.isRequired,
-    displayedFilters: PropTypes.object,
-    filterValues: PropTypes.object,
-    hideFilter: PropTypes.func,
-    setFilters: PropTypes.func,
-    showFilter: PropTypes.func,
-    resource: PropTypes.string.isRequired,
-};
-
-Filter.defaultProps = {
-    debounce: 500,
-};
 
 export default withStyles(styles)(Filter);

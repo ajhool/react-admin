@@ -1,4 +1,5 @@
 import { CRUD_GET_MANY_REFERENCE_SUCCESS } from '../../../actions/dataActions';
+import { IRootState } from '../../../reducer';
 
 export interface IState {
     [relatedTo: string]: string[];
@@ -18,10 +19,10 @@ export default (previousState: IState = initialState, { type, payload, meta }) =
     }
 };
 
-export const getIds = (state, relatedTo) =>
+export const getIds = (state: IRootState, relatedTo) =>
     state.admin.references.oneToMany[relatedTo];
 
-export const getReferences = (state, reference: string, relatedTo) => {
+export const getReferences = (state: IRootState, reference: string, relatedTo) => {
     const ids = getIds(state, relatedTo);
     if (typeof ids === 'undefined') return undefined;
 
@@ -53,7 +54,7 @@ export const getReferences = (state, reference: string, relatedTo) => {
         }, {});
 };
 
-export const getReferencesByIds = (state, reference, ids) => {
+export const getReferencesByIds = (state: IRootState, reference: string, ids) => {
     if (ids.length === 0) return {};
 
     if (!state.admin.resources[reference]) {

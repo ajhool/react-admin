@@ -3,11 +3,18 @@ import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
+interface IProps extends WithStyles<typeof styles> {
+    filters?: any;
+    actions?: any;
+    bulkActions?: any;
+    exporter?: any;
+}
+
 const styles = createStyles({
     toolbar: {
         justifyContent: 'space-between',
     },
-};
+});
 
 const ListToolbar = ({
     classes = {},
@@ -16,7 +23,7 @@ const ListToolbar = ({
     bulkActions,
     exporter,
     ...rest
-}) => (
+}): React.SFC<IProps> => (
     <Toolbar className={classes.toolbar}>
         {filters &&
             React.cloneElement(filters, {
@@ -34,13 +41,5 @@ const ListToolbar = ({
             })}
     </Toolbar>
 );
-
-ListToolbar.propTypes = {
-    classes: PropTypes.object,
-    filters: PropTypes.element,
-    actions: PropTypes.element,
-    bulkActions: PropTypes.element,
-    exporter: PropTypes.func,
-};
 
 export default withStyles(styles)(ListToolbar);

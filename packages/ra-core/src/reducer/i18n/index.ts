@@ -3,7 +3,7 @@ import localeReducer, { IState as ILocaleState } from './locale';
 import messagedReducer from './messages';
 import loading, { IState as ILoadingState } from './loading';
 
-interface IState {
+export interface IState {
     locale: ILocaleState;
     loading: ILoadingState;
 }

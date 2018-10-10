@@ -9,6 +9,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import { FieldTitle, translate } from 'ra-core';
 
+interface IProps extends WithStyles<typeof styles> {
+
+}
+
 // remove the sort icons when not active
 const styles = createStyles({
     icon: {

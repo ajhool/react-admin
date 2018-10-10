@@ -9,6 +9,10 @@ import lodashSet from 'lodash/set';
 
 import FilterFormInput from './FilterFormInput';
 
+interface IProps extends WithStyles<typeof styles> {
+
+}
+
 const styles = ({ palette: { primary1Color } }) => ({
     form: {
         marginTop: '-10px',
