@@ -10,6 +10,8 @@ import {
 } from '../../actions';
 import { AnyAction } from 'redux';
 
+export type IState = boolean;
+
 export default (previousState: boolean = false, { type, meta }: AnyAction) => {
     switch (type) {
         case CRUD_CREATE:

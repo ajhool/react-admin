@@ -8,6 +8,29 @@ import translate from '../i18n/translate';
 import { crudGetOne, crudUpdate, startUndoable } from '../actions';
 import { REDUX_FORM_NAME } from '../form';
 
+interface IProps {
+    basePath: string;
+    children: () => void;
+    crudGetOne: (resource: string, id: string, basePath: string) => void;
+    dispatchCrudUpdate: () => void;
+    record?: any;
+    hasCreate?: boolean;
+    hasEdit?: boolean;
+    hasShow?: boolean;
+    hasList?: boolean;
+    id: string;
+    isLoading: boolean;
+    location: any;
+    match: any;
+    resetForm: () => void;
+    resource: string;
+    startUndoable: () => void;
+    title?: any;
+    translate?: () => void;
+    undoable?: boolean;
+    version: number;
+}
+
 /**
  * Page component for the Edit view
  *
@@ -50,12 +73,35 @@ import { REDUX_FORM_NAME } from '../form';
  *     );
  *     export default App;
  */
-export class EditController extends Component {
+export class EditController extends Component<IProps> {
+    static propTypes = {
+        basePath: PropTypes.string.isRequired,
+        children: PropTypes.func.isRequired,
+        crudGetOne: PropTypes.func.isRequired,
+        dispatchCrudUpdate: PropTypes.func.isRequired,
+        record: PropTypes.object,
+        hasCreate: PropTypes.bool,
+        hasEdit: PropTypes.bool,
+        hasShow: PropTypes.bool,
+        hasList: PropTypes.bool,
+        id: PropTypes.string.isRequired,
+        isLoading: PropTypes.bool.isRequired,
+        location: PropTypes.object.isRequired,
+        match: PropTypes.object.isRequired,
+        resetForm: PropTypes.func.isRequired,
+        resource: PropTypes.string.isRequired,
+        startUndoable: PropTypes.func.isRequired,
+        title: PropTypes.any,
+        translate: PropTypes.func,
+        undoable: PropTypes.bool,
+        version: PropTypes.number.isRequired,
+    };
+
     componentDidMount() {
         this.updateData();
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: IProps) {
         if (
             this.props.id !== nextProps.id ||
             nextProps.version !== this.props.version
@@ -69,7 +115,7 @@ export class EditController extends Component {
         return 'list';
     }
 
-    updateData(resource = this.props.resource, id = this.props.id) {
+    updateData(resource: string = this.props.resource, id: string = this.props.id) {
         this.props.crudGetOne(resource, id, this.props.basePath);
     }
 
@@ -140,29 +186,6 @@ export class EditController extends Component {
     }
 }
 
-EditController.propTypes = {
-    basePath: PropTypes.string.isRequired,
-    children: PropTypes.func.isRequired,
-    crudGetOne: PropTypes.func.isRequired,
-    dispatchCrudUpdate: PropTypes.func.isRequired,
-    record: PropTypes.object,
-    hasCreate: PropTypes.bool,
-    hasEdit: PropTypes.bool,
-    hasShow: PropTypes.bool,
-    hasList: PropTypes.bool,
-    id: PropTypes.string.isRequired,
-    isLoading: PropTypes.bool.isRequired,
-    location: PropTypes.object.isRequired,
-    match: PropTypes.object.isRequired,
-    resetForm: PropTypes.func.isRequired,
-    resource: PropTypes.string.isRequired,
-    startUndoable: PropTypes.func.isRequired,
-    title: PropTypes.any,
-    translate: PropTypes.func,
-    undoable: PropTypes.bool,
-    version: PropTypes.number.isRequired,
-};
-
 function mapStateToProps(state, props) {
     return {
         id: props.id,
@@ -174,7 +197,7 @@ function mapStateToProps(state, props) {
     };
 }
 
-export default compose(
+export default compose<IProps, {}>(
     connect(
         mapStateToProps,
         {

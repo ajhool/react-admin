@@ -6,6 +6,7 @@ import admin, {
     getReferenceResource as adminGetReferenceResource,
     getPossibleReferenceValues as adminGetPossibleReferenceValues,
     isLoggedIn as adminIsLoggedIn,
+    IAdminState
 } from './admin';
 export { getNotification } from './admin/notifications';
 import i18nReducer, { getLocale as adminGetLocale } from './i18n';
@@ -28,8 +29,8 @@ export const getLocale = state => adminGetLocale(state.i18n);
 export { getPossibleReferences } from './admin';
 
 interface IRootState {
-    admin:
-    i18n:   
+    admin: IAdminState;
+    i18n: II18N;
     form: any;
     routing: any;
 }

@@ -5,9 +5,9 @@ import {
     CRUD_DELETE_MANY_OPTIMISTIC,
 } from '../../../../actions/dataActions';
 
-export default (previousState = 0, { type, payload }) => {
+export default (previousState = 0, { type, payload }: IDataAction) => {
     if (type === CRUD_GET_ONE_SUCCESS) {
-        return previousState == 0 ? 1 : previousState;
+        return previousState === 0 ? 1 : previousState;
     }
     if (type === CRUD_GET_LIST_SUCCESS) {
         return payload.total;

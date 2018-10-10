@@ -2,18 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import pure from 'recompose/pure';
-import sanitizeRestProps from 'ra-ui-materialui/src/field/sanitizeRestProps';
+import sanitizeRestProps from './sanitizeRestProps';
 
 interface IProps {
     addLabel?: boolean;
-    basePath?: PropTypes.string,
-    className?: PropTypes.string,
-    cellClassName?: PropTypes.string,
-    headerClassName?: PropTypes.string,
-    label?: PropTypes.string,
-    record: PropTypes.object,
-    sortBy?: PropTypes.string,
-    source: PropTypes.string.isRequired,
+    basePath?: string;
+    className?: string;
+    cellClassName?: string;
+    headerClassName?: string;
+    label?: string;
+    record: any;
+    sortBy?: string;
+    source: string;
 }
 
 const EmailField: React.SFC<IProps> = ({ className, source, record = {}, ...rest }) => (

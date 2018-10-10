@@ -12,7 +12,9 @@ import {
 } from '../../actions/authActions';
 import { AnyAction } from 'redux';
 
-export default (previousState: number = 0, { type }: AnyAction) => {
+export type IState = number;
+
+export default (previousState: IState = 0, { type }: AnyAction) => {
     switch (type) {
         case FETCH_START:
         case USER_LOGIN_LOADING:

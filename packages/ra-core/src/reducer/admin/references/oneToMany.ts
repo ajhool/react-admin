@@ -1,8 +1,12 @@
 import { CRUD_GET_MANY_REFERENCE_SUCCESS } from '../../../actions/dataActions';
 
+export interface IState {
+    [relatedTo: string]: string[];
+}
+
 const initialState = {};
 
-export default (previousState = initialState, { type, payload, meta }) => {
+export default (previousState: IState = initialState, { type, payload, meta }) => {
     switch (type) {
         case CRUD_GET_MANY_REFERENCE_SUCCESS:
             return {
@@ -17,7 +21,7 @@ export default (previousState = initialState, { type, payload, meta }) => {
 export const getIds = (state, relatedTo) =>
     state.admin.references.oneToMany[relatedTo];
 
-export const getReferences = (state, reference, relatedTo) => {
+export const getReferences = (state, reference: string, relatedTo) => {
     const ids = getIds(state, relatedTo);
     if (typeof ids === 'undefined') return undefined;
 

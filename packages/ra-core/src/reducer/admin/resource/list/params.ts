@@ -8,6 +8,16 @@ const defaultState = {
     filter: {},
 };
 
+interface IFilter {
+}
+
+interface IState {
+    sort: string;
+    page: number;
+    perPage: null | number;
+    filter: IFilter | {}
+}
+
 export default (previousState = defaultState, { type, payload }) => {
     switch (type) {
         case CRUD_CHANGE_LIST_PARAMS:

@@ -3,10 +3,19 @@ import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
-import sanitizeRestProps from './sanitizeRestProps';
+import sanitizeRestProps from 'ra-ui-materialui/src/field/sanitizeRestProps';
 
 interface IProps extends WithStyles<typeof styles> {
-    
+    addLabel?: boolean;
+    basePath?: string;
+    className?: string;
+    cellClassName?: string;
+    headerClassName?: string;
+    record?: any;
+    sortBy?: string;
+    source: string;
+    src?: string;
+    title?: string;
 }
 
 const styles = createStyles({
@@ -20,7 +29,7 @@ const styles = createStyles({
     },
 });
 
-export const ImageField = ({
+export const ImageField: React.SFC<IProps> = ({
     className,
     classes = {},
     record,

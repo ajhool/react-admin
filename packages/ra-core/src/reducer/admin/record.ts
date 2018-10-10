@@ -2,6 +2,11 @@ import { INITIALIZE_FORM, RESET_FORM } from '../../actions/formActions';
 import { set } from 'lodash';
 import { AnyAction } from 'redux';
 
+// TODO: Not really sure what the shape of this is.
+export interface IState {
+    [item: string]: string;
+}
+
 const initialState = {};
 
 export default (previousState: any = initialState, { type, payload }: AnyAction) => {

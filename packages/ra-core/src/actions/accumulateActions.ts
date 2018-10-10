@@ -1,23 +1,45 @@
 import { crudGetMany, crudGetMatching } from './dataActions';
 import { IResource } from './resourcesActions';
 
-export const CRUD_GET_MANY_ACCUMULATE = 'RA/CRUD_GET_MANY_ACCUMULATE';
+export enum TypeKeys {
+    CRUD_GET_MANY_ACCUMULATE = 'RA/CRUD_GET_MANY_ACCUMULATE',
+    CRUD_GET_MATCHING_ACCUMULATE = 'RA/CRUD_GET_MATCHING_ACCUMULATE',
+}
 
-export const crudGetManyAccumulate = (resource: IResource, ids: number[]) => ({
-    type: CRUD_GET_MANY_ACCUMULATE,
+// export const CRUD_GET_MANY_ACCUMULATE = 'RA/CRUD_GET_MANY_ACCUMULATE';
+export interface ICrudGetManyAccumulate {
+    type: TypeKeys.CRUD_GET_MANY_ACCUMULATE,
+    payload: { resource: IResource, ids: number[] },
+    meta: { accumulate: typeof crudGetMany },
+}
+
+export const crudGetManyAccumulate = (resource: IResource, ids: number[]): ICrudGetManyAccumulate => ({
+    type: TypeKeys.CRUD_GET_MANY_ACCUMULATE,
     payload: { resource, ids },
     meta: { accumulate: crudGetMany },
 });
 
-export const CRUD_GET_MATCHING_ACCUMULATE = 'RA/CRUD_GET_MATCHING_ACCUMULATE';
+// export const CRUD_GET_MATCHING_ACCUMULATE = 'RA/CRUD_GET_MATCHING_ACCUMULATE';
+
+interface ICrudGetMatchingAccumulate {
+    type: TypeKeys.CRUD_GET_MATCHING_ACCUMULATE;
+    payload: {
+        type: TypeKeys.CRUD_GET_MATCHING_ACCUMULATE;
+        meta: {
+            accumulate: () => TODO: IMPORT ICrudGetMatching action from dataActions! use that, here!
+            accumulateValues: () => true;
+            accumulateKey: string;
+        }
+    }
+}
 
 export const crudGetMatchingAccumulate = (
-    reference,
-    relatedTo,
-    pagination,
-    sort,
-    filter
-) => {
+    reference: string,
+    relatedTo: string[],
+    pagination: IPagination,
+    sort: ISort,
+    filter: IFilter
+): ICrudGetMatchingAccumulate => {
     const action = crudGetMatching(
         reference,
         relatedTo,
@@ -27,7 +49,7 @@ export const crudGetMatchingAccumulate = (
     );
 
     return {
-        type: CRUD_GET_MATCHING_ACCUMULATE,
+        type: TypeKeys.CRUD_GET_MATCHING_ACCUMULATE,
         meta: {
             accumulate: () => action,
             accumulateValues: () => true,

@@ -7,7 +7,7 @@ import {
 } from '../../actions';
 import { AnyAction } from 'redux';
 
-interface IState {
+export interface IState {
     sidebarOpen: boolean;
     optimistic: boolean;
     viewVersion: number;

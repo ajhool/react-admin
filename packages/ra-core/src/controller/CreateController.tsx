@@ -8,6 +8,23 @@ import { parse } from 'query-string';
 import translate from '../i18n/translate';
 import { crudCreate as crudCreateAction } from '../actions';
 
+interface IProps {
+    basePath: string;
+    children: any;
+    crudCreate: any;
+    hasCreate?: boolean;
+    hasEdit?: boolean;
+    hasList?: boolean;
+    hasShow?: boolean;
+    isLoading: boolean;
+    location: any;
+    match: any;
+    record?: any;
+    resource: string;
+    title?: any;
+    translate: any;
+}
+
 /**
  * Page component for the Create view
  *
@@ -49,8 +66,31 @@ import { crudCreate as crudCreateAction } from '../actions';
  *     );
  *     export default App;
  */
-export class CreateController extends Component {
-    constructor(props) {
+export class CreateController extends Component<IProps> {
+    record: any;
+
+    static propTypes = {
+        basePath: PropTypes.string.isRequired,
+        children: PropTypes.func.isRequired,
+        crudCreate: PropTypes.func.isRequired,
+        hasCreate: PropTypes.bool,
+        hasEdit: PropTypes.bool,
+        hasList: PropTypes.bool,
+        hasShow: PropTypes.bool,
+        isLoading: PropTypes.bool.isRequired,
+        location: PropTypes.object.isRequired,
+        match: PropTypes.object.isRequired,
+        record: PropTypes.object,
+        resource: PropTypes.string.isRequired,
+        title: PropTypes.any,
+        translate: PropTypes.func.isRequired,
+    };
+
+    static defaultProps = {
+        record: {} as any,
+    };
+
+    constructor(props: Readonly<IProps>) {
         super(props);
         const {
             location: { state, search },
@@ -71,7 +111,7 @@ export class CreateController extends Component {
         return 'list';
     }
 
-    save = (record, redirect) => {
+    save = (record: any, redirect: string) => {
         this.props.crudCreate(
             this.props.resource,
             record,
@@ -111,34 +151,18 @@ export class CreateController extends Component {
     }
 }
 
-CreateController.propTypes = {
-    basePath: PropTypes.string.isRequired,
-    children: PropTypes.func.isRequired,
-    crudCreate: PropTypes.func.isRequired,
-    hasCreate: PropTypes.bool,
-    hasEdit: PropTypes.bool,
-    hasList: PropTypes.bool,
-    hasShow: PropTypes.bool,
-    isLoading: PropTypes.bool.isRequired,
-    location: PropTypes.object.isRequired,
-    match: PropTypes.object.isRequired,
-    record: PropTypes.object,
-    resource: PropTypes.string.isRequired,
-    title: PropTypes.any,
-    translate: PropTypes.func.isRequired,
-};
+interface IState {
+    isLoading: number;
+    [rest: string]: any;
+}
 
-CreateController.defaultProps = {
-    record: {},
-};
-
-function mapStateToProps(state) {
+function mapStateToProps(state: IState) {
     return {
         isLoading: state.admin.loading > 0,
     };
 }
 
-export default compose(
+export default compose<IProps, {}>(
     connect(
         mapStateToProps,
         { crudCreate: crudCreateAction }

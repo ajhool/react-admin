@@ -1,11 +1,15 @@
 import {
     SHOW_NOTIFICATION,
     HIDE_NOTIFICATION,
+    INotificationPayload
 } from '../../actions/notificationActions';
 import { UNDO } from '../../actions/undoActions';
 import { AnyAction } from 'redux';
 
-export default (previousState = [], { type, payload }: AnyAction) => {
+// TODO: replace any with the shape of the payload in notificationActions.
+export type IState = INotificationPayload[];
+
+export default (previousState: IState = [], { type, payload }: AnyAction) => {
     switch (type) {
         case SHOW_NOTIFICATION:
             return previousState.concat(payload);

@@ -3,6 +3,12 @@ import {
     CRUD_GET_MATCHING_FAILURE,
 } from '../../../actions/dataActions';
 
+export type RelatedTo = number[] | { error: Error};
+
+export interface IState {
+    [relatedTo: string]: RelatedTo;
+}
+
 const initialState = {};
 
 export default (previousState = initialState, { type, payload, meta }) => {
@@ -28,7 +34,7 @@ export const getPossibleReferenceValues = (state, props) =>
 export const getPossibleReferences = (
     referenceState,
     possibleValues,
-    selectedIds = []
+    selectedIds = [] as number[]
 ) => {
     if (!possibleValues) {
         return null;

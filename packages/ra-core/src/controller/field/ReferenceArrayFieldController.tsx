@@ -4,7 +4,24 @@ import { connect } from 'react-redux';
 import get from 'lodash/get';
 
 import { crudGetManyAccumulate as crudGetManyAccumulateAction } from '../../actions';
-import { getReferencesByIds } from '../../reducer/admin/references/oneToMany';
+import { getReferencesByIds } from '../reducer/admin/references/oneToMany';
+
+interface IProps {
+    addLabel?: boolean;
+    basePath: string;
+    classes?: any;
+    className?: string;
+    children: () => void;
+    crudGetManyAccumulate: (reference: string, ids: number[]) => void;
+    data?: any;
+    ids: number[];
+    label?: string;
+    record: any;
+    reference: string;
+    resource: string;
+    sortBy?: string;
+    source: string;
+}
 
 /**
  * A container component that fetches records from another resource specified
@@ -38,12 +55,12 @@ import { getReferencesByIds } from '../../reducer/admin/references/oneToMany';
  * </ReferenceArrayField>
  *
  */
-export class ReferenceArrayFieldController extends Component {
+export class ReferenceArrayFieldController extends Component<IProps> {
     componentDidMount() {
         this.fetchReferences();
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: IProps) {
         if ((this.props.record || {}).id !== (nextProps.record || {}).id) {
             this.fetchReferences(nextProps);
         }
@@ -92,7 +109,7 @@ ReferenceArrayFieldController.propTypes = {
     source: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state, props: IProps) => {
     const { record, source, reference } = props;
     const ids = get(record, source) || [];
     return {

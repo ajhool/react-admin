@@ -1,16 +1,18 @@
 import {
-    SET_LIST_SELECTED_IDS,
-    TOGGLE_LIST_ITEM,
+    TypeKeys,
+    IListAction,
 } from '../../../../actions/listActions';
 
-const initialState = [];
+export type IState = number[];
 
-export default (previousState = initialState, action) => {
+const initialState: IState = [];
+
+export default (previousState = initialState, action: IListAction) => {
     switch (action.type) {
-        case SET_LIST_SELECTED_IDS:
+        case TypeKeys.SET_LIST_SELECTED_IDS:
             return action.payload;
-        case TOGGLE_LIST_ITEM: {
-            let index = previousState.indexOf(action.payload);
+        case TypeKeys.TOGGLE_LIST_ITEM: {
+            const index = previousState.indexOf(action.payload);
             if (index > -1) {
                 return [
                     ...previousState.slice(0, index),

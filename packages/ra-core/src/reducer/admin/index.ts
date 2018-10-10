@@ -12,6 +12,7 @@ import references, {
 import saving from './saving';
 import ui from './ui';
 import auth, { isLoggedIn as authIsLoggedIn } from './auth';
+import { IState } from './state';
 
 export default combineReducers({
     resources,

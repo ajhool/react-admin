@@ -1,4 +1,9 @@
-export const SHOW_NOTIFICATION = 'RA/SHOW_NOTIFICATION';
+// export const SHOW_NOTIFICATION = 'RA/SHOW_NOTIFICATION';
+
+export enum TypeKeys {
+    SHOW_NOTIFICATION = 'RA/SHOW_NOTIFICATION',
+    HIDE_NOTIFICATION = 'RA/HIDE_NOTIFICATION',
+}
 
 /**
  * @typedef {Object} notificationOptions
@@ -14,14 +19,15 @@ export interface INotificationOptions {
 
 export type INotificationTypes = 'info' | 'warning';
 
-export type ShowNotification = (
-    message: string,
-    type: INotificationTypes,
-    notificationOptions?: INotificationOptions,
-) => {
+export interface IShowNotification {
     type: string;
     payload: INotificationOptions & { type: INotificationTypes, message: string };
 };
+
+export interface INotificationPayload extends INotificationOptions {
+    type: INotificationTypes;
+    message: string;
+}
 
 /**
  * Shows a snackbar/toast notification on the screen
@@ -36,8 +42,8 @@ export const showNotification = (
     message: string,
     type: INotificationTypes = 'info',
     notificationOptions?: INotificationOptions
-) => ({
-    type: SHOW_NOTIFICATION,
+): IShowNotification => ({
+    type: TypeKeys.SHOW_NOTIFICATION,
     payload: {
         ...notificationOptions,
         type,
@@ -45,8 +51,12 @@ export const showNotification = (
     },
 });
 
-export const HIDE_NOTIFICATION = 'RA/HIDE_NOTIFICATION';
+// export const HIDE_NOTIFICATION = 'RA/HIDE_NOTIFICATION';
 
-export const hideNotification = () => ({
-    type: HIDE_NOTIFICATION,
+interface IHideNotification {
+    type: TypeKeys.HIDE_NOTIFICATION;
+}
+
+export const hideNotification = (): IHideNotification => ({
+    type: TypeKeys.HIDE_NOTIFICATION,
 });

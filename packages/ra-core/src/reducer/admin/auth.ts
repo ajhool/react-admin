@@ -1,6 +1,7 @@
 import { USER_LOGIN_SUCCESS, USER_LOGOUT } from '../../actions';
 
-interface IState {
+// TODO: There appears to be other fields in this state.
+export interface IState {
     isLoggedIn: boolean;
 }
 

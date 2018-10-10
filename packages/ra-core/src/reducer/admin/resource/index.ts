@@ -3,9 +3,20 @@ import { REGISTER_RESOURCE, UNREGISTER_RESOURCE } from '../../../actions';
 import data from './data';
 import list from './list';
 
+export interface IState {
+    [name: string] : {
+        props: any;
+        data: data;
+        list: any;
+    }
+    props: action.payload,
+    data: any; //data(undefined, action)
+    list: any; //list(undefined, action)
+}
+
 const initialState = {};
 
-export default (previousState = initialState, action) => {
+export default (previousState: IState = initialState, action) => {
     if (action.type === REGISTER_RESOURCE) {
         const resourceState = {
             props: action.payload,

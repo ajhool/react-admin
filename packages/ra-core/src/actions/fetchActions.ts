@@ -1,20 +1,45 @@
-export const FETCH_START: string = 'RA/FETCH_START';
-export const FETCH_END: string = 'RA/FETCH_END';
-export const FETCH_ERROR: string = 'RA/FETCH_ERROR';
-export const FETCH_CANCEL: string = 'RA/FETCH_CANCEL';
+// export const FETCH_START = 'RA/FETCH_START';
+// export const FETCH_END = 'RA/FETCH_END';
+// export const FETCH_ERROR = 'RA/FETCH_ERROR';
+// export const FETCH_CANCEL = 'RA/FETCH_CANCEL';
 
-export const fetchStart = () => ({
-    type: FETCH_START,
+export enum TypeKeys {
+    FETCH_START =  'RA/FETCH_START',
+    FETCH_END = 'RA/FETCH_END',
+    FETCH_ERROR = 'RA/FETCH_ERROR',
+    FETCH_CANCEL = 'RA/FETCH_CANCEL',
+}
+
+interface IFetchStart {
+    type: TypeKeys.FETCH_START;
+}
+
+export const fetchStart = (): IFetchStart => ({
+    type: TypeKeys.FETCH_START,
 });
 
-export const fetchEnd = () => ({
-    type: FETCH_END,
+interface IFetchEnd {
+    type: TypeKeys.FETCH_END;
+}
+
+export const fetchEnd = (): IFetchEnd => ({
+    type: TypeKeys.FETCH_END,
 });
 
-export const fetchError = () => ({
-    type: FETCH_ERROR,
+interface IFetchError {
+    type: TypeKeys.FETCH_ERROR;
+}
+
+export const fetchError = (): IFetchError => ({
+    type: TypeKeys.FETCH_ERROR,
 });
 
-export const fetchCancel = () => ({
-    type: FETCH_CANCEL,
+interface IFetchCancel {
+    type: TypeKeys.FETCH_CANCEL;
+}
+
+export const fetchCancel = (): IFetchCancel => ({
+    type: TypeKeys.FETCH_CANCEL,
 });
+
+export type Actions = IFetchStart | IFetchEnd | IFetchError | IFetchCancel;

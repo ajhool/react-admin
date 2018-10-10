@@ -6,21 +6,26 @@ import { ALL_TYPES } from './constants';
 
 import ApolloClient from 'apollo-client';
 
-export const filterTypesByIncludeExclude = ({ include, exclude }) => {
+interface IIncludeExclude {
+    include: string[] | ((s: string) => boolean);
+    exclude: string[] | ((s: string) => boolean);
+}
+
+export const filterTypesByIncludeExclude = ({ include, exclude }: IIncludeExclude) => {
     if (Array.isArray(include)) {
-        return type => include.includes(type.name);
+        return (type: string) => include.includes(type.name);
     }
 
     if (typeof include === 'function') {
-        return type => include(type);
+        return (type: string) => include(type);
     }
 
     if (Array.isArray(exclude)) {
-        return type => !exclude.includes(type.name);
+        return (type: string) => !exclude.includes(type.name);
     }
 
     if (typeof exclude === 'function') {
-        return type => !exclude(type);
+        return (type: string) => !exclude(type);
     }
 
     return () => true;
