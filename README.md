@@ -43,13 +43,22 @@ https://github.com/Microsoft/TypeScript/issues/4833
 - [x] ra-tree-language-english
 - [x] ra-tree-language-french
 - [~3/20 files] ra-tree-ui-materialui
-- [~120/150 files] ra-ui-materialui
+- [~84/124 files] ra-ui-materialui (Sweep through and find out which components expect a certain type of Child)
+-   [x] auth (4/4)
+-   [x] button (13/13)
+-   [/] detail (5/9)
+-   [/] field (13/18)
+-   [/] form (4/8)
+-   [/] input (17/25)
+-   [/] layout (21/28)
+-   [/] list (8/20)
 - [x] react-admin
 
 - Stage II
 - [ ] How to properly use Lerna with Typescript workspaces?
 - [ ] Find correct way to handle redux-saga generated actions. eg ORIGINAL_ACTION_NAME{_SUCCESS}/{_FAILURE}
 - [ ] Double check isRequired propTypes for every file. 
+- [ ] Search for VoidFunction and replace it with actual functions.
 - [ ] Search for "translate" and use the correct type.
 - [ ] Can record ids be any or are they always numbers?
 
