@@ -8,10 +8,10 @@ import NavigationRefresh from '@material-ui/icons/Refresh';
 import { refreshView, translate } from 'ra-core';
 
 interface IProps {
-    className: string;
-    label: string;
-    refreshView: () => void;
-    translate: VoidFunction;
+    className?: string;
+    label?: string;
+    refreshView: typeof refreshView;
+    translate: typeof translate;
 }
 
 class RefreshButton extends Component<IProps> {

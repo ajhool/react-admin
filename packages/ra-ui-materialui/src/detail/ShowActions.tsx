@@ -7,7 +7,7 @@ import CardActions from '../layout/CardActions';
 interface IProps {
     basePath?: string;
     className?: string;
-    data?: PropTypes.object,
+    data?: any;
     hasEdit?: boolean;
     hasList?: boolean;
     resource?: string;

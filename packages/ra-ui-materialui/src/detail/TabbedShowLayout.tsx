@@ -2,23 +2,23 @@ import React, { Component, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@material-ui/core/Tabs';
 import Divider from '@material-ui/core/Divider';
-import { withRouter, Route } from 'react-router-dom';
+import { withRouter, Route, match } from 'react-router-dom';
 import compose from 'recompose/compose';
 import { translate } from 'ra-core';
 
 import CardContentInner from '../layout/CardContentInner';
 
 interface IProps {
-    children?: PropTypes.node,
+    children?: React.ReactChildren;
     className?: string;
-    location?: PropTypes.object,
-    match?: PropTypes.object,
-    record?: PropTypes.object,
+    location?: any;
+    match?: match;
+    record?: any;
     resource?: string;
     basePath?: string;
     value?: number;
     version?: number;
-    translate?: PropTypes.func,
+    translate?: typeof translate;
 }
 
 const sanitizeRestProps = ({

@@ -7,8 +7,8 @@ import { refreshView as refreshViewAction } from 'ra-core';
 import Button from './Button';
 
 interface IProps {
-    label: string;
-    refreshView: () => void;
+    label?: string;
+    refreshView: typeof refreshViewAction;
 }
 
 class RefreshButton extends Component<IProps> {

@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React, { Children, ReactChildren } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -8,8 +8,8 @@ import Labeled from '../input/Labeled';
 interface IProps {
     basePath?: string;
     className?: string;
-    children?: PropTypes.node,
-    record?: PropTypes.object,
+    children?: ReactChildren;
+    record?: any;
     resource?: string;
     version?: number;
 }

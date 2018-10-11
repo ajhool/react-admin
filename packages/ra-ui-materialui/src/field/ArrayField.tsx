@@ -6,13 +6,13 @@ import pure from 'recompose/pure';
 type IRecord = any;
 
 interface IProps {
-    addLabel: boolean;
-    basePath: string;
-    children: PropTypes.element.isRequired,
-    record: IRecord;
-    resource: string;
-    sortBy: string;
-    source: string;
+    addLabel?: boolean;
+    basePath?: string;
+    children: React.ReactChildren;
+    record?: IRecord;
+    resource?: string;
+    sortBy?: string;
+    source?: string;
 }
 
 interface IState {
@@ -89,6 +89,16 @@ const initialState: IState = {
  *     TagsField.defaultProps = { addLabel: true };
  */
 export class ArrayField extends Component<IProps, IState> {
+    static propTypes = {
+        addLabel: PropTypes.bool,
+        basePath: PropTypes.string,
+        children: PropTypes.element.isRequired,
+        record: PropTypes.object,
+        resource: PropTypes.string,
+        sortBy: PropTypes.string,
+        source: PropTypes.string,
+    };
+
     constructor(props: Readonly<IProps>) {
         super(props);
         this.state = props.record
@@ -138,16 +148,6 @@ export class ArrayField extends Component<IProps, IState> {
         });
     }
 }
-
-ArrayField.propTypes = {
-    addLabel: PropTypes.bool,
-    basePath: PropTypes.string,
-    children: PropTypes.element.isRequired,
-    record: PropTypes.object,
-    resource: PropTypes.string,
-    sortBy: PropTypes.string,
-    source: PropTypes.string,
-};
 
 const EnhancedArrayField = pure(ArrayField);
 

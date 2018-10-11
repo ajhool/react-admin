@@ -10,12 +10,12 @@ import Labeled from 'ra-ui-materialui/src/input/Labeled';
 const sanitizeRestProps = ({ label, icon, value, translate, ...rest }: any): any => rest;
 
 interface IProps {
-    className?: PropTypes.string,
-    children?: PropTypes.node,
+    className?: string;
+    children?: ReactChildren;
     context?: 'header' | 'content';
-    icon?: PropTypes.element,
+    icon?: ReactElement;
     label: string;
-    translate: PropTypes.func.isRequired,
+    translate: typeof translate;
     value?: string;
 }
 
@@ -62,7 +62,7 @@ interface IProps {
  *     export default App;
  */
 class Tab extends Component<IProps> {
-    renderHeader = ({ className, label, icon, value, translate, ...rest }) => (
+    renderHeader = ({ className, label, icon, value, translate, ...rest }: IProps) => (
         <MuiTab
             key={label}
             label={translate(label, { _: label })}
@@ -75,7 +75,7 @@ class Tab extends Component<IProps> {
         />
     );
 
-    renderContent = ({ className, children, ...rest }) => (
+    renderContent = ({ className, children, ...rest }: IProps) => (
         <span className={className}>
             {React.Children.map(
                 children,

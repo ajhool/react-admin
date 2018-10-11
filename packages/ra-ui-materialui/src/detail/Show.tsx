@@ -5,9 +5,9 @@ import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/s
 import classnames from 'classnames';
 import { ShowController } from 'ra-core';
 
-import DefaultActions from 'ra-ui-materialui/src/detail/ShowActions';
-import TitleForRecord from 'ra-ui-materialui/src/layout/TitleForRecord';
-import CardContentInner from 'ra-ui-materialui/src/layout/CardContentInner';
+import DefaultActions from './ShowActions';
+import TitleForRecord from '../layout/TitleForRecord';
+import CardContentInner from '../layout/CardContentInner';
 
 interface IProps extends WithStyles<typeof styles> {
     actions?: PropTypes.element,

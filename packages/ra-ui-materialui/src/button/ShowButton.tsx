@@ -8,9 +8,9 @@ import { linkToRecord } from 'ra-core';
 import Button from './Button';
 
 interface IProps {
-    basePath: string;
-    label: string;
-    record: any;
+    basePath?: string;
+    label?: string;
+    record?: any;
     translate: any;
 }
 

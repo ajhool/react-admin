@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
-import { translate, userLogin } from 'ra-core';
+import { translate, userLogin, IRootState } from 'ra-core';
 
 interface IProps extends WithStyles<typeof styles>  {
     isLoading: boolean;
@@ -97,7 +97,7 @@ LoginForm.propTypes = {
 
 
 // Yikes! Need to pull this all the way from core. Should use a selector in core, instead.
-const mapStateToProps = state => ({ isLoading: state.admin.loading > 0 });
+const mapStateToProps = (state: IRootState) => ({ isLoading: state.admin.loading > 0 });
 
 const enhance = compose(
     withStyles(styles),

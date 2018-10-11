@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles, createStyles, WithStyles } from '@material-ui/core/styles';
 import ContentSave from '@material-ui/icons/Save';
 import classnames from 'classnames';
-import { showNotification, translate, ShowNotification } from 'ra-core';
+import { showNotification, translate } from 'ra-core';
 
 interface IProps extends WithStyles<typeof styles> {
     className: string;
@@ -17,9 +17,9 @@ interface IProps extends WithStyles<typeof styles> {
     pristine: boolean;
     redirect: string | boolean | VoidFunction;
     saving: object | boolean;
-    showNotification: ShowNotification;
+    showNotification: typeof showNotification;
     submitOnEnter: boolean;
-    translate: VoidFunction;
+    translate: typeof translate;
     variant: 'raised' | 'flat' | 'fab';
 }
 
