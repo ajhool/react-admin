@@ -1,39 +1,39 @@
 export const TOGGLE_SIDEBAR = 'RA/TOGGLE_SIDEBAR';
 
-export enum TypeKeys {
+export enum UITypeKeys {
     TOGGLE_SIDEBAR = 'RA/TOGGLE_SIDEBAR',
     SET_SIDEBAR_VISIBILITY = 'RA/SET_SIDEBAR_VISIBILITY',
     REFRESH_VIEW = 'RA/REFRESH_VIEW',
 }
 
 export interface IToggleSidebar {
-    type: TypeKeys.TOGGLE_SIDEBAR;
+    type: UITypeKeys.TOGGLE_SIDEBAR;
 }
 
 export const toggleSidebar = (): IToggleSidebar => ({
-    type: TypeKeys.TOGGLE_SIDEBAR,
+    type: UITypeKeys.TOGGLE_SIDEBAR,
 });
 
 // export const SET_SIDEBAR_VISIBILITY = 'RA/SET_SIDEBAR_VISIBILITY';
 
 export interface ISetSidebarVisibility {
-    type: TypeKeys.SET_SIDEBAR_VISIBILITY;
+    type: UITypeKeys.SET_SIDEBAR_VISIBILITY;
     payload: boolean;
 }
 
 export const setSidebarVisibility = (isOpen: boolean): ISetSidebarVisibility => ({
-    type: TypeKeys.SET_SIDEBAR_VISIBILITY,
+    type: UITypeKeys.SET_SIDEBAR_VISIBILITY,
     payload: isOpen,
 });
 
 // export const REFRESH_VIEW = 'RA/REFRESH_VIEW';
 
 export interface IRefreshView {
-    type: TypeKeys.REFRESH_VIEW,
+    type: UITypeKeys.REFRESH_VIEW,
 }
 
 export const refreshView = (): IRefreshView => ({
-    type: TypeKeys.REFRESH_VIEW,
+    type: UITypeKeys.REFRESH_VIEW,
 });
 
-export type Actions = IToggleSidebar | ISetSidebarVisibility | IRefreshView;
+export type UIActions = IToggleSidebar | ISetSidebarVisibility | IRefreshView;

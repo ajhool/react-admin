@@ -74,7 +74,7 @@ const mapDispatchToProps = (dispatch, { redirectTo }) => ({
     userLogout: () => dispatch(userLogoutAction(redirectTo)),
 });
 
-const enhance = compose(
+const enhance = compose<IProps, {}>(
     translate,
     connect(
         mapStateToProps,

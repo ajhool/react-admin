@@ -2,15 +2,17 @@ import { Component, createElement, ReactElement } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { initializeForm as initializeFormAction } from './formActions';
+import { initializeForm as initializeFormAction } from '../actions';
+
+type IDecoratedComponent = ReactElement<any> | (() => ReactElement<any>) | any;
 
 interface IProps {
-    decordatedComponent: ReactElement<any> | VoidFunction;
+    decoratedComponent: IDecoratedComponent
     defaultValue?: any;
-    initializeForm?: typeof initializeFormAction; // TODO
+    initializeForm?: typeof initializeFormAction;
     input?: object;
     source: string;
-    validate?: () => void | string[]; // TODO
+    validate?: () => void | string[];
 }
 
 export class DefaultValue extends Component<IProps> {
@@ -31,7 +33,7 @@ export class DefaultValue extends Component<IProps> {
         if (typeof defaultValue === 'undefined' || input) {
             return;
         }
-        initializeForm({
+        initializeForm!({
             [source]:
                 typeof defaultValue === 'function'
                     ? defaultValue()
@@ -46,7 +48,7 @@ export class DefaultValue extends Component<IProps> {
         }
 
         if (defaultValue !== prevProps.defaultValue) {
-            initializeForm({
+            initializeForm!({
                 [source]:
                     typeof defaultValue === 'function'
                         ? defaultValue()
@@ -61,7 +63,7 @@ export class DefaultValue extends Component<IProps> {
     }
 }
 
-export default DecoratedComponent =>
+export default (DecoratedComponent: IDecoratedComponent) =>
     connect(
         () => ({ decoratedComponent: DecoratedComponent }),
         { initializeForm: initializeFormAction }

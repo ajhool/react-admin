@@ -1,3 +1,8 @@
 export * from './types';
-export Authenticated from './Authenticated';
-export WithPermissions from './WithPermissions';
+import Authenticated from './Authenticated';
+import WithPermissions from './WithPermissions';
+
+export {
+  Authenticated,
+  WithPermissions
+}

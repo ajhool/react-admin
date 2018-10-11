@@ -4,7 +4,7 @@
 // export const START_OPTIMISTIC_MODE = 'RA/START_OPTIMISTIC_MODE';
 // export const STOP_OPTIMISTIC_MODE = 'RA/STOP_OPTIMISTIC_MODE';
 
-export enum TypeKeys {
+export enum UndoTypeKeys {
     UNDOABLE = 'RA/UNDOABLE',
     UNDO = 'RA/UNDO',
     COMPLETE = 'RA/COMPLETE',
@@ -47,4 +47,4 @@ export const stopOptimisticMode = (): IStopOptimisticMode => ({
     type: TypeKeys.STOP_OPTIMISTIC_MODE,
 });
 
-export type Actions = IStartUndoable | IUndo | IComplete | IStartOptimisticMode | IStopOptimisticMode;
+export type UndoActions = IStartUndoable | IUndo | IComplete | IStartOptimisticMode | IStopOptimisticMode;

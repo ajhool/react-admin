@@ -1,6 +1,6 @@
 // export const SHOW_NOTIFICATION = 'RA/SHOW_NOTIFICATION';
 
-export enum TypeKeys {
+export enum NotificationTypeKeys {
     SHOW_NOTIFICATION = 'RA/SHOW_NOTIFICATION',
     HIDE_NOTIFICATION = 'RA/HIDE_NOTIFICATION',
 }
@@ -25,7 +25,7 @@ export interface INotificationPayload extends INotificationOptions {
 }
 
 export interface IShowNotification {
-    type: string;
+    type: NotificationTypeKeys.SHOW_NOTIFICATION;
     payload: INotificationPayload;
 };
 
@@ -43,7 +43,7 @@ export const showNotification = (
     type: 'warning' | 'info' = 'info',
     notificationOptions?: INotificationOptions
 ): IShowNotification => ({
-    type: TypeKeys.SHOW_NOTIFICATION,
+    type: NotificationTypeKeys.SHOW_NOTIFICATION,
     payload: {
         ...notificationOptions,
         type,
@@ -54,11 +54,11 @@ export const showNotification = (
 // export const HIDE_NOTIFICATION = 'RA/HIDE_NOTIFICATION';
 
 export interface IHideNotification {
-    type: TypeKeys.HIDE_NOTIFICATION;
+    type: NotificationTypeKeys.HIDE_NOTIFICATION;
 }
 
 export const hideNotification = (): IHideNotification => ({
-    type: TypeKeys.HIDE_NOTIFICATION,
+    type: NotificationTypeKeys.HIDE_NOTIFICATION,
 });
 
-export type Actions = IShowNotification | IHideNotification;
+export type NotificationActions = IShowNotification | IHideNotification;

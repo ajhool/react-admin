@@ -7,7 +7,7 @@ export default emitter => ({
     error() {
         emitter(END);
     },
-    next(value) {
+    next(value: any) {
         emitter(value);
     },
 });

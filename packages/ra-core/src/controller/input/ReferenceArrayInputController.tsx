@@ -35,22 +35,22 @@ interface IPagination {
 interface IProps {
     allowEmpty: boolean;
     basePath?: string;
-    children: PropTypes.func.isRequired,
+    children: any; // TODO: What type is this?
     className?: string;
-    crudGetMatching: PropTypes.func.isRequired,
-    crudGetMany: PropTypes.func.isRequired,
+    crudGetMatching: typeof crudGetMatchingAction;
+    crudGetMany: typeof crudGetManyAction;
     filter?: IFilter;
-    filterToQuery: PropTypes.func.isRequired,
-    input: PropTypes.object.isRequired,
+    filterToQuery: (filter: IFilter) => IFilter;
+    input: any;
     label?: string;
     matchingReferences?: string[] | any;
     meta?: any;
-    onChange?: PropTypes.func,
+    onChange?: VoidFunction;
     perPage?: number;
-    record?: PropTypes.object,
+    record?: any;
     reference: string;
     referenceRecords?: number[];
-    referenceSource: PropTypes.func.isRequired,
+    referenceSource: (resource: string, source: string) => string;
     resource: string;
     sort: ISort;
     source?: string;

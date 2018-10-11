@@ -1,12 +1,9 @@
 import {
-    TypeKeys as UITypeKeys,
-    Actions as UIActions
-} from '../../actions/uiActions';
-
-import {
-    TypeKeys as UndoTypeKeys,
-    Actions as UndoActions
-} from '../../actions/undoActions';
+    UITypeKeys,
+    UIActions,
+    UndoTypeKeys,
+    UndoActions
+} from '../../actions';
 
 export interface IState {
     sidebarOpen: boolean;

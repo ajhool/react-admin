@@ -15,7 +15,7 @@ interface IProps {
     isRequired?: boolean;
     label?: string;
     resource?: string;
-    source?: string;
+    source: string;
     record?: any;
     options?: any;
     validate?: ()=>void;
@@ -63,7 +63,7 @@ interface IProps {
  * @see https://redux-form.com/7.3.0/examples/fieldarrays/
  */
 export class ArrayInput extends Component<IProps> {
-    renderFieldArray = fieldProps => {
+    renderFieldArray = (fieldProps: any) => {
         const { children, record, resource, source } = this.props;
         return cloneElement(children, {
             ...fieldProps,
@@ -118,7 +118,7 @@ ArrayInput.propTypes = {
     isRequired: PropTypes.bool,
     label: PropTypes.string,
     resource: PropTypes.string,
-    source: PropTypes.string,
+    source: PropTypes.string.isRequired,
     record: PropTypes.object,
     options: PropTypes.object,
     validate: PropTypes.func,

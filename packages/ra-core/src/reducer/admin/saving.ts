@@ -1,8 +1,8 @@
 import { actionTypes } from 'redux-form';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import {
-    Actions as IDataActions,
-    TypeKeys as DataTypeKeys
+    DataActions,
+    DataTypeKeys
 } from '../../actions/dataActions';
 
 export type IState = boolean;
@@ -13,7 +13,7 @@ interface ILocationChange {
 
 // TODO: HMMM .. need to add typings for CREATE_SUCCESS and CREATE_FAILURE, which are not immediately obvious in dataActions. 
 
-export default (previousState: boolean = false, action: IDataActions | ILocationChange) => {
+export default (previousState: boolean = false, action: DataActions | ILocationChange) => {
     switch (action.type) {
         case DataTypeKeys.CRUD_CREATE:
         case DataTypeKeys.CRUD_UPDATE:

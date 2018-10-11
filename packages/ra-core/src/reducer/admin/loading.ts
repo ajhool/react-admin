@@ -1,11 +1,11 @@
 import {
-    Actions as FetchActions,
-    TypeKeys as FetchTypeKeys
+    FetchActions,
+    FetchTypeKeys
 } from '../../actions/fetchActions';
 
 import {
-    Actions as AuthActions,
-    TypeKeys as AuthTypeKeys
+    AuthActions,
+    AuthTypeKeys
 } from '../../actions/authActions';
 
 export type IState = number;

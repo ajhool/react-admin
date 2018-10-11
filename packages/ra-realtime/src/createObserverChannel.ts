@@ -1,7 +1,7 @@
 import { eventChannel } from 'redux-saga';
 import realtimeObserver from './realtimeObserver';
 
-export const createSubscribeFactory = realtimeObserverImpl => (
+export const createSubscribeFactory = (realtimeObserverImpl: typeof realtimeObserver) => (
     watcher,
     emitter
 ) => {

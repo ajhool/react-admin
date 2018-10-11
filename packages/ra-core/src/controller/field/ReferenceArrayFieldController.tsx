@@ -4,14 +4,15 @@ import { connect } from 'react-redux';
 import get from 'lodash/get';
 
 import { crudGetManyAccumulate as crudGetManyAccumulateAction } from '../../actions';
-import { getReferencesByIds } from '../reducer/admin/references/oneToMany';
+import { getReferencesByIds } from '../../reducer/admin/references/oneToMany';
+import { IRootState } from 'ra-core/src/reducer';
 
 interface IProps {
     addLabel?: boolean;
     basePath: string;
     classes?: any;
     className?: string;
-    children: () => void;
+    children: any;
     crudGetManyAccumulate: (reference: string, ids: number[]) => void;
     data?: any;
     ids: number[];
@@ -56,6 +57,23 @@ interface IProps {
  *
  */
 export class ReferenceArrayFieldController extends Component<IProps> {
+    static propTypes = {
+        addLabel: PropTypes.bool,
+        basePath: PropTypes.string.isRequired,
+        classes: PropTypes.object,
+        className: PropTypes.string,
+        children: PropTypes.func.isRequired,
+        crudGetManyAccumulate: PropTypes.func.isRequired,
+        data: PropTypes.object,
+        ids: PropTypes.array.isRequired,
+        label: PropTypes.string,
+        record: PropTypes.object.isRequired,
+        reference: PropTypes.string.isRequired,
+        resource: PropTypes.string.isRequired,
+        sortBy: PropTypes.string,
+        source: PropTypes.string.isRequired,
+    };
+
     componentDidMount() {
         this.fetchReferences();
     }
@@ -92,24 +110,7 @@ export class ReferenceArrayFieldController extends Component<IProps> {
     }
 }
 
-ReferenceArrayFieldController.propTypes = {
-    addLabel: PropTypes.bool,
-    basePath: PropTypes.string.isRequired,
-    classes: PropTypes.object,
-    className: PropTypes.string,
-    children: PropTypes.func.isRequired,
-    crudGetManyAccumulate: PropTypes.func.isRequired,
-    data: PropTypes.object,
-    ids: PropTypes.array.isRequired,
-    label: PropTypes.string,
-    record: PropTypes.object.isRequired,
-    reference: PropTypes.string.isRequired,
-    resource: PropTypes.string.isRequired,
-    sortBy: PropTypes.string,
-    source: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state, props: IProps) => {
+const mapStateToProps = (state: IRootState, props: IProps) => {
     const { record, source, reference } = props;
     const ids = get(record, source) || [];
     return {

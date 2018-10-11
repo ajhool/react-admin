@@ -13,7 +13,7 @@ interface IProps extends WithStyles {
     label: string;
     record: any;
     className: string;
-    translate: VoidFunction;
+    translate: any;
 }
 
 const EditButton: React.SFC<IProps> = ({

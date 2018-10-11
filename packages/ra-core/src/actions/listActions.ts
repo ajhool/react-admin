@@ -2,7 +2,7 @@ export const CRUD_CHANGE_LIST_PARAMS = 'RA/CRUD_CHANGE_LIST_PARAMS';
 export const SET_LIST_SELECTED_IDS = 'RA/SET_LIST_SELECTED_IDS';
 export const TOGGLE_LIST_ITEM = 'RA/TOGGLE_LIST_ITEM';
 
-export enum TypeKeys {
+export enum ListTypeKeys {
     CRUD_CHANGE_LIST_PARAMS = 'RA/CRUD_CHANGE_LIST_PARAMS',
     SET_LIST_SELECTED_IDS = 'RA/SET_LIST_SELECTED_IDS',
     TOGGLE_LIST_ITEM = 'RA/TOGGLE_LIST_ITEM',
@@ -10,12 +10,12 @@ export enum TypeKeys {
 }
 
 export interface IListAction {
-    type: TypeKeys;
+    type: ListTypeKeys;
     payload: any;
 }
 
 export interface IChangeListParams {
-    type: TypeKeys.CRUD_CHANGE_LIST_PARAMS;
+    type: ListTypeKeys.CRUD_CHANGE_LIST_PARAMS;
     payload: any;
     meta: {
         resource: string;
@@ -23,13 +23,13 @@ export interface IChangeListParams {
 }
 
 export const changeListParams = (resource: string, params: any): IChangeListParams => ({
-    type: TypeKeys.CRUD_CHANGE_LIST_PARAMS,
+    type: ListTypeKeys.CRUD_CHANGE_LIST_PARAMS,
     payload: params,
     meta: { resource },
 });
 
 export interface ISetListSelectedIds {
-    type: TypeKeys.SET_LIST_SELECTED_IDS;
+    type: ListTypeKeys.SET_LIST_SELECTED_IDS;
     payload: number[];
     meta: {
         resource: any;
@@ -37,13 +37,13 @@ export interface ISetListSelectedIds {
 }
 
 export const setListSelectedIds = (resource: string, ids: number[]): ISetListSelectedIds => ({
-    type: TypeKeys.SET_LIST_SELECTED_IDS,
+    type: ListTypeKeys.SET_LIST_SELECTED_IDS,
     payload: ids,
     meta: { resource },
 });
 
 export interface IToggleListItem {
-    type: TypeKeys.TOGGLE_LIST_ITEM;
+    type: ListTypeKeys.TOGGLE_LIST_ITEM;
     payload: number;
     meta: { resource: any };
 }
@@ -55,7 +55,7 @@ export const toggleListItem = (resource: string, id: number) => ({
 });
 
 export interface IPassThroughAction {
-    type: TypeKeys.OTHER_ACTION;
+    type: ListTypeKeys.OTHER_ACTION;
 }
 
 export type ListActions =

@@ -10,23 +10,14 @@ import {
     GET_MANY_REFERENCE,
 } from '../dataFetchActions';
 import { IResource } from './resourcesActions';
+import { IPagination, ISort, IFilter } from '../reducer/admin/resource/list/queryReducer';
 
 // export const CRUD_GET_LIST = 'RA/CRUD_GET_LIST';
 export const CRUD_GET_LIST_LOADING = 'RA/CRUD_GET_LIST_LOADING';
 export const CRUD_GET_LIST_FAILURE = 'RA/CRUD_GET_LIST_FAILURE';
 export const CRUD_GET_LIST_SUCCESS = 'RA/CRUD_GET_LIST_SUCCESS';
 
-export interface IPagination {
-    page: number;
-    perPage: number;
-}
-
-export interface ISort {
-    field: string;
-    order: 'ASC' | 'DESC';
-}
-
-export enum TypeKeys {
+export enum DataTypeKeys {
     CRUD_GET_LIST = 'RA/CRUD_GET_LIST',
     CRUD_GET_ALL = 'RA/CRUD_GET_ALL',
     CRUD_GET_ONE = 'RA/CRUD_GET_ONE',
@@ -40,12 +31,8 @@ export enum TypeKeys {
     CRUD_GET_MANY_REFERENCE = 'RA/CRUD_GET_MANY_REFERENCE'
 }
 
-export interface IFilter {
-    todo: string;
-}
-
 export interface ICrudGetList {
-    type: TypeKeys.CRUD_GET_LIST;
+    type: DataTypeKeys.CRUD_GET_LIST;
     payload: {
         pagination: IPagination;
         sort: ISort;
@@ -64,7 +51,7 @@ export interface ICrudGetList {
 }
 
 export const crudGetList = (resource: IResource, pagination: IPagination, sort: ISort, filter: IFilter): ICrudGetList => ({
-    type: TypeKeys.CRUD_GET_LIST,
+    type: DataTypeKeys.CRUD_GET_LIST,
     payload: { pagination, sort, filter },
     meta: {
         resource,
@@ -84,7 +71,7 @@ export const CRUD_GET_ALL_FAILURE = 'RA/CRUD_GET_ALL_FAILURE';
 export const CRUD_GET_ALL_SUCCESS = 'RA/CRUD_GET_ALL_SUCCESS';
 
 export interface ICrudGetAll {
-    type: TypeKeys.CRUD_GET_ALL;
+    type: DataTypeKeys.CRUD_GET_ALL;
     payload: { sort: ISort, filter: IFilter, pagination: IPagination },
     meta: {
         resource: IResource,
@@ -102,7 +89,7 @@ export interface ICrudGetAll {
 }
 
 export const crudGetAll = (resource: IResource, sort: ISort, filter: IFilter, maxResults: number, callback: VoidFunction): ICrudGetAll => ({
-    type: TypeKeys.CRUD_GET_ALL,
+    type: DataTypeKeys.CRUD_GET_ALL,
     payload: { sort, filter, pagination: { page: 1, perPage: maxResults } },
     meta: {
         resource,
@@ -125,7 +112,7 @@ export const CRUD_GET_ONE_FAILURE = 'RA/CRUD_GET_ONE_FAILURE';
 export const CRUD_GET_ONE_SUCCESS = 'RA/CRUD_GET_ONE_SUCCESS';
 
 export interface ICrudGetOne {
-    type: TypeKeys.CRUD_GET_ONE,
+    type: DataTypeKeys.CRUD_GET_ONE,
     payload: { id: number },
     meta: {
         resource: IResource;
@@ -143,7 +130,7 @@ export interface ICrudGetOne {
 }
 
 export const crudGetOne = (resource: IResource, id: number, basePath: string, refresh: boolean = true): ICrudGetOne => ({
-    type: TypeKeys.CRUD_GET_ONE,
+    type: DataTypeKeys.CRUD_GET_ONE,
     payload: { id },
     meta: {
         resource,
@@ -166,7 +153,7 @@ export const CRUD_CREATE_FAILURE = 'RA/CRUD_CREATE_FAILURE';
 export const CRUD_CREATE_SUCCESS = 'RA/CRUD_CREATE_SUCCESS';
 
 export interface ICrudCreate {
-    type: TypeKeys.CRUD_CREATE;
+    type: DataTypeKeys.CRUD_CREATE;
     payload: { data: any };
     meta: {
         resource: IResource;
@@ -192,7 +179,7 @@ export interface ICrudCreate {
 }
 
 export const crudCreate = (resource: IResource, data: any, basePath: string, redirectTo: string = 'edit'): ICrudCreate => ({
-    type: TypeKeys.CRUD_CREATE,
+    type: DataTypeKeys.CRUD_CREATE,
     payload: { data },
     meta: {
         resource,
@@ -224,7 +211,7 @@ export const CRUD_UPDATE_SUCCESS = 'RA/CRUD_UPDATE_SUCCESS';
 export const CRUD_UPDATE_OPTIMISTIC = 'RA/CRUD_UPDATE_OPTIMISTIC';
 
 export interface ICrudUpdate {
-    type: TypeKeys.CRUD_UPDATE,
+    type: DataTypeKeys.CRUD_UPDATE,
     payload: {
         id: number;
         data: any;
@@ -261,7 +248,7 @@ export const crudUpdate = (
     basePath: string,
     redirectTo: string = 'show'
 ): ICrudUpdate => ({
-    type: TypeKeys.CRUD_UPDATE,
+    type: DataTypeKeys.CRUD_UPDATE,
     payload: { id, data, previousData },
     meta: {
         resource,
@@ -293,7 +280,7 @@ export const CRUD_UPDATE_MANY_SUCCESS = 'RA/CRUD_UPDATE_MANY_SUCCESS';
 export const CRUD_UPDATE_MANY_OPTIMISTIC = 'RA/CRUD_UPDATE_MANY_OPTIMISTIC';
 
 export interface ICrudUpdateMany {
-    type: TypeKeys.CRUD_UPDATE_MANY;
+    type: DataTypeKeys.CRUD_UPDATE_MANY;
     payload: {
         ids: number[];
         data: any;
@@ -330,7 +317,7 @@ export const crudUpdateMany = (
     basePath: string,
     refresh: boolean = true
 ): ICrudUpdateMany => ({
-    type: TypeKeys.CRUD_UPDATE_MANY,
+    type: DataTypeKeys.CRUD_UPDATE_MANY,
     payload: { ids, data },
     meta: {
         resource,
@@ -364,7 +351,7 @@ export const CRUD_DELETE_SUCCESS = 'RA/CRUD_DELETE_SUCCESS';
 export const CRUD_DELETE_OPTIMISTIC = 'RA/CRUD_DELETE_OPTIMISTIC';
 
 export interface ICrudDelete {
-    type: TypeKeys.CRUD_DELETE;
+    type: DataTypeKeys.CRUD_DELETE;
     payload: {
         id: number;
         previousData: any;
@@ -399,7 +386,7 @@ export const crudDelete = (
     basePath: string,
     redirectTo: string = 'list'
 ): ICrudDelete => ({
-    type: TypeKeys.CRUD_DELETE,
+    type: DataTypeKeys.CRUD_DELETE,
     payload: { id, previousData },
     meta: {
         resource,
@@ -431,7 +418,7 @@ export const CRUD_DELETE_MANY_SUCCESS = 'RA/CRUD_DELETE_MANY_SUCCESS';
 export const CRUD_DELETE_MANY_OPTIMISTIC = 'RA/CRUD_DELETE_MANY_OPTIMISTIC';
 
 export interface ICrudDeleteMany {
-    type: TypeKeys.CRUD_DELETE_MANY,
+    type: DataTypeKeys.CRUD_DELETE_MANY,
     payload: {
         ids: number[];
     },
@@ -460,7 +447,7 @@ export interface ICrudDeleteMany {
 }
 
 export const crudDeleteMany = (resource: IResource, ids: number[], basePath: string, refresh = true): ICrudDeleteMany => ({
-    type: TypeKeys.CRUD_DELETE_MANY,
+    type: DataTypeKeys.CRUD_DELETE_MANY,
     payload: { ids },
     meta: {
         resource,
@@ -494,7 +481,7 @@ export const CRUD_GET_MANY_SUCCESS = 'RA/CRUD_GET_MANY_SUCCESS';
 // Reference related actions
 
 export interface ICrudGetMany {
-    type: TypeKeys.CRUD_GET_MANY,
+    type: DataTypeKeys.CRUD_GET_MANY,
     payload: {
         ids: number[];
     },
@@ -511,7 +498,7 @@ export interface ICrudGetMany {
 }
 
 export const crudGetMany = (resource: IResource, ids: number[]): ICrudGetMany => ({
-    type: TypeKeys.CRUD_GET_MANY,
+    type: DataTypeKeys.CRUD_GET_MANY,
     payload: { ids },
     meta: {
         resource,
@@ -531,7 +518,7 @@ export const CRUD_GET_MATCHING_FAILURE = 'RA/CRUD_GET_MATCHING_FAILURE';
 export const CRUD_GET_MATCHING_SUCCESS = 'RA/CRUD_GET_MATCHING_SUCCESS';
 
 export interface ICrudGetMatching {
-    type: TypeKeys.CRUD_GET_MATCHING;
+    type: DataTypeKeys.CRUD_GET_MATCHING;
     payload: {
         pagination: IPagination;
         sort: ISort;
@@ -557,7 +544,7 @@ export const crudGetMatching = (
     sort: ISort,
     filter: IFilter
 ): ICrudGetMatching => ({
-    type: TypeKeys.CRUD_GET_MATCHING,
+    type: DataTypeKeys.CRUD_GET_MATCHING,
     payload: { pagination, sort, filter },
     meta: {
         resource: reference,
@@ -581,7 +568,7 @@ export const CRUD_GET_MANY_REFERENCE_SUCCESS =
     'RA/CRUD_GET_MANY_REFERENCE_SUCCESS';
 
 export interface ICrudGetManyReference {
-    type: TypeKeys.CRUD_GET_MANY_REFERENCE;
+    type: DataTypeKeys.CRUD_GET_MANY_REFERENCE;
     payload: {
         target: string;
         id: number;
@@ -613,7 +600,7 @@ export const crudGetManyReference = (
     filter: IFilter,
     source: string
 ): ICrudGetManyReference => ({
-    type: TypeKeys.CRUD_GET_MANY_REFERENCE,
+    type: DataTypeKeys.CRUD_GET_MANY_REFERENCE,
     payload: { target, id, pagination, sort, filter, source },
     meta: {
         resource: reference,
@@ -628,7 +615,7 @@ export const crudGetManyReference = (
     },
 });
 
-export type Actions =
+export type DataActions =
     ICrudGetList |
     ICrudGetAll |
     ICrudGetOne |

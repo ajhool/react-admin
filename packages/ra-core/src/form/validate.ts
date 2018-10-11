@@ -36,42 +36,42 @@ export const required = memoize((message = 'ra.validation.required') =>
 );
 
 export const minLength = memoize(
-    (min: number, message = 'ra.validation.minLength') => (value, values, props) =>
+    (min: number, message = 'ra.validation.minLength') => (value: string, values, props) =>
         !isEmpty(value) && value.length < min
             ? getMessage(message, { min }, value, values, props)
             : undefined
 );
 
 export const maxLength = memoize(
-    (max: number, message = 'ra.validation.maxLength') => (value, values, props) =>
+    (max: number, message = 'ra.validation.maxLength') => (value: string, values, props) =>
         !isEmpty(value) && value.length > max
             ? getMessage(message, { max }, value, values, props)
             : undefined
 );
 
 export const minValue = memoize(
-    (min: number, message = 'ra.validation.minValue') => (value, values, props) =>
+    (min: number, message = 'ra.validation.minValue') => (value: number, values, props) =>
         !isEmpty(value) && value < min
             ? getMessage(message, { min }, value, values, props)
             : undefined
 );
 
 export const maxValue = memoize(
-    (max: number, message = 'ra.validation.maxValue') => (value, values, props) =>
+    (max: number, message = 'ra.validation.maxValue') => (value: number, values, props) =>
         !isEmpty(value) && value > max
             ? getMessage(message, { max }, value, values, props)
             : undefined
 );
 
 export const number = memoize(
-    (message = 'ra.validation.number') => (value, values, props) =>
+    (message = 'ra.validation.number') => (value: number, values, props) =>
         !isEmpty(value) && isNaN(Number(value))
             ? getMessage(message, undefined, value, values, props)
             : undefined
 );
 
 export const regex = lodashMemoize(
-    (pattern, message = 'ra.validation.regex') => (value, values, props) =>
+    (pattern, message = 'ra.validation.regex') => (value: string, values, props) =>
         !isEmpty(value) && typeof value === 'string' && !pattern.test(value)
             ? getMessage(message, { pattern }, value, values, props)
             : undefined,
@@ -84,7 +84,7 @@ export const email = memoize((message = 'ra.validation.email') =>
     regex(EMAIL_REGEX, message)
 );
 
-const oneOfTypeMessage = ({ list }, value, values, { translate }) => {
+const oneOfTypeMessage = ({ list }, _: any, __: any, { translate }) => {
     translate('ra.validation.oneOf', {
         options: list.join(', '),
     });

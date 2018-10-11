@@ -20,7 +20,7 @@ interface IProps extends WithStyles<typeof styles> {
     children: ReactElementLike;
 }
 
-const styles = () => createStyles({
+const styles = createStyles({
     button: {
         display: 'inline-flex',
         alignItems: 'center',

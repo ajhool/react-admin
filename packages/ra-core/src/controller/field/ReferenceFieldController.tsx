@@ -7,11 +7,13 @@ import { crudGetManyAccumulate as crudGetManyAccumulateAction } from '../../acti
 import { linkToRecord } from '../../util';
 import { IRootState } from 'ra-core/src/reducer';
 
+// TODO: The "resource" field is not required but will force an error if undefined.
+
 interface IProps {
     addLabel?: boolean;
     allowEmpty: boolean;
     basePath: string;
-    children: () => void; // TODO
+    children: any; // TODO
     classes?: any;
     className?: string;
     cellClassName?: string;
@@ -120,7 +122,7 @@ export class ReferenceFieldController extends Component<IProps> {
         const rootPath = basePath.replace(resource, reference);
         const resourceLinkPath = !linkType
             ? false
-            : linkToRecord(rootPath, get(record, source), linkType);
+            : linkToRecord(rootPath, get(record, source), linkType as string);
         return children({
             isLoading: !referenceRecord && !allowEmpty,
             referenceRecord,

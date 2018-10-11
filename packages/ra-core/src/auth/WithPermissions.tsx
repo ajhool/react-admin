@@ -1,12 +1,12 @@
-import { Children, Component } from 'react';
+import { Children, Component, ReactChildren } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import getContext from 'recompose/getContext';
 
 import { userCheck } from '../actions/authActions';
-import { AUTH_GET_PERMISSIONS } from '../auth/types';
-import { isLoggedIn } from '../reducer';
+import { TypeKeys } from '../auth/types';
+import { isLoggedIn, IRootState } from '../reducer';
 import warning from '../util/warning';
 
 interface IProps {
@@ -21,7 +21,13 @@ interface IProps {
     userCheck?: typeof userCheck;
 }
 
-const isEmptyChildren = children => Children.count(children) === 0;
+const isEmptyChildren = (children: ReactChildren): boolean => Children.count(children) === 0;
+
+interface ICheckAuthenticationParams {
+    userCheck: typeof userCheck,
+    authParams: any,
+    location: any
+};
 
 /**
  * After checking that the user is authenticated,
@@ -57,7 +63,7 @@ const isEmptyChildren = children => Children.count(children) === 0;
  *         </Admin>
  *     );
  */
-export class WithPermissions extends Component {
+export class WithPermissions extends Component<IProps> {
     static propTypes = {
         authProvider: PropTypes.func,
         authParams: PropTypes.object,
@@ -92,7 +98,7 @@ export class WithPermissions extends Component {
         this.cancelled = true;
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: IProps) {
         if (
             nextProps.location !== this.props.location ||
             nextProps.authParams !== this.props.authParams ||
@@ -103,15 +109,16 @@ export class WithPermissions extends Component {
         }
     }
 
-    checkAuthentication(params) {
+
+    checkAuthentication(params: IProps | ICheckAuthenticationParams): void {
         const { userCheck, authParams, location } = params;
-        userCheck(authParams, location && location.pathname);
+        userCheck && userCheck(authParams, location && location.pathname);
     }
 
-    async checkPermissions(params) {
+    async checkPermissions(params: IProps) {
         const { authProvider, authParams, location, match } = params;
         try {
-            const permissions = await authProvider(AUTH_GET_PERMISSIONS, {
+            const permissions = await authProvider(TypeKeys.AUTH_GET_PERMISSIONS, {
                 ...authParams,
                 routeParams: match ? match.params : undefined,
                 location: location ? location.pathname : undefined,
@@ -150,11 +157,11 @@ export class WithPermissions extends Component {
         }
     }
 }
-const mapStateToProps = state => ({
+const mapStateToProps = (state: IRootState) => ({
     isLoggedIn: isLoggedIn(state),
 });
 
-export default compose(
+export default compose<IProps, {}>(
     getContext({
         authProvider: PropTypes.func,
     }),

@@ -6,10 +6,14 @@ import { get } from 'lodash';
 import warning from '../util/warning';
 
 import { REDUX_FORM_NAME } from './constants';
+import { IRootState } from '../reducer';
 
+// A lot of the props in this component are simply passed through to children, so the
+// "passThrough" key is a way to allow for one or more unknown/unexpected fields.
 interface IProps {
     children: any;
     data?: any;
+    [passThrough: string]: any;
 }
 
 /**
@@ -65,7 +69,7 @@ export const FormDataConsumer: React.SFC<IProps> = ({
     // If we have an index, we are in an iterator like component (such as the SimpleFormIterator)
     if (typeof index !== 'undefined') {
         scopedFormData = get(formData, source);
-        getSource = scopedSource => {
+        getSource = (scopedSource: string) => {
             getSourceHasBeenCalled = true;
             return `${source}.${scopedSource}`;
         };
@@ -110,7 +114,7 @@ FormDataConsumer.propTypes = {
     data: PropTypes.object,
 };
 
-const mapStateToProps = (state, { record }) => ({
+const mapStateToProps = (state: IRootState, { record }: IProps) => ({
     formData: getFormValues(REDUX_FORM_NAME)(state) || record,
 });
 

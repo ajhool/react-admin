@@ -1,4 +1,4 @@
-import { CRUD_GET_MANY_REFERENCE_SUCCESS } from '../../../actions/dataActions';
+import { CRUD_GET_MANY_REFERENCE_SUCCESS, DataActions} from '../../../actions';
 import { IRootState } from '../../../reducer';
 
 export interface IState {
@@ -7,7 +7,9 @@ export interface IState {
 
 const initialState = {};
 
-export default (previousState: IState = initialState, { type, payload, meta }) => {
+// TODO: Redux saga transforms this...
+
+export default (previousState: IState = initialState, { type, payload, meta }: DataActions) => {
     switch (type) {
         case CRUD_GET_MANY_REFERENCE_SUCCESS:
             return {
@@ -19,10 +21,10 @@ export default (previousState: IState = initialState, { type, payload, meta }) =
     }
 };
 
-export const getIds = (state: IRootState, relatedTo) =>
+export const getIds = (state: IRootState, relatedTo: string) =>
     state.admin.references.oneToMany[relatedTo];
 
-export const getReferences = (state: IRootState, reference: string, relatedTo) => {
+export const getReferences = (state: IRootState, reference: string, relatedTo: string) => {
     const ids = getIds(state, relatedTo);
     if (typeof ids === 'undefined') return undefined;
 
@@ -54,7 +56,7 @@ export const getReferences = (state: IRootState, reference: string, relatedTo) =
         }, {});
 };
 
-export const getReferencesByIds = (state: IRootState, reference: string, ids) => {
+export const getReferencesByIds = (state: IRootState, reference: string, ids: number[]) => {
     if (ids.length === 0) return {};
 
     if (!state.admin.resources[reference]) {
@@ -87,7 +89,7 @@ export const getReferencesByIds = (state: IRootState, reference: string, ids) =>
     return Object.keys(references).length > 0 ? references : null;
 };
 
-export const nameRelatedTo = (reference, id, resource, target, filter = {}) => {
+export const nameRelatedTo = (reference: string, id: number, resource: string, target: string, filter: any = {}) => {
     const keys = Object.keys(filter);
     if (!keys.length) {
         return `${resource}_${reference}@${target}_${id}`;

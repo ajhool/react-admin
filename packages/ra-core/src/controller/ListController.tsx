@@ -18,6 +18,11 @@ import queryReducer, {
     SET_PER_PAGE,
     SET_FILTER,
     SORT_DESC,
+    IPagination,
+    ISort,
+    IFilter,
+    SORT_DIRECTION,
+    QueryActions
 } from '../reducer/admin/resource/list/queryReducer';
 import { crudGetList as crudGetListAction } from '../actions/dataActions';
 import {
@@ -27,6 +32,55 @@ import {
 } from '../actions/listActions';
 import translate from '../i18n/translate';
 import removeKey from '../util/removeKey';
+
+interface IQuery {
+    sort: ISort;
+    order: SORT_DIRECTION;
+    page: number;
+    perPage: number;
+    filter: IFilter
+}
+
+interface IUserManagedProps {
+    children: any;
+    filter?: IFilter;
+    filters?: React.ReactElement;
+    filterDefaultValues?: any;
+    pagination?: React.ReactElement;
+    perPage: number;
+    sort: ISort;  
+}
+
+interface IRAManagedProps {
+    // the props managed by react-admin
+    authProvider?: VoidFunction;
+    basePath: string;
+    changeListParams: typeof changeListParamsAction;
+    crudGetList: typeof crudGetListAction;
+    data?: any;
+    debounce?: number;
+    filterValues?: any;
+    hasCreate: boolean;
+    hasEdit: boolean;
+    hasList: boolean;
+    hasShow: boolean;
+    ids?: number[];
+    selectedIds?: number[];
+    isLoading: boolean;
+    location: any;
+    path?: string;
+    params: any;
+    push: typeof pushAction;
+    query: IQuery;
+    resource: string;
+    setSelectedIds: typeof setListSelectedIdsAction;
+    toggleItem: typeof toggleListItemAction;
+    total: number;
+    translate: any;
+    version?: number;
+}
+
+type IProps = IRAManagedProps & IUserManagedProps;
 
 /**
  * List page component
@@ -69,7 +123,58 @@ import removeKey from '../util/removeKey';
  *         </List>
  *     );
  */
-export class ListController extends Component {
+export class ListController extends Component<IProps> {
+    static propTypes = {
+        // the props you can change
+        children: PropTypes.func.isRequired,
+        filter: PropTypes.object,
+        filters: PropTypes.element,
+        filterDefaultValues: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+        pagination: PropTypes.element,
+        perPage: PropTypes.number.isRequired,
+        sort: PropTypes.shape({
+            field: PropTypes.string,
+            order: PropTypes.string,
+        }),
+        // the props managed by react-admin
+        authProvider: PropTypes.func,
+        basePath: PropTypes.string.isRequired,
+        changeListParams: PropTypes.func.isRequired,
+        crudGetList: PropTypes.func.isRequired,
+        data: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+        debounce: PropTypes.number,
+        filterValues: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+        hasCreate: PropTypes.bool.isRequired,
+        hasEdit: PropTypes.bool.isRequired,
+        hasList: PropTypes.bool.isRequired,
+        hasShow: PropTypes.bool.isRequired,
+        ids: PropTypes.array,
+        selectedIds: PropTypes.array,
+        isLoading: PropTypes.bool.isRequired,
+        location: PropTypes.object.isRequired,
+        path: PropTypes.string,
+        params: PropTypes.object.isRequired,
+        push: PropTypes.func.isRequired,
+        query: PropTypes.object.isRequired,
+        resource: PropTypes.string.isRequired,
+        setSelectedIds: PropTypes.func.isRequired,
+        toggleItem: PropTypes.func.isRequired,
+        total: PropTypes.number.isRequired,
+        translate: PropTypes.func.isRequired,
+        version: PropTypes.number,
+    };
+
+    static defaultProps = {
+        debounce: 500,
+        filter: {},
+        filterValues: {},
+        perPage: 10,
+        sort: {
+            field: 'id',
+            order: SORT_DESC,
+        },
+    };
+
     state = {};
 
     componentDidMount() {
@@ -93,7 +198,7 @@ export class ListController extends Component {
         this.setFilters.cancel();
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: IProps) {
         if (
             nextProps.resource !== this.props.resource ||
             nextProps.query.sort !== this.props.query.sort ||
@@ -116,7 +221,7 @@ export class ListController extends Component {
         }
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate(nextProps: IProps, nextState: IState) {
         if (
             nextProps.translate === this.props.translate &&
             nextProps.isLoading === this.props.isLoading &&
@@ -138,7 +243,7 @@ export class ListController extends Component {
      *   - the filter defaultValues
      *   - the props passed to the List component
      */
-    getQuery() {
+    getQuery(): IQuery {
         const query =
             Object.keys(this.props.query).length > 0
                 ? this.props.query
@@ -159,8 +264,8 @@ export class ListController extends Component {
         }
         return query;
     }
-
-    updateData(query) {
+    
+    updateData(query?: IQuery) {
         const params = query || this.getQuery();
         const { sort, order, page = 1, perPage, filter } = params;
         const pagination = {
@@ -176,11 +281,11 @@ export class ListController extends Component {
         );
     }
 
-    setSort = sort => this.changeParams({ type: SET_SORT, payload: sort });
+    setSort = (sort: ISort) => this.changeParams({ type: SET_SORT, payload: sort });
 
-    setPage = page => this.changeParams({ type: SET_PAGE, payload: page });
+    setPage = (page: number) => this.changeParams({ type: SET_PAGE, payload: page });
 
-    setPerPage = perPage =>
+    setPerPage = (perPage: number) =>
         this.changeParams({ type: SET_PER_PAGE, payload: perPage });
 
     setFilters = debounce(filters => {
@@ -193,7 +298,7 @@ export class ListController extends Component {
         this.changeParams({ type: SET_FILTER, payload: filtersWithoutEmpty });
     }, this.props.debounce);
 
-    showFilter = (filterName, defaultValue) => {
+    showFilter = (filterName: string, defaultValue: any) => {
         this.setState({ [filterName]: true });
         if (typeof defaultValue !== 'undefined') {
             this.setFilters({
@@ -203,13 +308,13 @@ export class ListController extends Component {
         }
     };
 
-    hideFilter = filterName => {
+    hideFilter = (filterName: string) => {
         this.setState({ [filterName]: false });
         const newFilters = removeKey(this.props.filterValues, filterName);
         this.setFilters(newFilters);
     };
 
-    handleSelect = ids => {
+    handleSelect = (ids: number) => {
         this.props.setSelectedIds(this.props.resource, ids);
     };
 
@@ -217,11 +322,11 @@ export class ListController extends Component {
         this.props.setSelectedIds(this.props.resource, []);
     };
 
-    handleToggleItem = id => {
+    handleToggleItem = (id: number) => {
         this.props.toggleItem(this.props.resource, id);
     };
 
-    changeParams(action) {
+    changeParams(action: QueryActions) {
         const newParams = queryReducer(this.getQuery(), action);
         this.props.push({
             ...this.props.location,
@@ -293,57 +398,6 @@ export class ListController extends Component {
     }
 }
 
-ListController.propTypes = {
-    // the props you can change
-    children: PropTypes.func.isRequired,
-    filter: PropTypes.object,
-    filters: PropTypes.element,
-    filterDefaultValues: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-    pagination: PropTypes.element,
-    perPage: PropTypes.number.isRequired,
-    sort: PropTypes.shape({
-        field: PropTypes.string,
-        order: PropTypes.string,
-    }),
-    // the props managed by react-admin
-    authProvider: PropTypes.func,
-    basePath: PropTypes.string.isRequired,
-    changeListParams: PropTypes.func.isRequired,
-    crudGetList: PropTypes.func.isRequired,
-    data: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-    debounce: PropTypes.number,
-    filterValues: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-    hasCreate: PropTypes.bool.isRequired,
-    hasEdit: PropTypes.bool.isRequired,
-    hasList: PropTypes.bool.isRequired,
-    hasShow: PropTypes.bool.isRequired,
-    ids: PropTypes.array,
-    selectedIds: PropTypes.array,
-    isLoading: PropTypes.bool.isRequired,
-    location: PropTypes.object.isRequired,
-    path: PropTypes.string,
-    params: PropTypes.object.isRequired,
-    push: PropTypes.func.isRequired,
-    query: PropTypes.object.isRequired,
-    resource: PropTypes.string.isRequired,
-    setSelectedIds: PropTypes.func.isRequired,
-    toggleItem: PropTypes.func.isRequired,
-    total: PropTypes.number.isRequired,
-    translate: PropTypes.func.isRequired,
-    version: PropTypes.number,
-};
-
-ListController.defaultProps = {
-    debounce: 500,
-    filter: {},
-    filterValues: {},
-    perPage: 10,
-    sort: {
-        field: 'id',
-        order: SORT_DESC,
-    },
-};
-
 const injectedProps = [
     'basePath',
     'currentSort',
@@ -378,7 +432,7 @@ const injectedProps = [
  * to be passed to the List children need
  * This is an implementation of pick()
  */
-export const getListControllerProps = props =>
+export const getListControllerProps = (props: IProps) =>
     injectedProps.reduce((acc, key) => ({ ...acc, [key]: props[key] }), {});
 
 /**
@@ -392,8 +446,8 @@ export const sanitizeListRestProps = props =>
         .reduce((acc, key) => ({ ...acc, [key]: props[key] }), {});
 
 const validQueryParams = ['page', 'perPage', 'sort', 'order', 'filter'];
-const getLocationPath = props => props.location.pathname;
-const getLocationSearch = props => props.location.search;
+const getLocationPath = (props: IProps) => props.location.pathname;
+const getLocationSearch = (props: IProps) => props.location.search;
 const selectQuery = createSelector(
     getLocationPath,
     getLocationSearch,
@@ -429,7 +483,7 @@ function mapStateToProps(state, props) {
     };
 }
 
-export default compose(
+export default compose<IProps, {}>(
     connect(
         mapStateToProps,
         {

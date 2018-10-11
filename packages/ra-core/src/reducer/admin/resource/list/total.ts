@@ -3,9 +3,10 @@ import {
     CRUD_GET_LIST_SUCCESS,
     CRUD_DELETE_OPTIMISTIC,
     CRUD_DELETE_MANY_OPTIMISTIC,
+    IDataActions
 } from '../../../../actions/dataActions';
 
-export default (previousState = 0, { type, payload }: IDataAction) => {
+export default (previousState = 0, { type, payload }: IDataActions) => {
     if (type === CRUD_GET_ONE_SUCCESS) {
         return previousState === 0 ? 1 : previousState;
     }

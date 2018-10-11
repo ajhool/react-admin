@@ -7,7 +7,7 @@ import NodeActions from './NodeActions';
 const CONTAINER_CLASS = 'treenode-content';
 
 interface IProps extends WithStyles<typeof styles> {
-    actions?: NodeActions;
+    actions?: typeof NodeActions;
     basePath: string;
     children?: any;
     node: any;

@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, ReactChildren } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import debounce from 'lodash/debounce';
@@ -18,7 +18,45 @@ import {
 import { getStatusForInput as getDataStatus } from './referenceDataStatus';
 import translate from '../../i18n/translate';
 
-const referenceSource = (resource, source) => `${resource}@${source}`;
+const referenceSource = (resource: string, source: string) => `${resource}@${source}`;
+
+// TODO: Import IPagination, IFilter from wherever it comes from.
+
+interface IFilter {
+    [item: string]: any;
+}
+interface ISort {
+
+    order: 'ASC' | 'DESC';
+}
+
+interface IProps {
+    allowEmpty: boolean;
+    basePath?: string;
+    children: ReactChildren;
+    className?: string;
+    classes?: any;
+    crudGetMatchingAccumulate: typeof crudGetManyAccumulateAction;
+    crudGetManyAccumulate: typeof crudGetManyAccumulateAction;
+    filter?: IFilter;
+    filterToQuery: (searchText: string) => IFilter;
+    input: any;
+    matchingReferences?: any[] | any;
+    onChange?: VoidFunction;
+    perPage?: number;
+    record?: any;
+    reference: string;
+    referenceRecord?: any;
+    referenceSource: (resource: string, source: string) => string;
+    resource: string;
+    sort?: ISort;
+    source?: string;
+    translate: any;
+}
+
+interface IState {
+    filter: IFilter;
+}
 
 /**
  * An Input component for choosing a reference record. Useful for foreign keys.
@@ -99,8 +137,51 @@ const referenceSource = (resource, source) => `${resource}@${source}`;
  *     <SelectInput optionText="title" />
  * </ReferenceInput>
  */
-export class ReferenceInputController extends Component {
-    constructor(props) {
+export class ReferenceInputController extends Component<IProps, IState> {
+    static propTypes = {
+        allowEmpty: PropTypes.bool.isRequired,
+        basePath: PropTypes.string,
+        children: PropTypes.func.isRequired,
+        className: PropTypes.string,
+        classes: PropTypes.object,
+        crudGetMatchingAccumulate: PropTypes.func.isRequired,
+        crudGetManyAccumulate: PropTypes.func.isRequired,
+        filter: PropTypes.object,
+        filterToQuery: PropTypes.func.isRequired,
+        input: PropTypes.object.isRequired,
+        matchingReferences: PropTypes.oneOfType([
+            PropTypes.array,
+            PropTypes.object,
+        ]),
+        onChange: PropTypes.func,
+        perPage: PropTypes.number,
+        record: PropTypes.object,
+        reference: PropTypes.string.isRequired,
+        referenceRecord: PropTypes.object,
+        referenceSource: PropTypes.func.isRequired,
+        resource: PropTypes.string.isRequired,
+        sort: PropTypes.shape({
+            field: PropTypes.string,
+            order: PropTypes.oneOf(['ASC', 'DESC']),
+        }),
+        source: PropTypes.string,
+        translate: PropTypes.func.isRequired,
+    };
+
+    static defaultProps = {
+        allowEmpty: false,
+        filter: {},
+        filterToQuery: (searchText: string) => ({ q: searchText }),
+        matchingReferences: null,
+        perPage: 25,
+        sort: { field: 'id', order: 'DESC' },
+        referenceRecord: null,
+        referenceSource, // used in tests
+    };
+
+    debouncedSetFilter: typeof debounce;
+
+    constructor(props: Readonly<IProps>) {
         super(props);
         const { perPage, sort, filter } = props;
         this.state = { pagination: { page: 1, perPage }, sort, filter };
@@ -111,7 +192,7 @@ export class ReferenceInputController extends Component {
         this.fetchReferenceAndOptions(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: IProps) {
         if ((this.props.record || {}).id !== (nextProps.record || {}).id) {
             this.fetchReferenceAndOptions(nextProps);
         } else if (this.props.input.value !== nextProps.input.value) {
@@ -135,7 +216,7 @@ export class ReferenceInputController extends Component {
         }
     }
 
-    setFilter = filter => {
+    setFilter = (filter: IFilter) => {
         if (filter !== this.state.filter) {
             this.setState(
                 { filter: this.props.filterToQuery(filter) },
@@ -144,13 +225,13 @@ export class ReferenceInputController extends Component {
         }
     };
 
-    setPagination = pagination => {
+    setPagination = (pagination: IPagination) => {
         if (pagination !== this.state.pagination) {
             this.setState({ pagination }, this.fetchOptions);
         }
     };
 
-    setSort = sort => {
+    setSort = (sort: ISort) => {
         if (sort !== this.state.sort) {
             this.setState({ sort }, this.fetchOptions);
         }
@@ -184,7 +265,7 @@ export class ReferenceInputController extends Component {
         );
     };
 
-    fetchReferenceAndOptions(props) {
+    fetchReferenceAndOptions(props: IProps) {
         this.fetchReference(props);
         this.fetchOptions(props);
     }
@@ -223,47 +304,6 @@ export class ReferenceInputController extends Component {
     }
 }
 
-ReferenceInputController.propTypes = {
-    allowEmpty: PropTypes.bool.isRequired,
-    basePath: PropTypes.string,
-    children: PropTypes.func.isRequired,
-    className: PropTypes.string,
-    classes: PropTypes.object,
-    crudGetMatchingAccumulate: PropTypes.func.isRequired,
-    crudGetManyAccumulate: PropTypes.func.isRequired,
-    filter: PropTypes.object,
-    filterToQuery: PropTypes.func.isRequired,
-    input: PropTypes.object.isRequired,
-    matchingReferences: PropTypes.oneOfType([
-        PropTypes.array,
-        PropTypes.object,
-    ]),
-    onChange: PropTypes.func,
-    perPage: PropTypes.number,
-    record: PropTypes.object,
-    reference: PropTypes.string.isRequired,
-    referenceRecord: PropTypes.object,
-    referenceSource: PropTypes.func.isRequired,
-    resource: PropTypes.string.isRequired,
-    sort: PropTypes.shape({
-        field: PropTypes.string,
-        order: PropTypes.oneOf(['ASC', 'DESC']),
-    }),
-    source: PropTypes.string,
-    translate: PropTypes.func.isRequired,
-};
-
-ReferenceInputController.defaultProps = {
-    allowEmpty: false,
-    filter: {},
-    filterToQuery: searchText => ({ q: searchText }),
-    matchingReferences: null,
-    perPage: 25,
-    sort: { field: 'id', order: 'DESC' },
-    referenceRecord: null,
-    referenceSource, // used in tests
-};
-
 const makeMapStateToProps = () =>
     createSelector(
         [
@@ -281,7 +321,7 @@ const makeMapStateToProps = () =>
         })
     );
 
-const EnhancedReferenceInputController = compose(
+const EnhancedReferenceInputController = compose<IProps, {}>(
     translate,
     connect(
         makeMapStateToProps(),

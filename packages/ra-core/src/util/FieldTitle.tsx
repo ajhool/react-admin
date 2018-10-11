@@ -11,7 +11,7 @@ interface IProps {
     source: string;
     label?: string;
     isRequired?: boolean;
-    translate: translate;
+    translate: typeof translate;
 }
 
 const FieldTitle: React.SFC<IProps> = ({
@@ -44,7 +44,7 @@ FieldTitle.propTypes = {
     translate: PropTypes.func.isRequired,
 };
 
-FieldTitle.defaultTypes = {
+FieldTitle.defaultProps = {
     translate: (x: any) => x,
 };
 

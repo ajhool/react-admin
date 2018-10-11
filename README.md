@@ -7,23 +7,56 @@ Relevant issues
 (PropTypes gives typing support to javascript projects that depend on this lib. Typescript Seems like it solves the same problem.. but it doesn't quite.):
 https://github.com/Microsoft/TypeScript/issues/4833
 
+
+- Packages to convert (make a best effort guess at types)
 - [ ] ra-core
+-   [x] actions (99% done)
+-   [x] auth (99% done)
+-   [x] controller (about 95% done)
+-       [x] field (Typescript exposed a bug. Also not sure what Children type is.)
+-       [x] input (A few Stage III struggles left.)
+-       [x] others (There is some wonky business with prop injection and User/RA managed props. Need to sort that out. possible error on Refresh function)
+-   [ ] form (HIGH PRIORITY). Not too complicated, just component swapping.
+-   [95%] i18n (HIGH PRIORITY. translate function is used everywhere ese. needs Type) (About 95% done. Strange typing on the exported component)
+-   [/] reducer
+-       [/] admin
+-           [/] references ( 75% done. Typing difficulties with records, references, and relatedTo)
+-           [/] resource
+-               [/] list (Mostly wired in, just need to get smarter about typing the ids -- Need insight from dev team)
+-               [/] others (Mostly wired in, need to get smarter about typing the ids and records. -- Need insight from dev team)
+-           [x] others ( Odd issue with Notifications not detecting payload properly.)
+-       [x] i18n (95% done. What is the type of messages?)
+-   [/] sideEffect (Need to study redux saga. Once the method is determined, this should be straightforward)
+-   [x] util
+-   [ ] others
 - [ ] ra-data-fakerest
 - [ ] ra-data-graphcool
 - [ ] ra-data-graphql
 - [ ] ra-data-graphql-simple
 - [ ] ra-data-json-server
 - [ ] ra-data-simple-rest
-- [ ] ra-input-rich-text
+- [x] ra-input-rich-text
 - [x] ra-language-english
 - [x] ra-language-french
-- [ ] ra-realtime
-- [ ] ra-tree-core
+- [/] ra-realtime ( need to research redux-saga typing.)
+- [/] ra-tree-core ( about 80% of the way there. Need to understand TreeNode typing)
 - [x] ra-tree-language-english
 - [x] ra-tree-language-french
-- [ ] ra-tree-ui-materialui
-- [ ] ra-ui-materialui
-- [ ] react-admin
+- [~3/20 files] ra-tree-ui-materialui
+- [~120/150 files] ra-ui-materialui
+- [x] react-admin
+
+- Stage II
+- [ ] How to properly use Lerna with Typescript workspaces?
+- [ ] Find correct way to handle redux-saga generated actions. eg ORIGINAL_ACTION_NAME{_SUCCESS}/{_FAILURE}
+- [ ] Double check isRequired propTypes for every file. 
+- [ ] Search for "translate" and use the correct type.
+- [ ] Can record ids be any or are they always numbers?
+
+- Stage III
+- [ ] Fix the bugs that typescript exposes
+- [ ] Add Correct typing to tests (most tests currently use impossible types
+- 
 
 
 A frontend Framework for building admin applications running in the browser on top of REST/GraphQL APIs, using ES6, [React](https://facebook.github.io/react/) and [Material Design](https://material.io/). Previously named [admin-on-rest](https://github.com/marmelab/admin-on-rest). Open sourced and maintained by [marmelab](https://marmelab.com/).

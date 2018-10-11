@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect, DispatchProp } from 'react-redux';
+import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import ActionDelete from '@material-ui/icons/Delete';
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
@@ -10,14 +10,13 @@ import { crudDeleteMany, startUndoable } from 'ra-core';
 import Button from 'ra-ui-materialui/src/button/Button';
 
 interface IProps extends WithStyles<typeof styles> {
-    basePath: string;
-    dispatchCrudDeleteMany: DispatchProp,
-    filterValues: any,
-    label: string;
+    basePath?: string;
+    dispatchCrudDeleteMany: typeof crudDeleteMany,
+    label?: string;
     resource: string,
     selectedIds: any[];
-    startUndoable: VoidFunction,
-    undoable: boolean;
+    startUndoable: typeof startUndoable;
+    undoable?: boolean;
 }
 
 const sanitizeRestProps = ({

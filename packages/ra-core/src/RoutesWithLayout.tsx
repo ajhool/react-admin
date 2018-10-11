@@ -4,7 +4,17 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 
 import WithPermissions from './auth/WithPermissions';
 
-const RoutesWithLayout = ({
+type IComponentPropType = React.ReactNode | (() => React.ReactNode)
+
+interface IProps {
+    catchAll?: IComponentPropType;
+    children?: (() => React.ReactNode) | React.ReactNode;
+    customRoutes?: Route[];
+    dashboard?: IComponentPropType,
+    title?: string | React.ReactElement<any>;
+}
+
+const RoutesWithLayout: React.SFC<IProps> = ({
     catchAll,
     children,
     customRoutes,

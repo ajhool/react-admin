@@ -14,7 +14,7 @@ import Filter from './Filter';
 
 interface IProps extends WithStyles<typeof styles> {
     resource: string;
-    filters: Filter[];
+    filters: IFilter[];
     displayedFilters: any;
     filterValues: any;
     showFilter: VoidFunction;

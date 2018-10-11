@@ -16,6 +16,8 @@ import {
 
 import getFetchedAt from '../../../util/getFetchedAt';
 
+type IGetFetchedAt = typeof getFetchedAt;
+
 /**
  * Add new records to the pool, and remove outdated ones.
  *
@@ -23,7 +25,7 @@ import getFetchedAt from '../../../util/getFetchedAt';
  * The cached data is displayed before fetching, and stale data is removed
  * only once fresh data is fetched.
  */
-export const addRecordsFactory = getFetchedAt => (
+export const addRecordsFactory = (getFetchedAt: IGetFetchedAt) => (
     newRecords = [],
     oldRecords
 ) => {
@@ -57,10 +59,14 @@ export const addRecordsFactory = getFetchedAt => (
 
 const addRecords = addRecordsFactory(getFetchedAt);
 
+interface IState {
+    [recordId: number]: any;
+}
+
 const initialState = {};
 Object.defineProperty(initialState, 'fetchedAt', { value: {} }); // non enumerable by default
 
-export default (previousState = initialState, { type, payload, meta }) => {
+export default (previousState: IState = initialState, { type, payload, meta }) => {
     if (type === CRUD_UPDATE_OPTIMISTIC) {
         const updatedRecord = { ...previousState[payload.id], ...payload.data };
         return addRecords([updatedRecord], previousState);
@@ -108,4 +114,4 @@ export default (previousState = initialState, { type, payload, meta }) => {
     }
 };
 
-export const getRecord = (state, id) => state[id];
+export const getRecord = (state: IState , id: number) => state[id];

@@ -1,10 +1,12 @@
-import { CHANGE_LOCALE_SUCCESS } from '../../actions';
+import { LocaleTypeKeys, LocaleActions } from '../../actions';
 
-export default defaultMessages => {
-    return (previousState = defaultMessages, { type, payload }) => {
-        switch (type) {
-            case CHANGE_LOCALE_SUCCESS:
-                return payload.messages;
+type IState = any;
+
+export default (defaultMessages: any) => {
+    return (previousState: IState = defaultMessages, action: LocaleActions) => {
+        switch (action.type) {
+            case LocaleTypeKeys.CHANGE_LOCALE_SUCCESS:
+                return action.payload.messages;
             default:
                 return previousState;
         }

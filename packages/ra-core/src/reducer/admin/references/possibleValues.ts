@@ -1,9 +1,9 @@
 import {
-    Actions as DataActions,
-    TypeKeys as DataTypeKeys
+    DataActions,
+    DataTypeKeys
 } from '../../../actions/dataActions';
 
-export type RelatedTo = number[] | { error: Error};
+export type RelatedTo = string | { error: Error};
 
 export interface IState {
     [relatedTo: string]: RelatedTo;

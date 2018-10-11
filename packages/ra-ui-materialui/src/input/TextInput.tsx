@@ -12,9 +12,9 @@ interface IProps {
     label?: string | boolean;
     meta?: any;
     name?: string;
-    onBlur?: React.MouseEventHandler | VoidFunction;
-    onChange?: React.MouseEventHandler | VoidFunction;
-    onFocus?: React.MouseEventHandler | VoidFunction;
+    onBlur?: React.ChangeEventHandler<HTMLInputElement> | VoidFunction;
+    onChange?: React.ChangeEventHandler<HTMLInputElement> | VoidFunction;
+    onFocus?: React.FocusEvent<HTMLInputElement> | VoidFunction;
     options?: any;
     resource?: string;
     source?: string;
@@ -70,7 +70,7 @@ export class TextInput extends Component<IProps> {
         this.props.input.onFocus(event);
     };
 
-    handleChange = eventOrValue => {
+    handleChange: React.ChangeEventHandler<HTMLInputElement> = eventOrValue => {
         this.props.onChange(eventOrValue);
         this.props.input.onChange(eventOrValue);
     };

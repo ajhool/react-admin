@@ -12,9 +12,11 @@ import {
 
 import getFetchedAt from '../../../../util/getFetchedAt';
 
+type IGetFetchedAt = typeof getFetchedAt;
+
 export type IState = number[];
 
-export const addRecordIdsFactory = getFetchedAt => (
+export const addRecordIdsFactory = (getFetchedAt: IGetFetchedAt) => (
     newRecordIds = [],
     oldRecordIds
 ) => {
@@ -80,4 +82,4 @@ export default (previousState: IState = [], { type, payload }) => {
     }
 };
 
-export const getIds = state => state;
+export const getIds = (state: IState) => state;

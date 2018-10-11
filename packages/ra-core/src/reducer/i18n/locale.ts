@@ -1,5 +1,5 @@
 import { DEFAULT_LOCALE } from '../../i18n';
-import { TypeKeys, Actions as LocaleActions } from '../../actions/localeActions';
+import { LocaleTypeKeys, LocaleActions } from '../../actions/localeActions';
 
 export type IState = string;
 
@@ -8,7 +8,7 @@ export default (initialLocale: IState = DEFAULT_LOCALE) => (
     action: LocaleActions
 ) => {
     switch (action.type) {
-        case TypeKeys.CHANGE_LOCALE_SUCCESS:
+        case LocaleTypeKeys.CHANGE_LOCALE_SUCCESS:
             return action.payload.locale;
         default:
             return previousLocale;

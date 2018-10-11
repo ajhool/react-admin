@@ -7,26 +7,27 @@ import { reset } from 'redux-form';
 import translate from '../i18n/translate';
 import { crudGetOne, crudUpdate, startUndoable } from '../actions';
 import { REDUX_FORM_NAME } from '../form';
+import { IRootState } from '../reducer';
 
 interface IProps {
     basePath: string;
-    children: () => void;
-    crudGetOne: (resource: string, id: string, basePath: string) => void;
-    dispatchCrudUpdate: () => void;
+    children: any; // TODO: what children does editcontroller expect?
+    crudGetOne: typeof crudGetOne;
+    dispatchCrudUpdate: typeof crudUpdate;
     record?: any;
     hasCreate?: boolean;
     hasEdit?: boolean;
     hasShow?: boolean;
     hasList?: boolean;
-    id: string;
+    id: number;
     isLoading: boolean;
     location: any;
     match: any;
-    resetForm: () => void;
+    resetForm: typeof reset;
     resource: string;
-    startUndoable: () => void;
+    startUndoable: typeof startUndoable;
     title?: any;
-    translate?: () => void;
+    translate: (...props: any[]) => any;
     undoable?: boolean;
     version: number;
 }
@@ -92,7 +93,7 @@ export class EditController extends Component<IProps> {
         resource: PropTypes.string.isRequired,
         startUndoable: PropTypes.func.isRequired,
         title: PropTypes.any,
-        translate: PropTypes.func,
+        translate: PropTypes.func.isRequired,
         undoable: PropTypes.bool,
         version: PropTypes.number.isRequired,
     };
@@ -115,11 +116,11 @@ export class EditController extends Component<IProps> {
         return 'list';
     }
 
-    updateData(resource: string = this.props.resource, id: string = this.props.id) {
+    updateData(resource: string = this.props.resource, id: number = this.props.id) {
         this.props.crudGetOne(resource, id, this.props.basePath);
     }
 
-    save = (data, redirect) => {
+    save = (data: any, redirect: string) => {
         const {
             undoable = true,
             startUndoable,
@@ -186,7 +187,7 @@ export class EditController extends Component<IProps> {
     }
 }
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state: IRootState, props: IProps) {
     return {
         id: props.id,
         record: state.admin.resources[props.resource]

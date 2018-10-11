@@ -95,6 +95,8 @@ LoginForm.propTypes = {
     redirectTo: PropTypes.string,
 };
 
+
+// Yikes! Need to pull this all the way from core. Should use a selector in core, instead.
 const mapStateToProps = state => ({ isLoading: state.admin.loading > 0 });
 
 const enhance = compose(

@@ -1,7 +1,7 @@
 import {
-    TypeKeys,
+    ListTypeKeys,
     IListAction,
-} from '../../../../actions/listActions';
+} from '../../../../actions';
 
 export type IState = number[];
 
@@ -9,9 +9,9 @@ const initialState: IState = [];
 
 export default (previousState = initialState, action: IListAction) => {
     switch (action.type) {
-        case TypeKeys.SET_LIST_SELECTED_IDS:
+        case ListTypeKeys.SET_LIST_SELECTED_IDS:
             return action.payload;
-        case TypeKeys.TOGGLE_LIST_ITEM: {
+        case ListTypeKeys.TOGGLE_LIST_ITEM: {
             const index = previousState.indexOf(action.payload);
             if (index > -1) {
                 return [

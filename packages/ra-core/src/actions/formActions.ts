@@ -1,27 +1,27 @@
 // export const INITIALIZE_FORM = 'RA/INITIALIZE_FORM';
 // export const RESET_FORM = 'RA/RESET_FORM';
 
-export enum TypeKeys {
+export enum FormTypeKeys {
     INITIALIZE_FORM = 'RA/INITIALIZE_FORM',
     RESET_FORM = 'RA/RESET_FORM',
 }
 
 export interface IInitializeForm {
-    type: TypeKeys.INITIALIZE_FORM;
+    type: FormTypeKeys.INITIALIZE_FORM;
     payload: object;
 }
 
 export const initializeForm = (initialValues: object): IInitializeForm => ({
-    type: TypeKeys.INITIALIZE_FORM,
+    type: FormTypeKeys.INITIALIZE_FORM,
     payload: initialValues,
 });
 
 export interface IResetForm {
-    type: TypeKeys.RESET_FORM;
+    type: FormTypeKeys.RESET_FORM;
 }
 
 export const resetForm = (): IResetForm => ({
-    type: TypeKeys.RESET_FORM,
+    type: FormTypeKeys.RESET_FORM,
 });
 
-export type Actions = IInitializeForm | IResetForm;
+export type FormActions = IInitializeForm | IResetForm;

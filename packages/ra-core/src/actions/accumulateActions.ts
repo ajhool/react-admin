@@ -1,20 +1,21 @@
-import { crudGetMany, crudGetMatching, ICrudGetMatching, IFilter, ISort, IPagination } from './dataActions';
+import { crudGetMany, crudGetMatching, ICrudGetMatching } from './dataActions';
 import { IResource } from './resourcesActions';
+import { IPagination, ISort, IFilter } from '../reducer/admin/resource/list/queryReducer';
 
-export enum TypeKeys {
+export enum AccumulateTypeKeys {
     CRUD_GET_MANY_ACCUMULATE = 'RA/CRUD_GET_MANY_ACCUMULATE',
     CRUD_GET_MATCHING_ACCUMULATE = 'RA/CRUD_GET_MATCHING_ACCUMULATE',
 }
 
 // export const CRUD_GET_MANY_ACCUMULATE = 'RA/CRUD_GET_MANY_ACCUMULATE';
 export interface ICrudGetManyAccumulate {
-    type: TypeKeys.CRUD_GET_MANY_ACCUMULATE,
+    type: AccumulateTypeKeys.CRUD_GET_MANY_ACCUMULATE,
     payload: { resource: IResource, ids: number[] },
     meta: { accumulate: typeof crudGetMany },
 }
 
 export const crudGetManyAccumulate = (resource: IResource, ids: number[]): ICrudGetManyAccumulate => ({
-    type: TypeKeys.CRUD_GET_MANY_ACCUMULATE,
+    type: AccumulateTypeKeys.CRUD_GET_MANY_ACCUMULATE,
     payload: { resource, ids },
     meta: { accumulate: crudGetMany },
 });
@@ -22,7 +23,7 @@ export const crudGetManyAccumulate = (resource: IResource, ids: number[]): ICrud
 // export const CRUD_GET_MATCHING_ACCUMULATE = 'RA/CRUD_GET_MATCHING_ACCUMULATE';
 
 interface ICrudGetMatchingAccumulate {
-    type: TypeKeys.CRUD_GET_MATCHING_ACCUMULATE;
+    type: AccumulateTypeKeys.CRUD_GET_MATCHING_ACCUMULATE;
     meta: {
         accumulate: () => ICrudGetMatching;
         accumulateValues: () => true;
@@ -46,7 +47,7 @@ export const crudGetMatchingAccumulate = (
     );
 
     return {
-        type: TypeKeys.CRUD_GET_MATCHING_ACCUMULATE,
+        type: AccumulateTypeKeys.CRUD_GET_MATCHING_ACCUMULATE,
         meta: {
             accumulate: () => action,
             accumulateValues: () => true,
@@ -57,3 +58,5 @@ export const crudGetMatchingAccumulate = (
         },
     };
 };
+
+export type AccumulateActions  = ICrudGetManyAccumulate | ICrudGetMatchingAccumulate;

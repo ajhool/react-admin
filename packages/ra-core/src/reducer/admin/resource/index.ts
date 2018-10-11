@@ -1,4 +1,4 @@
-import { REGISTER_RESOURCE, UNREGISTER_RESOURCE } from '../../../actions';
+import { REGISTER_RESOURCE, UNREGISTER_RESOURCE, ResourcesActions, IResourcesPayload } from '../../../actions';
 
 import data from './data';
 import list from './list';
@@ -6,17 +6,17 @@ import list from './list';
 export interface IState {
     [name: string]: {
         props: any;
-        data: data;
+        data: any;
         list: any;
     }
-    props: action.payload,
-    data: any; //data(undefined, action)
-    list: any; //list(undefined, action)
+    props?: typeof IResourcesPayload;
+    data?: any; //data(undefined, action)
+    list?: any; //list(undefined, action)
 }
 
 const initialState = {};
 
-export default (previousState: IState = initialState, action) => {
+export default (previousState: IState = initialState, action: ResourcesActions) => {
     if (action.type === REGISTER_RESOURCE) {
         const resourceState = {
             props: action.payload,
@@ -65,7 +65,7 @@ export default (previousState: IState = initialState, action) => {
     return newState;
 };
 
-export const getResources = state =>
+export const getResources = (state: IState) =>
     Object.keys(state).map(key => state[key].props);
 
-export const getReferenceResource = (state, props) => state[props.reference];
+export const getReferenceResource = (state: IState, props) => state[props.reference];

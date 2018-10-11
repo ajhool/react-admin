@@ -10,15 +10,18 @@ import draggable from './draggable';
 import droppable from './droppable';
 import DragLayer from './DragLayer';
 import DefaultDragPreview from './DragPreview';
-import DefaultTreeNode from 'ra-tree-ui-materialui/src/TreeNode';
+import DefaultTreeNode from './TreeNode';
 import DefaultTreeNodeContent from './TreeNodeContent';
 import DefaultTreeNodeWithChildren from './TreeNodeWithChildren';
 import RootDropTarget from './RootDropTarget';
+import NodeView from './NodeView';
+import NodeForm from './NodeForm';
+
 
 interface IProps extends WithStyles<typeof styles> {
     allowDropOnRoot?: boolean;
     basePath: string;
-    children?: NodeView | NodeForm;
+    children?: typeof NodeView | typeof NodeForm;
     enableDragAndDrop?: boolean;
     getTreeFromArray?:  VoidFunction;
     parentSource?: string;

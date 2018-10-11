@@ -1,14 +1,15 @@
 import {
-    TypeKeys as NotificationTypeKeys,
-    Actions as NotificationActions,
+    NotificationTypeKeys,
+    NotificationActions,
     INotificationPayload
 } from '../../actions/notificationActions';
-import { Actions as UndoActions, TypeKeys as UndoTypeKeys } from '../../actions/undoActions';
+import { UndoActions, UndoTypeKeys } from '../../actions/undoActions';
+import { IRootState } from 'ra-core/src/reducer';
 
 // TODO: replace any with the shape of the payload in notificationActions.
 export type IState = INotificationPayload[];
 
-export default (previousState: IState = [], action: UndoActions | NotificationActions) => {
+export default (previousState: IState = [], action: NotificationActions | UndoActions) => {
     switch (action.type) {
         case NotificationTypeKeys.SHOW_NOTIFICATION:
             return previousState.concat(action.payload);
@@ -24,4 +25,4 @@ export default (previousState: IState = [], action: UndoActions | NotificationAc
  * Returns the first available notification to show
  * @param {Object} state - Redux state
  */
-export const getNotification = state => state.admin.notifications[0];
+export const getNotification = (state: IRootState) => state.admin.notifications[0];

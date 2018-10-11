@@ -3,7 +3,7 @@
 // export const FETCH_ERROR = 'RA/FETCH_ERROR';
 // export const FETCH_CANCEL = 'RA/FETCH_CANCEL';
 
-export enum TypeKeys {
+export enum FetchTypeKeys {
     FETCH_START =  'RA/FETCH_START',
     FETCH_END = 'RA/FETCH_END',
     FETCH_ERROR = 'RA/FETCH_ERROR',
@@ -11,35 +11,35 @@ export enum TypeKeys {
 }
 
 export interface IFetchStart {
-    type: TypeKeys.FETCH_START;
+    type: FetchTypeKeys.FETCH_START;
 }
 
 export const fetchStart = (): IFetchStart => ({
-    type: TypeKeys.FETCH_START,
+    type: FetchTypeKeys.FETCH_START,
 });
 
 export interface IFetchEnd {
-    type: TypeKeys.FETCH_END;
+    type: FetchTypeKeys.FETCH_END;
 }
 
 export const fetchEnd = (): IFetchEnd => ({
-    type: TypeKeys.FETCH_END,
+    type: FetchTypeKeys.FETCH_END,
 });
 
 export interface IFetchError {
-    type: TypeKeys.FETCH_ERROR;
+    type: FetchTypeKeys.FETCH_ERROR;
 }
 
 export const fetchError = (): IFetchError => ({
-    type: TypeKeys.FETCH_ERROR,
+    type: FetchTypeKeys.FETCH_ERROR,
 });
 
 export interface IFetchCancel {
-    type: TypeKeys.FETCH_CANCEL;
+    type: FetchTypeKeys.FETCH_CANCEL;
 }
 
 export const fetchCancel = (): IFetchCancel => ({
-    type: TypeKeys.FETCH_CANCEL,
+    type: FetchTypeKeys.FETCH_CANCEL,
 });
 
-export type Actions = IFetchStart | IFetchEnd | IFetchError | IFetchCancel;
+export type FetchActions = IFetchStart | IFetchEnd | IFetchError | IFetchCancel;

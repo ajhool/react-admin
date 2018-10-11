@@ -11,16 +11,16 @@ import { translate, crudDelete, startUndoable } from 'ra-core';
 import Button from './Button';
 
 interface IProps extends WithStyles<typeof styles> {
-    basePath: string;
-    className: string;
-    dispatchCrudDelete: VoidFunction;
-    label: string;
-    record: object;
-    redirect: string | boolean | VoidFunction;
+    basePath?: string;
+    className?: string;
+    dispatchCrudDelete: typeof crudDelete;
+    label?: string;
+    record?: object;
+    redirect?: string | boolean | VoidFunction;
     resource: string;
-    startUndoable: VoidFunction;
-    translate: VoidFunction;
-    undoable: boolean
+    startUndoable?: typeof startUndoable;
+    translate?: any;
+    undoable?: boolean
 }
 
 const styles = (theme: Theme) => createStyles({

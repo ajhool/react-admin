@@ -24,7 +24,7 @@ interface IResourceProps {
         params: object;
         path: string;
         url: string;
-    }
+    };
     name: string;
     list: FunctionOrComponent;
     create: FunctionOrComponent;
@@ -49,7 +49,7 @@ export class Resource extends Component<IResourceProps> {
             params: PropTypes.object,
             path: PropTypes.string,
             url: PropTypes.string,
-        }),
+        }).isRequired,
         name: PropTypes.string.isRequired,
         list: componentPropType,
         create: componentPropType,

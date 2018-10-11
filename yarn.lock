@@ -346,6 +346,12 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-dnd-touch-backend@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@types/react-dnd-touch-backend/-/react-dnd-touch-backend-0.4.2.tgz#9340b83ac29e06b6ce73d7e0963aaa1a286f90fe"
+  dependencies:
+    dnd-core "^4.0.5"
+
 "@types/react-dropzone@^4.2.2":
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@types/react-dropzone/-/react-dropzone-4.2.2.tgz#af0a2595169700c8ab1114e9096285499beaff40"

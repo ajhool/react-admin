@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, CSSProperties } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import MuiTab from '@material-ui/core/Tab';
@@ -9,9 +9,21 @@ import FormInput from './FormInput';
 
 const sanitizeRestProps = ({ label, icon, value, translate, ...rest }: any): any => rest;
 
-const hiddenStyle = { display: 'none' };
+const hiddenStyle = { display: 'none' } as CSSProperties;
 
-class FormTab extends Component {
+interface IProps {
+    className?: string;
+    children?: React.ReactNode;
+    context?: 'header' | 'content';
+    hidden?: boolean;
+    icon?: React.ReactElement<any>;
+    label: string;
+    path?: string;
+    translate: any;
+    value?: string;
+}
+
+class FormTab extends Component<IProps> {
     static propTypes = {
         className: PropTypes.string,
         children: PropTypes.node,
@@ -24,7 +36,9 @@ class FormTab extends Component {
         value: PropTypes.string,
     }
 
-    renderHeader = ({ className, label, icon, value, translate, ...rest }) => {
+    displayName: string = 'FormTab';
+
+    renderHeader = ({ className, label, icon, value, translate, ...rest }: IProps) => {
         const to = { pathname: value, state: { skipFormReset: true } };
 
         return (
@@ -41,8 +55,8 @@ class FormTab extends Component {
         );
     };
 
-    renderContent = ({ children, hidden, ...rest }) => (
-        <span style={hidden ? hiddenStyle : null}>
+    renderContent = ({ children, hidden, ...rest }: IProps) => (
+        <span style={hidden ? hiddenStyle : undefined}>
             {React.Children.map(
                 children,
                 input =>
@@ -60,7 +74,5 @@ class FormTab extends Component {
             : this.renderContent({ children, ...rest });
     }
 }
-
-FormTab.displayName = 'FormTab';
 
 export default translate(FormTab);

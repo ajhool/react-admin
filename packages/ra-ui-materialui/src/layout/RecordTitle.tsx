@@ -2,10 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TitleDeprecated from './TitleDeprecated';
 
+interface IProps {
+    defaultTitle?: any;
+    record?: any;
+    title?: any;
+}
+
 /**
  * @deprecated Use TitleForRecord instead
  */
-const RecordTitle = ({ defaultTitle, record, title }) =>
+const RecordTitle: TitleDeprecated | '' = ({ defaultTitle, record, title }: IProps) =>
     record ? (
         <TitleDeprecated
             title={title}

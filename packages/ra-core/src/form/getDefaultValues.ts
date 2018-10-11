@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { IRootState } from 'ra-core/src/reducer';
 
 const getDefaultValues = (data = {}, defaultValue = {}, defaultValues = {}) => {
     const globalDefaultValue =
@@ -6,9 +7,9 @@ const getDefaultValues = (data = {}, defaultValue = {}, defaultValues = {}) => {
     return { ...globalDefaultValue, ...defaultValues, ...data };
 };
 
-const getRecord = (state, props) => props.record;
-const getDefaultValue = (state, props) => props.defaultValue;
-const getDefaultValuesFromState = state => state.admin.record;
+const getRecord = (_: IRootState, props: any) => props.record;
+const getDefaultValue = (_: IRootState, props: any) => props.defaultValue;
+const getDefaultValuesFromState = (state: IRootState) => state.admin.record;
 
 export default createSelector(
     getRecord,

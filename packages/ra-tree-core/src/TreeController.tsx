@@ -15,8 +15,8 @@ const defaultGetTreeState = state => state.tree;
 interface IProps {
     basePath: string;
     children: () => void;
-    closeNode: (resource: string, id: number) => void;
-    expandNode: (resource: string, id: number) => void;
+    closeNode: typeof closeNodeAction;
+    expandNode: typeof expandNodeAction;
     ids: number[];
     data: any;
     getTreeFromArray?: (
@@ -72,7 +72,7 @@ export class TreeControllerView extends Component<IProps> {
             ...props
         } = this.props;
 
-        const availableData = ids.reduce((acc, id) => [...acc, data[id]], []);
+        const availableData = ids.reduce((acc, id) => [...acc, data[id]], [] as number[]);
         const tree = getTreeFromArray(
             Object.values(availableData),
             parentSource

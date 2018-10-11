@@ -1,4 +1,4 @@
-import { TypeKeys as FormTypeKeys, Actions as FormActions } from '../../actions/formActions';
+import { FormTypeKeys, FormActions } from '../../actions/formActions';
 import { set } from 'lodash';
 
 // TODO: Not really sure what the shape of this is.
